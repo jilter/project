@@ -1,3 +1,5 @@
 # project
 just a test project
---my project
+|
+|
+|--my project
