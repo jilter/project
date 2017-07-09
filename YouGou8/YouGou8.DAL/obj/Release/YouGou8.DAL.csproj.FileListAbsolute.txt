@@ -1,8 +1,0 @@
-E:\Projects\YouGou8\YouGou8.DAL\bin\Release\YouGou8.DAL.dll
-E:\Projects\YouGou8\YouGou8.DAL\bin\Release\YouGou8.DAL.pdb
-E:\Projects\YouGou8\YouGou8.DAL\bin\Release\AutoMapper.dll
-E:\Projects\YouGou8\YouGou8.DAL\bin\Release\MySql.Data.dll
-E:\Projects\YouGou8\YouGou8.DAL\bin\Release\AutoMapper.xml
-E:\Projects\YouGou8\YouGou8.DAL\obj\Release\YouGou8.DAL.csprojResolveAssemblyReference.cache
-E:\Projects\YouGou8\YouGou8.DAL\obj\Release\YouGou8.DAL.dll
-E:\Projects\YouGou8\YouGou8.DAL\obj\Release\YouGou8.DAL.pdb

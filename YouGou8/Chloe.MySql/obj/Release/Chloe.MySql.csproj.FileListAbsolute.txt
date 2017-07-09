@@ -1,7 +1,0 @@
-E:\Projects\YouGou8\Chloe.MySql\bin\Release\Chloe.MySql.dll
-E:\Projects\YouGou8\Chloe.MySql\bin\Release\Chloe.MySql.pdb
-E:\Projects\YouGou8\Chloe.MySql\bin\Release\Chloe.dll
-E:\Projects\YouGou8\Chloe.MySql\bin\Release\Chloe.pdb
-E:\Projects\YouGou8\Chloe.MySql\obj\Release\Chloe.MySql.csprojResolveAssemblyReference.cache
-E:\Projects\YouGou8\Chloe.MySql\obj\Release\Chloe.MySql.dll
-E:\Projects\YouGou8\Chloe.MySql\obj\Release\Chloe.MySql.pdb

@@ -1,5 +1,0 @@
-E:\Projects\YouGou8\Utility\bin\Release\Utility.dll
-E:\Projects\YouGou8\Utility\bin\Release\Utility.pdb
-E:\Projects\YouGou8\Utility\obj\Release\Utility.csprojResolveAssemblyReference.cache
-E:\Projects\YouGou8\Utility\obj\Release\Utility.dll
-E:\Projects\YouGou8\Utility\obj\Release\Utility.pdb
