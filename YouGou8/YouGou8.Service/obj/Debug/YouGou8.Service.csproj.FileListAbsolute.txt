@@ -1,0 +1,16 @@
+E:\Projects\YouGou8\YouGou8.Service\bin\Debug\YouGou8.Service.dll
+E:\Projects\YouGou8\YouGou8.Service\bin\Debug\YouGou8.Service.pdb
+E:\Projects\YouGou8\YouGou8.Service\bin\Debug\Chloe.dll
+E:\Projects\YouGou8\YouGou8.Service\bin\Debug\Chloe.MySql.dll
+E:\Projects\YouGou8\YouGou8.Service\bin\Debug\MySql.Data.dll
+E:\Projects\YouGou8\YouGou8.Service\bin\Debug\YouGou8.Model.dll
+E:\Projects\YouGou8\YouGou8.Service\bin\Debug\Chloe.MySql.pdb
+E:\Projects\YouGou8\YouGou8.Service\bin\Debug\Chloe.pdb
+E:\Projects\YouGou8\YouGou8.Service\bin\Debug\YouGou8.Model.pdb
+E:\Projects\YouGou8\YouGou8.Service\obj\Debug\YouGou8.Service.csprojResolveAssemblyReference.cache
+E:\Projects\YouGou8\YouGou8.Service\obj\Debug\YouGou8.Service.dll
+E:\Projects\YouGou8\YouGou8.Service\obj\Debug\YouGou8.Service.pdb
+E:\Projects\YouGou8\YouGou8.Service\bin\Debug\Utility.dll
+E:\Projects\YouGou8\YouGou8.Service\bin\Debug\Utility.pdb
+E:\Projects\YouGou8\YouGou8.Service\bin\Debug\Newtonsoft.Json.dll
+E:\Projects\YouGou8\YouGou8.Service\bin\Debug\Newtonsoft.Json.xml

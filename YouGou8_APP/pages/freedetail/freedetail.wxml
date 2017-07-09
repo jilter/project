@@ -1,0 +1,69 @@
+<view class="page">
+  <view class="page__hd">
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="free_swiper">
+      <block wx:for="{{details.imgs}}" wx:key="*this">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class="page__bd">
+    <view class="view_info">
+      <view>{{details.name}}</view>
+      <view class="view_price">
+        <view class="view_price_item">总数:{{details.count}}份 </view>
+        <view class="view_price_item">结束时间:{{details.time}} </view>
+      </view>
+      <view class="view_desc" hidden="{{details.desc==''||details.desc==null}}">
+        <text>说明:\n{{details.desc}}</text>
+      </view>
+    </view>
+    <view class="view_getfree" hidden="{{!details.status||details.isget||details.isgetother||details.id<12}}">
+      <view class="view_tipstap ">提示：仅凭本人微信号领取,别输错喔</view>
+      <view class="weui-search-bar">
+        <view class="weui-search-bar__form">
+          <view class="weui-search-bar__box">
+            <icon class="weui-icon-search_in-box" type="circle" size="14" color="green"></icon>
+            <input type="text" class="weui-search-bar__input" placeholder="请输入微信号" value="{{wechat}}" bindinput="inputTyping" />
+            <view class="weui-icon-clear" wx:if="{{wechat.length > 0}}" bindtap="clearInput">
+              <icon type="clear" size="14"></icon>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="weui-btn-area">
+        <button class="weui-btn" type="primary" bindtap="getFree">马上申请</button>
+      </view>
+    </view>
+    <view class="view_getfree" hidden="{{details.status}}">
+      <view class="view_getfree_tips">赠品活动已结束，静待下一次吧</view>
+    </view>
+    <view class="view_getfree" hidden="{{!(details.status&&details.isget)}}">
+      <view class="view_getfree_tips">您已成功申请该赠品，联系客服领取吧</view>
+    </view>
+    <view class="view_getfree" hidden="{{!(details.status&&!details.isget&&details.isgetother)}}">
+      <view class="view_getfree_tips">您今天已领取其它赠品，期待明天再遇上您</view>
+    </view>
+    <view class="view_tips">
+      <view class="view_tips_title">【领取规则】</view>
+      <view>1.简单质朴，意味无穷！</view>
+      <view>2.商家为配合产品推广,提供免费包邮体验！</view>
+      <view>3.数量有限，每人每天限领一份喔！</view>
+      <view>4.仅凭本人的微信号领取喔</view>
+      <view>5.马上申请,申请成功后联系图中二维码领取吧</view>
+      <view class="view_tips_pic">
+        <image bindtap="previewImg" mode="widthFix" src="https://63971804.qcloud.la/images/erweima.jpg"></image>
+      </view>
+      <view class="view_tips_contact">Tips:如何联系我?</view>
+      <view class="view_tips_step">
+        <view class="view_tips_step1">1,点击二维码,然后长按保存图片</view>
+        <view class="view_tips_step2">2,打开微信"扫一扫"</view>
+        <view class="view_tips_step3">3,点击右上角"相册",选择二维码图片</view>
+      </view>
+    </view>
+    <view class="weui-loadmore weui-loadmore_line view_bottom">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">已经到底线了</view>
+    </view>
+  </view>
+</view>

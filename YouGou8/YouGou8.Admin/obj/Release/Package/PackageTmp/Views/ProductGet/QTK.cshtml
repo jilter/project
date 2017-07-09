@@ -1,0 +1,333 @@
+﻿
+@{
+    ViewBag.Title = "轻淘客选品";
+}
+<div id="wrapper">
+    @Html.Partial("../Shared/_Left")
+    <div id="page-wrapper" class="product-get">
+        <div id="page-inner">
+            <form id="searchForm" method="get">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                最后更新时间:<span id="last-update-time" class="text-danger">@(ViewBag.LastUpdate)</span> &nbsp;
+                                <a id="btn-update" href="javascript:void(0);" class="btn btn-primary btn-sm">再次更新</a>
+                                &nbsp;&nbsp;&nbsp;
+                                <input placeholder="商品名称" name="goods_title" id="goods_title" value="">
+                                <a id="btn-search" class="btn btn-primary btn-sm">搜索</a>
+                                &nbsp;&nbsp;
+                                <select id="goods_cat" name="goods_cat">
+                                    <option value="0">全部</option>
+                                    <option value="2">母婴</option>
+                                    <option value="3">美妆</option>
+                                    <option value="4">居家</option>
+                                    <option value="5">鞋包配饰</option>
+                                    <option value="6">美食</option>
+                                    <option value="7">文体</option>
+                                    <option value="8">家电数码</option>
+                                    <option value="10">女装</option>
+                                    <option value="11">内衣</option>
+                                    <option value="12">男装</option>
+                                    <option value="9">其它</option>
+                                </select>
+                                <a href="javascript:void(0);" class="btn btn-success btn-sm">人气</a>
+                                <a href="javascript:void(0);" class="btn btn-default btn-sm">最新</a>
+                                <a href="javascript:void(0);" class="btn btn-default btn-sm">销量</a>
+                                <a href="javascript:void(0);" class="btn btn-default btn-sm">价格</a>
+                                <a href="javascript:void(0);" class="btn btn-default btn-sm">佣金</a>
+                                <a href="javascript:void(0);" class="btn btn-default btn-sm">领券</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="row product-get-list">
+                <div class="col-md-3 col-sm-3 product-get-list-item">
+                    <div class="panel panel-success">
+                        <div class="panel-body">
+                            <img src="http://img.alicdn.com/imgextra/i1/2057428013/TB2n8jCjgJkpuFjSszcXXXfsFXa_!!2057428013.jpg_310x310.jpg" />
+                        </div>
+                        <div class="panel-footer">
+                            <div class="text-info">
+                                巧克力涂层加上坚果，层层刺激你的味蕾，随时随地分享美味
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">￥14.00</div>
+                                <div class="col-md-4 text-danger">S:1000</div>
+                                <div class="col-md-4 text-danger">C:40.5%</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">券:20元</div>
+                                <div class="col-md-4 text-danger">领:1000</div>
+                                <div class="col-md-4 text-danger">剩:1000</div>
+                            </div>
+                            <div class="text-center"><a href="javascript:void(0);" class="btn btn-danger btn-sm">加入选品库</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 product-get-list-item">
+                    <div class="panel panel-success">
+                        <div class="panel-body">
+                            <img src="http://img.alicdn.com/imgextra/i1/2057428013/TB2n8jCjgJkpuFjSszcXXXfsFXa_!!2057428013.jpg_310x310.jpg" />
+                        </div>
+                        <div class="panel-footer">
+                            <div class="text-info">
+                                巧克力涂层加上坚果，层层刺激你的味蕾，随时随地分享美味
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">￥14.00</div>
+                                <div class="col-md-4 text-danger">S:1000</div>
+                                <div class="col-md-4 text-danger">C:40.5%</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">券:20元</div>
+                                <div class="col-md-4 text-danger">领:1000</div>
+                                <div class="col-md-4 text-danger">剩:1000</div>
+                            </div>
+                            <div class="text-center"><a href="javascript:void(0);" class="btn btn-danger btn-sm">加入选品库</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 product-get-list-item">
+                    <div class="panel panel-success">
+                        <div class="panel-body">
+                            <img src="http://img.alicdn.com/imgextra/i1/2057428013/TB2n8jCjgJkpuFjSszcXXXfsFXa_!!2057428013.jpg_310x310.jpg" />
+                        </div>
+                        <div class="panel-footer">
+                            <div class="text-info">
+                                巧克力涂层加上坚果，层层刺激你的味蕾，随时随地分享美味
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">￥14.00</div>
+                                <div class="col-md-4 text-danger">S:1000</div>
+                                <div class="col-md-4 text-danger">C:40.5%</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">券:20元</div>
+                                <div class="col-md-4 text-danger">领:1000</div>
+                                <div class="col-md-4 text-danger">剩:1000</div>
+                            </div>
+                            <div class="text-center"><a href="javascript:void(0);" class="btn btn-danger btn-sm">加入选品库</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 product-get-list-item">
+                    <div class="panel panel-success">
+                        <div class="panel-body">
+                            <img src="http://img.alicdn.com/imgextra/i1/2057428013/TB2n8jCjgJkpuFjSszcXXXfsFXa_!!2057428013.jpg_310x310.jpg" />
+                        </div>
+                        <div class="panel-footer">
+                            <div class="text-info">
+                                巧克力涂层加上坚果，层层刺激你的味蕾，随时随地分享美味
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">￥14.00</div>
+                                <div class="col-md-4 text-danger">S:1000</div>
+                                <div class="col-md-4 text-danger">C:40.5%</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">券:20元</div>
+                                <div class="col-md-4 text-danger">领:1000</div>
+                                <div class="col-md-4 text-danger">剩:1000</div>
+                            </div>
+                            <div class="text-center"><a href="javascript:void(0);" class="btn btn-danger btn-sm">加入选品库</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 product-get-list-item">
+                    <div class="panel panel-success">
+                        <div class="panel-body">
+                            <img src="http://img.alicdn.com/imgextra/i1/2057428013/TB2n8jCjgJkpuFjSszcXXXfsFXa_!!2057428013.jpg_310x310.jpg" />
+                        </div>
+                        <div class="panel-footer">
+                            <div class="text-info">
+                                巧克力涂层加上坚果，层层刺激你的味蕾，随时随地分享美味
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">￥14.00</div>
+                                <div class="col-md-4 text-danger">S:1000</div>
+                                <div class="col-md-4 text-danger">C:40.5%</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">券:20元</div>
+                                <div class="col-md-4 text-danger">领:1000</div>
+                                <div class="col-md-4 text-danger">剩:1000</div>
+                            </div>
+                            <div class="text-center"><a href="javascript:void(0);" class="btn btn-danger btn-sm">加入选品库</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 product-get-list-item">
+                    <div class="panel panel-success">
+                        <div class="panel-body">
+                            <img src="http://img.alicdn.com/imgextra/i1/2057428013/TB2n8jCjgJkpuFjSszcXXXfsFXa_!!2057428013.jpg_310x310.jpg" />
+                        </div>
+                        <div class="panel-footer">
+                            <div class="text-info">
+                                巧克力涂层加上坚果，层层刺激你的味蕾，随时随地分享美味
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">￥14.00</div>
+                                <div class="col-md-4 text-danger">S:1000</div>
+                                <div class="col-md-4 text-danger">C:40.5%</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">券:20元</div>
+                                <div class="col-md-4 text-danger">领:1000</div>
+                                <div class="col-md-4 text-danger">剩:1000</div>
+                            </div>
+                            <div class="text-center"><a href="javascript:void(0);" class="btn btn-danger btn-sm">加入选品库</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 product-get-list-item">
+                    <div class="panel panel-success">
+                        <div class="panel-body">
+                            <img src="http://img.alicdn.com/imgextra/i1/2057428013/TB2n8jCjgJkpuFjSszcXXXfsFXa_!!2057428013.jpg_310x310.jpg" />
+                        </div>
+                        <div class="panel-footer">
+                            <div class="text-info">
+                                巧克力涂层加上坚果，层层刺激你的味蕾，随时随地分享美味
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">￥14.00</div>
+                                <div class="col-md-4 text-danger">S:1000</div>
+                                <div class="col-md-4 text-danger">C:40.5%</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">券:20元</div>
+                                <div class="col-md-4 text-danger">领:1000</div>
+                                <div class="col-md-4 text-danger">剩:1000</div>
+                            </div>
+                            <div class="text-center"><a href="javascript:void(0);" class="btn btn-danger btn-sm">加入选品库</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 product-get-list-item">
+                    <div class="panel panel-success">
+                        <div class="panel-body">
+                            <img src="http://img.alicdn.com/imgextra/i1/2057428013/TB2n8jCjgJkpuFjSszcXXXfsFXa_!!2057428013.jpg_310x310.jpg" />
+                        </div>
+                        <div class="panel-footer">
+                            <div class="text-info">
+                                巧克力涂层加上坚果，层层刺激你的味蕾，随时随地分享美味
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">￥14.00</div>
+                                <div class="col-md-4 text-danger">S:1000</div>
+                                <div class="col-md-4 text-danger">C:40.5%</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">券:20元</div>
+                                <div class="col-md-4 text-danger">领:1000</div>
+                                <div class="col-md-4 text-danger">剩:1000</div>
+                            </div>
+                            <div class="text-center"><a href="javascript:void(0);" class="btn btn-danger btn-sm">加入选品库</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 product-get-list-item">
+                    <div class="panel panel-success">
+                        <div class="panel-body">
+                            <img src="http://img.alicdn.com/imgextra/i1/2057428013/TB2n8jCjgJkpuFjSszcXXXfsFXa_!!2057428013.jpg_310x310.jpg" />
+                        </div>
+                        <div class="panel-footer">
+                            <div class="text-info">
+                                巧克力涂层加上坚果，层层刺激你的味蕾，随时随地分享美味
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">￥14.00</div>
+                                <div class="col-md-4 text-danger">S:1000</div>
+                                <div class="col-md-4 text-danger">C:40.5%</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">券:20元</div>
+                                <div class="col-md-4 text-danger">领:1000</div>
+                                <div class="col-md-4 text-danger">剩:1000</div>
+                            </div>
+                            <div class="text-center"><a href="javascript:void(0);" class="btn btn-danger btn-sm">加入选品库</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 product-get-list-item">
+                    <div class="panel panel-success">
+                        <div class="panel-body">
+                            <img src="http://img.alicdn.com/imgextra/i1/2057428013/TB2n8jCjgJkpuFjSszcXXXfsFXa_!!2057428013.jpg_310x310.jpg" />
+                        </div>
+                        <div class="panel-footer">
+                            <div class="text-info">
+                                巧克力涂层加上坚果，层层刺激你的味蕾，随时随地分享美味
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">￥14.00</div>
+                                <div class="col-md-4 text-danger">S:1000</div>
+                                <div class="col-md-4 text-danger">C:40.5%</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 text-danger">券:20元</div>
+                                <div class="col-md-4 text-danger">领:1000</div>
+                                <div class="col-md-4 text-danger">剩:1000</div>
+                            </div>
+                            <div class="text-center"><a href="javascript:void(0);" class="btn btn-danger btn-sm">加入选品库</a></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row text-center">
+                <ul class="pagination"><ul>
+            </ul>
+        </ul>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+@section scripts{
+    <script type='text/javascript'>
+        $(function () {
+            var options = {
+                bootstrapMajorVersion: 3,
+                currentPage: 1,//当前页
+                totalPages: 10,//总页数
+                numberofPages: 3,//显示的页数
+                onPageClicked: function (event, originalEvent, type, page) { //异步换页
+                    alert(page);
+                }
+            };
+
+            $('.pagination').bootstrapPaginator(options);
+
+            var loading = new BootstrapDialog({
+                title: '系统提示',
+                message: '数据加载中,请稍等...'
+            });
+
+            $("#btn-update").click(function () {
+                loading.open();
+                $.ajax({
+                    url: "/productget/updateqtk",
+                    type: "post",
+                    data: {},
+                    success: function (response) {
+                        loading.close();
+                        if (response.code == 0) {
+                            BootstrapDialog.show({
+                                title: '系统提示',
+                                message: "成功:" + response.data.success + ",失败:" + response.data.error
+                            });
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        loading.close();
+                        BootstrapDialog.show({
+                            title: '系统提示',
+                            message: "网络连接失败,请稍后再试"
+                        });
+                    }
+                });
+            });
+        });
+        
+    </script>
+}

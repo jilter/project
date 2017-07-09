@@ -1,0 +1,350 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
+    <link rel="stylesheet" href="/assets-web/css/animate.min.css">
+    <link rel="stylesheet" href="~/assets-web/css/amazeui.page.css" />
+    <link rel="stylesheet" href="/assets-web/css/yougou8.css">    
+    <title>优购8-淘宝购物经验分享，省钱又省心</title>
+</head>
+<body>
+    <header class="am-topbar am-topbar-inverse">
+        <div class="amz-container">
+            <h1 class="am-topbar-brand">
+                <a href="/" class="am-topbar-logo">
+                    <img src="~/assets-web/img/logo1.png" alt="优购8">
+                </a>
+            </h1>
+            <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+                    data-am-collapse="{target: '#doc-topbar-collapse-5'}">
+                <span class="am-sr-only">
+                    导航切换
+                </span>
+                <span class="am-icon-bars">
+                </span>
+            </button>
+            <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse-5">
+                <ul class="am-nav am-nav-pills am-topbar-nav">
+                    <li class="am-active" data-category="" data-am-collapse="{target: '#doc-topbar-collapse-5'}">
+                        <a href="javascript:void(0);">
+                            全部
+                        </a>
+                    </li>
+                    <li data-category="baby" data-am-collapse="{target: '#doc-topbar-collapse-5'}">
+                        <a href="javascript:void(0);">
+                            母婴购物经验
+                        </a>
+                    </li>
+                    <li data-category="food" data-am-collapse="{target: '#doc-topbar-collapse-5'}">
+                        <a href="javascript:void(0);">
+                            美食点评
+                        </a>
+                    </li>
+                    <li data-category="beauty" data-am-collapse="{target: '#doc-topbar-collapse-5'}">
+                        <a href="javascript:void(0);">
+                            彩妆分享
+                        </a>
+                    </li>
+                    <li data-category="clothes" data-am-collapse="{target: '#doc-topbar-collapse-5'}">
+                        <a href="javascript:void(0);">
+                            服装分享
+                        </a>
+                    </li>
+                    <li data-category="home" data-am-collapse="{target: '#doc-topbar-collapse-5'}">
+                        <a href="javascript:void(0);">
+                            居家分享
+                        </a>
+                    </li>
+                    <li data-category="elec" data-am-collapse="{target: '#doc-topbar-collapse-5'}">
+                        <a href="javascript:void(0);">
+                            电器/数码
+                        </a>
+                    </li>
+                    <li data-category="health" data-am-collapse="{target: '#doc-topbar-collapse-5'}">
+                        <a href="javascript:void(0);">
+                            医药保健分享
+                        </a>
+                    </li>
+                    <li data-category="side" data-am-collapse="{target: '#doc-topbar-collapse-5'}">
+                        <a href="javascript:void(0);">
+                            鞋包分享
+                        </a>
+                    </li>
+                    <li data-category="sports" data-am-collapse="{target: '#doc-topbar-collapse-5'}">
+                        <a href="javascript:void(0);">
+                            运动分享
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="am-g yg-search">
+        <div class="am-u-lg-12">
+            <div class="am-input-group am-search">
+                <input id="strKey" type="text" placeholder="请输入您要搜索的商品关键词" class="am-form-field">
+                <span class="am-input-group-btn">
+                    <button id="btnSearch" class="am-btn am-btn-default" type="button">搜索</button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="banner_navbg">
+        <div class="am-g">
+            <div class="banner_nav">
+                <span class="am-icon-caret-right">  筛选：</span>
+                <a href="javascript:void(0);" class="banner_hover" data-order="">默认</a>
+                <a href="javascript:void(0);" data-order="p">价格</a>
+                <a href="javascript:void(0);" data-order="s">销量</a>
+                <a href="javascript:void(0);" data-order="m">最新</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="am-g am-imglist">
+        <ul id="product-list" data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-4 am-gallery-default">          
+            @*<li>
+                <div class="am-gallery-item am_list_block">
+                    <a href="javascript:void(0);" class="am_img_bg">
+                        <img class="am_img animated" src="~/assets-web/img/loading.gif"
+                             data-original="http://img.alicdn.com/imgextra/i1/TB1fuBXRXXXXXc2XFXXXXXXXXXX_!!0-item_pic.jpg_300x300"
+                             alt="童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤" />
+                    </a>
+                    <div class="am_imglist_user_font">童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤</div>
+                    <div class="am_listimg_info">
+                        <span class="am-icon-coupon">券:100</span>
+                        <span class="am-icon-price">券后:24.00</span>
+                        <span class="am_imglist_time">剩余2天</span>                        
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="am-gallery-item am_list_block">
+                    <a href="javascript:void(0);" class="am_img_bg">
+                        <img class="am_img animated" src="~/assets-web/img/loading.gif"
+                             data-original="http://img.alicdn.com/imgextra/i1/TB1fuBXRXXXXXc2XFXXXXXXXXXX_!!0-item_pic.jpg_300x300"
+                             alt="童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤" />
+                    </a>
+                    <div class="am_imglist_user_font">童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤</div>
+                    <div class="am_listimg_info">
+                        <span class="am-icon-coupon">券:100</span>
+                        <span class="am-icon-price">券后:24.00</span>
+                        <span class="am_imglist_time">剩余2天</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="am-gallery-item am_list_block">
+                    <a href="javascript:void(0);" class="am_img_bg">
+                        <img class="am_img animated" src="~/assets-web/img/loading.gif"
+                             data-original="http://img.alicdn.com/imgextra/i1/TB1fuBXRXXXXXc2XFXXXXXXXXXX_!!0-item_pic.jpg_300x300"
+                             alt="童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤" />
+                    </a>
+                    <div class="am_imglist_user_font">童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤</div>
+                    <div class="am_listimg_info">
+                        <span class="am-icon-coupon">券:100</span>
+                        <span class="am-icon-price">券后:24.00</span>
+                        <span class="am_imglist_time">剩余2天</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="am-gallery-item am_list_block">
+                    <a href="javascript:void(0);" class="am_img_bg">
+                        <img class="am_img animated" src="~/assets-web/img/loading.gif"
+                             data-original="http://img.alicdn.com/imgextra/i1/TB1fuBXRXXXXXc2XFXXXXXXXXXX_!!0-item_pic.jpg_300x300"
+                             alt="童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤" />
+                    </a>
+                    <div class="am_imglist_user_font">童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤</div>
+                    <div class="am_listimg_info">
+                        <span class="am-icon-coupon">券:100</span>
+                        <span class="am-icon-price">券后:24.00</span>
+                        <span class="am_imglist_time">剩余2天</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="am-gallery-item am_list_block">
+                    <a href="javascript:void(0);" class="am_img_bg">
+                        <img class="am_img animated" src="~/assets-web/img/loading.gif"
+                             data-original="http://img.alicdn.com/imgextra/i1/TB1fuBXRXXXXXc2XFXXXXXXXXXX_!!0-item_pic.jpg_300x300"
+                             alt="童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤" />
+                    </a>
+                    <div class="am_imglist_user_font">童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤</div>
+                    <div class="am_listimg_info">
+                        <span class="am-icon-coupon">券:100</span>
+                        <span class="am-icon-price">券后:24.00</span>
+                        <span class="am_imglist_time">剩余2天</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="am-gallery-item am_list_block">
+                    <a href="javascript:void(0);" class="am_img_bg">
+                        <img class="am_img animated" src="~/assets-web/img/loading.gif"
+                             data-original="http://img.alicdn.com/imgextra/i1/TB1fuBXRXXXXXc2XFXXXXXXXXXX_!!0-item_pic.jpg_300x300"
+                             alt="童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤" />
+                    </a>
+                    <div class="am_imglist_user_font">童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤</div>
+                    <div class="am_listimg_info">
+                        <span class="am-icon-coupon">券:100</span>
+                        <span class="am-icon-price">券后:24.00</span>
+                        <span class="am_imglist_time">剩余2天</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="am-gallery-item am_list_block">
+                    <a href="javascript:void(0);" class="am_img_bg">
+                        <img class="am_img animated" src="~/assets-web/img/loading.gif"
+                             data-original="http://img.alicdn.com/imgextra/i1/TB1fuBXRXXXXXc2XFXXXXXXXXXX_!!0-item_pic.jpg_300x300"
+                             alt="童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤" />
+                    </a>
+                    <div class="am_imglist_user_font">童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤</div>
+                    <div class="am_listimg_info">
+                        <span class="am-icon-coupon">券:100</span>
+                        <span class="am-icon-price">券后:24.00</span>
+                        <span class="am_imglist_time">剩余2天</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="am-gallery-item am_list_block">
+                    <a href="javascript:void(0);" class="am_img_bg">
+                        <img class="am_img animated" src="~/assets-web/img/loading.gif"
+                             data-original="http://img.alicdn.com/imgextra/i1/TB1fuBXRXXXXXc2XFXXXXXXXXXX_!!0-item_pic.jpg_300x300"
+                             alt="童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤" />
+                    </a>
+                    <div class="am_imglist_user_font">童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤</div>
+                    <div class="am_listimg_info">
+                        <span class="am-icon-coupon">券:100</span>
+                        <span class="am-icon-price">券后:24.00</span>
+                        <span class="am_imglist_time">剩余2天</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="am-gallery-item am_list_block">
+                    <a href="javascript:void(0);" class="am_img_bg">
+                        <img class="am_img animated" src="~/assets-web/img/loading.gif"
+                             data-original="http://img.alicdn.com/imgextra/i1/TB1fuBXRXXXXXc2XFXXXXXXXXXX_!!0-item_pic.jpg_300x300"
+                             alt="童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤" />
+                    </a>
+                    <div class="am_imglist_user_font">童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤</div>
+                    <div class="am_listimg_info">
+                        <span class="am-icon-coupon">券:100</span>
+                        <span class="am-icon-price">券后:24.00</span>
+                        <span class="am_imglist_time">剩余2天</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="am-gallery-item am_list_block">
+                    <a href="javascript:void(0);" class="am_img_bg">
+                        <img class="am_img animated" src="~/assets-web/img/loading.gif"
+                             data-original="http://img.alicdn.com/imgextra/i1/TB1fuBXRXXXXXc2XFXXXXXXXXXX_!!0-item_pic.jpg_300x300"
+                             alt="童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤" />
+                    </a>
+                    <div class="am_imglist_user_font">童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤</div>
+                    <div class="am_listimg_info">
+                        <span class="am-icon-coupon">券:100</span>
+                        <span class="am-icon-price">券后:24.00</span>
+                        <span class="am_imglist_time">剩余2天</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="am-gallery-item am_list_block">
+                    <a href="javascript:void(0);" class="am_img_bg">
+                        <img class="am_img animated" src="~/assets-web/img/loading.gif"
+                             data-original="http://img.alicdn.com/imgextra/i1/TB1fuBXRXXXXXc2XFXXXXXXXXXX_!!0-item_pic.jpg_300x300"
+                             alt="童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤" />
+                    </a>
+                    <div class="am_imglist_user_font">童装男童休闲运动短裤春夏装薄款男童防蚊裤七分裤儿童裤子夏季裤</div>
+                    <div class="am_listimg_info">
+                        <span class="am-icon-coupon">券:100</span>
+                        <span class="am-icon-price">券后:24.00</span>
+                        <span class="am_imglist_time">剩余2天</span>
+                    </div>
+                </div>
+            </li>*@
+        </ul>
+        <div class="am-pager"></div>
+    </div>
+
+    <footer class="am_footer">
+        <div class="am_footer_con">
+            <div class="am_footer_link">
+                <span>关于优购8</span>
+                <ul>
+                    <li>
+                        <a href="javascript:void(0);">关于我们</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);">发展历程</a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);">友情链接</a>
+                    </li>
+                </ul>
+            </div>
+
+
+            <div class="am_footer_don">
+                <span>优购8</span>
+                <dl>
+                    <dt><img src="~/assets-web/img/footlogo.png?1" alt=""></dt>
+                    <dd>
+                        利用大数据优势，精心挑选优质商品，分享合作商家优惠，让各位买家省钱又省心
+                        <a href="javascript:void(0);" class="footdon_pg ">
+                            <div class="foot_d_pg am-icon-heart "> 代理加盟</div>
+                        </a><a href="javascript:void(0);" class="footdon_az animated">
+                            <div class="foot_d_az am-icon-comments "> 在线客服</div>
+                        </a>
+                    </dd>
+
+                </dl>
+            </div>
+
+            <div class="am_footer_erweima">
+                <div class="am_footer_weixin">
+                    <img src="~/assets-web/img/wx-xiaochengxu.jpg" alt="">
+
+                    <div class="am_footer_d_gzwx am-icon-weixin"> 关注小程序</div>
+                </div>
+                <div class="am_footer_ddon">
+                    <img src="~/assets-web/img/wx-gongzhonghao.jpg" alt="">
+
+                    <div class="am_footer_d_dxz am-icon-cloud-download"> 关注公众号</div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="am_info_line">
+            Copyright(c)2017-2020
+            <span>优购8</span> All Rights Reserved
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+            crossorigin="anonymous"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <script src="/assets-web/js/jquery.lazyload.min.js"></script>
+    <script src="~/assets-web/js/amazeui.dialog.min.js"></script>
+    <script src="~/assets-web/js/amazeui.page.js"></script>
+    <script src="/assets-web/js/yougou8.js"></script>
+</body>
+</html>

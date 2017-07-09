@@ -1,0 +1,8 @@
+Time:    2017/5/30 3:47:16
+Action:  
+Message: System.Net.WebException: 远程服务器返回错误: (404) 未找到。
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 YouGou8.Web.Helper.UtilityHelper.GetYoumaibaData(String path) 位置 E:\Projects\YouGou8\YouGou8.Web\Helper\UtilityHelper.cs:行号 69
+-----------------------------------------------------------
+
+

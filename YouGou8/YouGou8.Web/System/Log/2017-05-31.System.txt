@@ -1,0 +1,8 @@
+Time:    2017/5/31 0:02:35
+Action:  
+Message: System.Net.WebException: 操作超时
+   在 System.Net.HttpWebRequest.GetResponse()
+   在 YouGou8.Web.Helper.UtilityHelper.GetYoumaibaData(String path) 位置 E:\Projects\YouGou8\YouGou8.Web\Helper\UtilityHelper.cs:行号 69
+-----------------------------------------------------------
+
+

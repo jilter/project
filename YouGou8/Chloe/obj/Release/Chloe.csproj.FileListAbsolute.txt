@@ -1,0 +1,5 @@
+E:\Projects\YouGou8\Chloe\bin\Release\Chloe.dll
+E:\Projects\YouGou8\Chloe\bin\Release\Chloe.pdb
+E:\Projects\YouGou8\Chloe\obj\Release\Chloe.dll
+E:\Projects\YouGou8\Chloe\obj\Release\Chloe.pdb
+E:\Projects\YouGou8\Chloe\obj\Release\Chloe.csprojResolveAssemblyReference.cache

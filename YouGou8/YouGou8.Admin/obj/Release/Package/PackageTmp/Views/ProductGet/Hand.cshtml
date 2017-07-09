@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "手工精选";
+}
+
+<div id="wrapper">
+    @Html.Partial("../Shared/_Left")
+    <div id="page-wrapper">
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Form Elements -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center">
+                            手工精选
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label>商品分类</label>
+                                @Html.DropDownList("productType", ViewBag.CategoryList as IEnumerable<SelectListItem>)
+                            </div>
+                            <div class="form-group">
+                                <label>商品主图URL</label>
+                                <input id="imgUrl" type="text" value="" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>轻淘客生成文本</label>
+                                <textarea id="cmdText" class="form-control" rows="10"></textarea>
+                            </div>
+                            <div class="row text-center">
+                                <button id="btn-add" class="btn btn-default">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Form Elements -->
+                </div>
+            </div>
+            <!-- /. ROW  -->
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            var loading = new BootstrapDialog({
+                    title: '系统提示',
+                    message: '数据加载中,请稍等...'
+            });
+
+            $('#btn-add').click(function () {
+                loading.open();
+                var imgUrl = $("#imgUrl").val();
+                var cmdText = $("#cmdText").val();
+                var cid =$("#productType").val();
+                if (imgUrl != '' && cmdText != '') {
+                    $.ajax({
+                        url: "/productget/handp",
+                        type: "post",
+                        data: { imgUrl: imgUrl, cmdText: cmdText, cid: cid },
+                        success: function (data) {
+                            loading.close();
+                            BootstrapDialog.show({
+                                title: '系统提示',
+                                message: data.msg
+                            });
+                            if (data.code == 0) {
+                                $("#imgUrl").val("");
+                                $("#cmdText").val("");
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            loading.close();
+                            BootstrapDialog.show({
+                                title: '系统提示',
+                                message: "网络连接失败,请稍后再试"
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

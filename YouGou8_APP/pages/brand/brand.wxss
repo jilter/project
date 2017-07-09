@@ -1,0 +1,7 @@
+/* brand.wxss */
+.page__hd{
+  text-align: center;
+}
+.page__hd image{
+  width:100%;
+}

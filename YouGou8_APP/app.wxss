@@ -1,0 +1,68 @@
+/**app.wxss**/
+@import "./styles/weui.wxss";
+
+.product_container {
+  margin: 5rpx 0 0 0;
+  padding: 10rpx;
+  display: flex;
+  justify-content: space-between;
+  background-color: #efeff4;
+  flex-wrap: wrap;
+}
+
+.product_item {
+  width: 360rpx;
+  margin: 0 0 20rpx 0;
+  background-color: #fff;
+  border-radius: 0.5rem;
+}
+
+.product_item image {
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.product_name {
+  display: block;
+  font-size: 24rpx;
+  color: #000;
+  line-height: 40rpx;
+  height: 80rpx;
+  overflow: hidden;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.product_coupon{
+  color: red;
+  font-weight: bold;
+  float: left;
+}
+
+.product_coupon image{
+  width:1em;height:1.2em;
+  border-radius: 0;
+}
+
+.product_prices {
+  font-size: 26rpx;
+  color: red;
+  font-weight: bold;
+  line-height: 40rpx;
+  overflow: hidden;
+  margin: 0 0 0rpx 0;
+  padding:15rpx 5rpx;
+}
+
+.product_prices .product_prices_f {
+  width: 50%;
+  display: block;
+  float: left;
+  color: #5f6678;
+  font-weight: normal;
+  overflow: hidden;
+}
+
+.weui-loadmore {
+  width: 100%;
+  margin: 25px 0px 15px 0px;
+}

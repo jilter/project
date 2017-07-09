@@ -1,0 +1,15 @@
+/* free.wxss */
+.page__hd{
+  text-align: center;
+}
+.page__hd image{
+  width:100%;
+}
+.product_name {
+  height: 40rpx;
+}
+
+.product_prices{
+  padding:5rpx;
+  line-height: 26rpx;
+}

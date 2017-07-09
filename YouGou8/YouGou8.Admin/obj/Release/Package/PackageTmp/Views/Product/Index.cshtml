@@ -1,0 +1,255 @@
+﻿@model IEnumerable<YouGou8.Model.Product_MY>
+
+@{
+    ViewBag.Title = "商品管理";
+}
+
+<div id="wrapper">
+    @Html.Partial("../Shared/_Left")
+    <div id="page-wrapper">
+        <div id="page-inner">
+            <form id="searchForm" action="/product/index" method="get">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!--    Hover Rows  -->
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <input placeholder="商品名称" name="productName" id="productName" value="@ViewBag.ProductName">
+                                @Html.DropDownList("productType", ViewBag.CategoryList as IEnumerable<SelectListItem>)
+                                <a id="searchProduct" class="btn btn-success btn-sm">搜索</a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="/product/import" class="btn btn-primary btn-sm">导入商品</a>
+                                <a href="/product/add" class="btn btn-primary btn-sm">添加商品</a>
+                                <a id="deleteSelect" class="btn btn-danger btn-sm">删除选中</a>
+                                <a id="deleteDisable" class="btn btn-danger btn-sm">删除失效</a>
+                                <a id="deleteAll" class="btn btn-danger btn-sm">全部删除</a>
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover" id="dataTables-example">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <label class="checkbox-inline">
+                                                        <input id="selectCheck" value="0" style="position:static" type="checkbox">
+                                                    </label>
+                                                </th>
+                                                <th style="width:25%;">名称</th>
+                                                <th>首图</th>
+                                                <th>价格/优惠<br />分类</th>
+                                                <th>优惠结束<br />淘口令</th>
+                                                <th>添加者<br />添加时间</th>
+                                                <th>备注</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                        {
+                                                <tr>
+                                                    <td>
+                                                        <label class="checkbox-inline">
+                                                            <input value="@item.ID" style="position:static" type="checkbox">
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <a href="@item.PLink" target="_blank">@item.PTitle</a>
+                                                    </td>
+                                                    <td>
+                                                        @if (!string.IsNullOrWhiteSpace(item.PImgUrls))
+                                                        {
+                                                            <a href="@item.PImgUrls.Split('|')[0]" target="_blank">
+                                                                <img style="width:50px" src="@item.PImgUrls.Split('|')[0]" />
+                                                            </a>
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @item.PPrice/@item.CouponMoney<br />
+                                                        @((ViewBag.CategoryList as List<SelectListItem>).Find(i=>i.Value==item.PCID.ToString()).Text)
+                                                    </td>
+                                                    <td>@(item.CouponEndTime.HasValue?item.CouponEndTime.Value.ToString("yyyy/MM/dd HH:mm:ss"):"")<br />@item.CouponCommand</td>
+                                                    <td>@item.AddedID<br />@item.AddedTime</td>
+                                                    <td>@item.Remark</td>
+                                                    <td>
+                                                        <input id="txt-big-@item.ID" type="hidden" value="@(item.IsBig?"true":"false")" />
+                                                        <a id="btn-big-@item.ID" href="javascript:setProduct(@item.ID)" class="btn btn-info btn-xs">@(item.IsBig?"取消品牌":"设为大牌")</a>
+                                                        <a href="/product/update?id=@item.ID" class="btn btn-primary btn-xs">修改</a>
+                                                        <a href="javascript:deleteProduct(@item.ID)" class="btn btn-danger btn-xs">删除</a>
+                                                    </td>
+                                                </tr>
+                                        }
+                                        </tbody>
+                                    </table>
+                                    @if (ViewBag.PageCount >= 2)
+                                    {
+                                        <nav aria-label="Page navigation">
+                                            <ul class="pagination">
+                                                <li class="@(ViewBag.PageIndex==1?"disabled":"")">
+                                                    <a href="javascript:page('pre',0)" aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                                @for (int i = 1; i <= ViewBag.PageCount; i++)
+                                                {
+                                                  <li class="@(ViewBag.PageIndex==i?"disabled":"")"><a href="javascript:page('page',@i)">@i</a></li>
+                                                }
+                                                <li class="@(ViewBag.PageIndex==ViewBag.PageCount?"disabled":"")">
+                                                    <a href="javascript:page('next',0)" aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    }
+                                    <input type="hidden" name="pageIndex" id="pageIndex" value="@ViewBag.PageIndex" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End  Hover Rows  -->
+                    </div>
+                </div>
+            </form>
+            <!-- /. ROW  -->
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $("#searchProduct").click(function (e) {
+            $("#pageIndex").val(1);
+            $('#searchForm').submit();
+        });
+
+        $("#selectCheck").bind("change", function (e) {
+            if ($("#selectCheck").get(0).checked)
+                $("input[type='checkbox']").prop("checked", true);
+            else
+                $("input[type='checkbox']").prop("checked",false);
+        });
+
+        $("#deleteSelect").click(function (e) {
+            var c = confirm("确定要删除吗?");
+            if (c) {
+                var ids = "";
+                $("input[type='checkbox']:checked").each(function () {
+                    var id = $(this).val();
+                    if (parseInt(id) > 0) {
+                        ids = ids + id + ',';
+                    }
+                });
+                if (ids.length > 0) {
+                    ids = ids.substr(0, ids.length - 1);
+                }
+                if (ids.length > 0) {
+                    $.get('/product/delete', { ids: ids }, function (response) {
+                        if (response.code == 0) {
+                            alert('删除成功');
+                            $('#searchForm').submit();
+                        } else {
+                            alert('删除失败');
+                        }
+                    }, "json");
+                }
+            }
+        });
+
+        $("#deleteDisable").click(function (e) {
+            var c = confirm("确定要删除吗?");
+            if (c) {
+                $.get('/product/DeleteDisable', "", function (response) {
+                    if (response.code == 0) {
+                        alert('删除成功');
+                        $('#searchForm').submit();
+                    } else {
+                        alert('删除失败');
+                    }
+                }, "json");
+            }
+        });
+
+        $("#deleteAll").click(function (e) {
+            var c = confirm("确定要删除吗?");
+            if (c) {
+                $.get('/product/DeleteAll', "", function (response) {
+                    if (response.code == 0) {
+                        alert('删除成功');
+                        $('#searchForm').submit();
+                    } else {
+                        alert('删除失败');
+                    }
+                }, "json");
+            }
+        });
+
+        function deleteProduct(id){
+            var c = confirm("确定要删除吗?");
+            if (c) {
+                if (id > 0) {
+                    $.get('/product/delete', { ids: id }, function (response) {
+                        if (response.code == 0) {
+                            alert('删除成功');
+                            $('#searchForm').submit();
+                        } else {
+                            alert('删除失败');
+                        }
+                    }, "json");
+                }
+            }
+        }
+
+        function setProduct(id,isbig) {
+            if (id > 0) {
+                var isbig = $('#txt-big-' + id).val();
+                var flag = isbig==""||isbig == "false";
+                $.get('/product/setproduct', { id: id,isbig:flag }, function (response) {
+                    if (response.code == 0) {
+                        alert(response.msg);
+                        $('#txt-big-' + id).text(flag ? "true" : "false");
+                        $('#btn-big-' + id).text(flag ? "取消大牌" : "设为大牌");
+                    } else {
+                        alert(response.msg);
+                    }
+                }, "json");
+            }
+        }
+
+        function page(type, index) {
+            var pageIndex = parseInt($("#pageIndex").val());
+            if (type == 'pre') {
+                $("#pageIndex").val(pageIndex - 1);
+            }
+            if (type == 'next') {
+                $("#pageIndex").val(pageIndex + 1);
+            }
+            if (type == 'page') {
+                $("#pageIndex").val(index);
+            }
+            $('#searchForm').submit();
+        }
+    </script>
+}
+
+  
+

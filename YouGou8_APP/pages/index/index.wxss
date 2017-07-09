@@ -1,0 +1,16 @@
+.index-swiper{
+  height:100px;
+}
+
+.index-swiper swiper-item {
+  text-align: center;
+}
+
+.searchbar-result {
+  margin-top: 0;
+  font-size: 1em;
+}
+
+.searchbar-result:before {
+  display: none;
+}

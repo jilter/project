@@ -1,0 +1,138 @@
+/* pages/detail/detail.wxss */
+.page{
+  background-color:#efeff4;
+   color:#5f6678;
+}
+
+.detail_swiper{
+  height: 250px;
+  text-align: center;
+  background-color: #fff;
+}
+
+.detail_swiper .slide-image {
+  width: 250px;
+  height: 250px;
+  border-radius: 0.5em;
+}
+
+.view_info {
+  padding: 20rpx 35rpx;
+  font-size: 0.8em;
+  background-color: #fff;
+  color: #000;
+  line-height: 1.2em;
+}
+
+.view_price {
+  line-height: 1.2em;
+  overflow: hidden;
+  margin: 15rpx 0 5rpx 0;
+}
+
+.view_price .view_price_item {
+  display: block;
+  margin-right: 30rpx;
+  float: left;
+  overflow: hidden;
+  color: #5f6678;
+}
+
+.view_price .view_price_right {
+  font-weight: bold;
+  display: block;
+  float: right;
+  overflow: hidden;
+  color: red;
+}
+
+.view_desc{
+  margin-top:30rpx;
+  color:#5f6678;
+}
+
+.view_tipstap {
+  text-align: center;
+  font-size: 0.8em;
+  font-weight: bold;
+  color:#5f6678;
+  padding:15rpx;
+}
+
+.copy_text {
+  display: block;
+  margin: 0rpx 30rpx 30rpx 30rpx;
+  border: #586c94 solid 1px;
+  border-radius: 0.5em;
+  padding: 10rpx;
+  font-size: 0.9em;
+}
+
+.view_copy_btn {
+  padding: 0 30rpx;
+}
+
+.view_tips {
+  margin-top: 30rpx;
+  padding: 30rpx;
+  font-size: 0.8em;
+  background-color: #fff;
+}
+
+.view_spilt {
+  margin: 10rpx 0;
+  width: 100%;
+  line-height: 0.2em;
+}
+
+.view_tips1 {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+
+.view_tips6 {
+  text-align: center;
+}
+
+.view_tips6 image {
+  width: 50%;
+  border-radius: 0.5em;
+}
+
+.view_tips7 {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+
+.view_tips8{
+  height: 150rpx;
+}
+
+.view_tips8_1,.view_tips8_2,.view_tips8_3 {
+  margin: 4rpx;
+  height: 100rpx;
+  float: left;
+  overflow: hidden;
+  border: 1px solid #e5e5e5;
+  display: block;
+}
+
+.view_tips8_1{
+  width:34%;
+}
+
+.view_tips8_2{
+  width:22%;
+}
+
+.view_tips8_3{
+  width:39%;
+}
+
+.view_bottom {
+  width: 100%;
+  background-color: #fff;
+  margin-top:0;
+}

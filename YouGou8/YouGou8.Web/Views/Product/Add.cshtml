@@ -1,0 +1,231 @@
+﻿@model YouGou8.Model.Product
+@{
+    ViewBag.Title = "编辑商品";
+}
+<div id="wrapper">
+    @Html.Partial("../Shared/_Left")
+    <div id="page-wrapper">
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Form Elements -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center">
+                            编辑商品
+                        </div>
+                        <div class="panel-body">
+                            <form id="form-product" role="form" action="/product/add" method="post">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="hidden" name="ID" id="ID" value="@Model.ID" />
+                                            @Html.TextBoxFor(model => model.Link, new { @style = "width:70%; display:inline-block;", placeholder = "商品连接", @class = "form-control" })
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a id="btn-getinfo" class="btn btn-success">获取信息</a>
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(model => model.PID, new { placeholder = "商品ID", @class = "form-control" })
+                                        </div>   
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(model => model.Name, new { placeholder = "商品名称", @class = "form-control" })
+                                        </div>                                  
+                                        <div class="form-group">
+                                            @Html.DropDownListFor(model => model.CategoryID,ViewBag.CategoryList as List<SelectListItem>,new { @class = "form-control" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(model => model.Price, new { placeholder = "价格", @class = "form-control" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(model => model.Sales, new { placeholder = "销量", @class = "form-control" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(model => model.Percent, new { placeholder = "佣金比率%", @class = "form-control" })
+                                        </div>
+                                        @if (Model!=null&&Model.ID > 0)
+                                        {
+                                            <div class="form-group">
+                                                @Html.TextBoxFor(model => model.Money, new { placeholder = "佣金", @class = "form-control" })
+                                            </div>
+                                            <div class="form-group">
+                                                @Html.TextBoxFor(model => model.Redpack, new { placeholder = "红包", @class = "form-control" })
+                                            </div>
+                                        }
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(model => model.CouponMoney, new { placeholder = "优惠券金额", @class = "form-control" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(model => model.CouponEndTime, new { placeholder = "优惠券结束时间(yyyy-mm-dd)", @class = "form-control" })                                            
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(model => model.CouponCount, new { placeholder = "优惠券数量", @class = "form-control" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(model => model.CouponRemain, new { placeholder = "优惠券剩余数量", @class = "form-control" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(model => model.CouponCommand, new { placeholder = "淘口令", @class = "form-control" })
+                                        </div>
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(model => model.CouponLink, new { placeholder = "推广连接", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        @Html.HiddenFor(m=>m.ImgUrls)
+                                        <div id="div-img-input" class="form-group" style="display:none;">
+                                            <label>商品图片</label>
+                                            <input id="imgurl1" class="form-control" placeholder="图片地址1" />
+                                            <input id="imgurl2" class="form-control" placeholder="图片地址2" />
+                                            <input id="imgurl3" class="form-control" placeholder="图片地址3" />
+                                            <input id="imgurl4" class="form-control" placeholder="图片地址4" />
+                                            <input id="imgurl5" class="form-control" placeholder="图片地址5" />
+                                        </div>    
+                                        <div id="div-img-show" class="form-group" style="display:none;">
+                                            <label>商品图片(拖动排序)</label>
+                                            <ol id="img-list" class='imgurls'>
+                                                
+                                            </ol>
+                                            <br style="clear:both;" />
+                                            <br />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>是否大牌</label>
+                                            <div class="radio">
+                                                <label>
+                                                    @Html.RadioButtonFor(model => model.IsBig, false)否
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    @Html.RadioButtonFor(model => model.IsBig, true)是
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>推荐理由</label>
+                                            @Html.TextAreaFor(m => m.Desc, new { @row="3",@class= "form-control" })
+                                        </div>
+                                        <div class="form-group">
+                                            <label>备注</label>
+                                            @Html.TextAreaFor(m => m.Remark, new { @row = "3", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    @Html.HiddenFor(m=>m.ClickCount)  
+                                    @Html.HiddenFor(m=>m.PlanID)    
+                                    @Html.HiddenFor(m => m.AddedTime)                 
+                            </div>
+                                <div class="row text-center">
+                                    <button type="submit" class="btn btn-default">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- End Form Elements -->
+                </div>
+            </div>
+            <!-- /. ROW  -->
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+
+@section scripts{
+    <script src="/assets/js/jquery-sortable.js"></script>
+    <script type="text/javascript">
+        $(function  () {
+            $("ol.imgurls").sortable();
+
+            $("#btn-getinfo").click(function (e) {
+                var url=$("#Link").val();
+                if (url != "") {
+                    $.get('/product/getproductinfo', { url: url }, function (response) {
+                        if (response.code == 0) {
+                            var id = GetQueryString(url, "id");
+                            $("#PID").val(id);
+                            $('#Name').val(response.data.ProductName);
+                            $("#ImgUrls").val(response.data.ThumImg);
+                            if(response.data.ThumImg!=""){
+                                $("#div-img-input").hide();
+                                $("#div-img-show").show();
+                                var html = "";
+                                var imgArr = response.data.ThumImg.split('|')
+                                console.log(imgArr);
+                                for (var i = 0; i < imgArr.length; i++) {
+                                    if (imgArr[i] != "") {
+                                        html += '<li id="li-img-'+i+'">' +
+                                                    '<img style="width:128px;" src="' + imgArr[i] + '" />' +
+                                                    '<a href="javascript:deleteImg('+i+');" class="btn btn-warning btn-xs">删除</a>' +
+                                                '</li>';
+                                    }
+                                }
+                                $('#img-list').html(html);
+                            }
+                        } else {
+                            alert(response.msg);
+                        }
+                    }, "json");
+                }
+            });
+
+            var imgUrls = $("#ImgUrls").val();
+            if (imgUrls == "") {
+                $("#div-img-input").show();
+                $("#div-img-show").hide();
+            } else {
+                $("#div-img-input").hide();
+                $("#div-img-show").show();
+                var html = "";
+                var imgArr = imgUrls.split('|')
+                for (var i = 0; i < imgArr.length; i++) {
+                    if (imgArr[i] != "") {
+                        html += '<li id="li-img-'+i+'">' +
+                                    '<img style="width:128px;" src="' + imgArr[i] + '" />' +
+                                    '<a href="javascript:deleteImg('+i+');" class="btn btn-warning btn-xs">删除</a>' +
+                                '</li>';
+                    }
+                }
+                $('#img-list').html(html);              
+            }
+
+            function GetQueryString(url,name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = url.substr(url.indexOf('?')+1).match(reg);
+                if (r != null) return unescape(r[2]); return null;
+            }
+
+            $('#form-product').submit(function (e) {
+                var urls = "";
+                if ($("#div-img-input").is(":hidden")) {
+                    $("#div-img-show img").each(function () {
+                        urls += $(this).attr("src")+"|";
+                    });
+                } else {
+                    if ($("#imgurl1").val() != "") {
+                        urls += $("#imgurl1").val() + "|";
+                    }
+                    if ($("#imgurl2").val() != "") {
+                        urls += $("#imgurl2").val() + "|";
+                    }
+                    if ($("#imgurl3").val() != "") {
+                        urls += $("#imgurl3").val() + "|";
+                    }
+                    if ($("#imgurl4").val() != "") {
+                        urls += $("#imgurl4").val() + "|";
+                    }
+                    if ($("#imgurl5").val() != "") {
+                        urls += $("#imgurl5").val() + "|";
+                    }
+                }
+                if (urls != "") {
+                    urls = urls.substring(0, urls.length - 1);
+                }
+                $("#ImgUrls").val(urls);
+            });
+        });
+
+
+        function deleteImg(i) {
+            $("#li-img-"+i).remove();
+        }
+    </script>
+}

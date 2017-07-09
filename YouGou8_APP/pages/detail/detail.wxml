@@ -1,0 +1,59 @@
+<view class="page">
+  <view class="page__hd">
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class="detail_swiper">
+      <block wx:for="{{details.imgs}}" wx:key="*this">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class="page__bd">
+    <view class="view_info">
+      <view><text class="product_coupon" hidden="{{details.coupon<=0}}">【{{details.coupon}}元券】</text><text class="product_coupon" hidden="{{details.redpack<=0}}">【{{details.redpack}}元红包】</text>{{details.name}}</view>
+      <view class="view_price">
+        <view class="view_price_item">零售价:¥{{details.price+details.coupon+details.redpack}}   </view>
+        <view class="view_price_item">{{details.sales}}人喜欢 </view>
+        <view class="view_price_right">推广价:¥{{details.price}}</view>
+      </view>
+      <view class="view_desc" hidden="{{details.desc==''||details.desc==null}}">
+        <text>推荐理由:{{details.desc}}</text>
+      </view>
+    </view>
+    <view class="view_copy" hidden="{{details.id<2186}}">
+      <view class="view_tipstap " hidden="{{canUseCopy}}">长按以下文本选择并复制</view>
+      <view class="view_tipstap " hidden="{{!canUseCopy}}">点击按钮复制以下文本</view>
+      <view>
+        <text class="copy_text" selectable="true">复制这条信息{{details.key}},打开"手.机.淘.宝"即可查看并下单!</text>
+      </view>
+      <view class="view_copy_btn">
+        <button class="weui-btn" type="primary" hidden="{{!canUseCopy}}" bindtap="copy">复制</button>
+      </view>
+    </view>
+    <view class="view_tips ">
+      <view class="weui-loadmore weui-loadmore_line view_spilt ">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line "></view>
+      </view>
+      <view class="view_tips1 ">【温馨提示】</view>
+      <view class="weui-loadmore weui-loadmore_line view_spilt ">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line "></view>
+      </view>
+      <view class="view_tips2 ">1.推广券有限，领一张少一张！赶紧领券吧！</view>
+      <view class="view_tips3 ">2.促销商品，价格随时可能变动，喜欢就赶紧下手！</view>
+      <view class="view_tips4 ">3.本站优质商品均来自天猫合作商家，由专业人士精心挑选</view>
+      <view class="view_tips5 ">4.商家发货后联系图中二维码，提供截图，领取商家红包</view>
+      <view class="view_tips6 ">
+        <image bindtap="previewImg" mode="widthFix" src="https://63971804.qcloud.la/images/erweima.jpg "></image>
+      </view>
+      <view class="view_tips7 ">Tips:如何联系我?</view>
+      <view class="view_tips8 ">
+        <view class="view_tips8_1 ">1,点击二维码,然后长按保存图片</view>
+        <view class="view_tips8_2 ">2,打开微信"扫一扫 "</view>
+        <view class="view_tips8_3 ">3,点击右上角"相册 ",选择二维码图片</view>
+      </view>
+    </view>
+    <view class="weui-loadmore weui-loadmore_line view_bottom ">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line ">已经到底线了</view>
+    </view>
+  </view>
+</view>

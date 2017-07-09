@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/free/free",
+    "pages/brand/brand",
+    "pages/freedetail/freedetail",
+    "pages/detail/detail"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "backgroundColor": "#eeeeee",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "优购8",
+    "navigationBarTextStyle": "black",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "color": "#6e6d6b",
+    "selectedColor": "#f9f027",
+    "borderStyle": "white",
+    "backgroundColor": "#292929",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/footer-icon-1.png",
+        "selectedIconPath": "images/footer-icon-1-active.png",
+        "text": "推荐"
+      },
+      {
+        "pagePath": "pages/brand/brand",
+        "iconPath": "images/footer-icon-3.png",
+        "selectedIconPath": "images/footer-icon-3-active.png",
+        "text": "实惠"
+      },
+      {
+        "pagePath": "pages/free/free",
+        "iconPath": "images/footer-icon-4.png",
+        "selectedIconPath": "images/footer-icon-4-active.png",
+        "text": "赠品"
+      }
+    ]
+  }
+}

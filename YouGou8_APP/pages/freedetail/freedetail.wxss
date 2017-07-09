@@ -1,0 +1,141 @@
+/* pages/freedetail/freedetail.wxss */
+
+.page {
+  background-color: #efeff4;
+  color: #5f6678;
+}
+
+.free_swiper {
+  height: 250px;
+  text-align: center;
+  background-color: #fff;
+}
+
+.free_swiper .slide-image {
+  width: 250px;
+  height: 250px;
+  border-radius: 0.5em;
+}
+
+.view_info {
+  padding: 20rpx 35rpx;
+  font-size: 0.8em;
+  color: #000;
+  line-height: 1.2em;
+  background-color: #fff;
+}
+
+.view_price {
+  color: #5f6678;
+  font-weight: bold;
+  line-height: 1.2em;
+  overflow: hidden;
+  margin: 15rpx 0 5rpx 0;
+}
+
+.view_price .view_price_item {
+  display: block;
+  margin-right: 20rpx;
+  float: left;
+  overflow: hidden;
+}
+
+.view_desc {
+  margin-top: 30rpx;
+  color: red;
+}
+
+.view_tipstap {
+  text-align: center;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #5f6678;
+  padding: 15rpx;
+}
+
+.view_getfree {
+  font-size: 1em;
+  line-height: 1.2em;
+  padding: 25rpx;
+}
+
+.view_getfree_tips {
+  font-size: 0.8em;
+  font-weight: bold;
+  text-align: center;
+  color: red;
+}
+
+.view_getfree .weui-search-bar{
+  border:0;
+  padding:8px 15px;
+}
+
+.view_getfree .weui-btn-area{
+  margin-top:5px;
+}
+
+.view_tips {
+  padding: 0 30rpx;
+  font-size: 0.8em;
+  background-color: #fff;
+}
+
+.view_tips_title {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+  padding: 20rpx;
+}
+
+.view_tips_pic {
+  text-align: center;
+}
+
+.view_tips_pic image {
+  width: 50%;
+  border-radius: 0.5em;
+}
+
+.view_tips_contact {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+
+.view_tips_step {
+  height: 150rpx;
+}
+
+.view_tips_step1, .view_tips_step2, .view_tips_step3 {
+  margin: 4rpx;
+  height: 100rpx;
+  float: left;
+  overflow: hidden;
+  border: 1px solid #e5e5e5;
+  display: block;
+}
+
+.view_tips_step1 {
+  width: 34%;
+}
+
+.view_tips_step2 {
+  width: 22%;
+}
+
+.view_tips_step3 {
+  width: 39%;
+}
+
+.view_spilt {
+  margin: 0;
+  width: 100%;
+  line-height: 0.2em;
+}
+
+.view_bottom {
+  width: 100%;
+  background-color: #fff;
+  margin-top: 0;
+}

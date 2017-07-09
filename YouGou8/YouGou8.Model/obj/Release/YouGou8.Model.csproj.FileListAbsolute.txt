@@ -1,0 +1,7 @@
+E:\Projects\YouGou8\YouGou8.Model\bin\Release\YouGou8.Model.dll
+E:\Projects\YouGou8\YouGou8.Model\bin\Release\YouGou8.Model.pdb
+E:\Projects\YouGou8\YouGou8.Model\obj\Release\YouGou8.Model.csprojResolveAssemblyReference.cache
+E:\Projects\YouGou8\YouGou8.Model\obj\Release\YouGou8.Model.dll
+E:\Projects\YouGou8\YouGou8.Model\obj\Release\YouGou8.Model.pdb
+E:\Projects\YouGou8\YouGou8.Model\bin\Release\Chloe.dll
+E:\Projects\YouGou8\YouGou8.Model\bin\Release\Chloe.pdb

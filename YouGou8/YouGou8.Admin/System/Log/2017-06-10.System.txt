@@ -1,0 +1,20 @@
+Time:    2017/6/10 17:02:34
+Action:  QTKInput
+Message: Chloe.Exceptions.ChloeException: An exception occurred while executing DbCommand.For details please see the inner exception. ---> MySql.Data.MySqlClient.MySqlException: Column 'PlanID' cannot be null
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
+   在 Chloe.Core.InternalAdoSession.ExecuteScalar(String cmdText, DbParam[] parameters, CommandType cmdType) 位置 E:\Projects\YouGou8\Chloe\Core\InternalAdoSession.cs:行号 195
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 Chloe.Core.InternalAdoSession.ExecuteScalar(String cmdText, DbParam[] parameters, CommandType cmdType) 位置 E:\Projects\YouGou8\Chloe\Core\InternalAdoSession.cs:行号 202
+   在 Chloe.Core.DbSession.ExecuteScalar(String cmdText, CommandType cmdType, DbParam[] parameters) 位置 E:\Projects\YouGou8\Chloe\Core\DbSession.cs:行号 40
+   在 Chloe.Core.DbSession.ExecuteScalar(String cmdText, DbParam[] parameters) 位置 E:\Projects\YouGou8\Chloe\Core\DbSession.cs:行号 35
+   在 Chloe.DbContext.Insert[TEntity](TEntity entity) 位置 E:\Projects\YouGou8\Chloe\DbContext.cs:行号 145
+   在 YouGou8.Service.ProductMyService.QTKInput(String url, String text, Int32 cid) 位置 E:\Projects\YouGou8\YouGou8.Service\ProductMyService.cs:行号 71
+-----------------------------------------------------------
+
+

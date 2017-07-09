@@ -1,0 +1,190 @@
+﻿@model IEnumerable<YouGou8.Model.Product_MY>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@(DateTime.Now.ToString("M月d日"))淘宝品牌优惠</title>
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
+    <link rel="stylesheet" href="~/assets-web/css/wechat.css">
+    <style type="text/css">
+        .weui-mask_transparent {
+          position: fixed;
+          z-index: 1000;
+          top: 0;
+          right: 0;
+          left: 0;
+          bottom: 0;
+        }
+        .weui-toast {
+          position: fixed;
+          z-index: 5000;
+          width: 7.6em;
+          min-height: 7.6em;
+          top: 180px;
+          left: 50%;
+          margin-left: -3.8em;
+          background: rgba(17, 17, 17, 0.7);
+          text-align: center;
+          border-radius: 5px;
+          color: #FFFFFF;
+        }
+        .weui-icon_toast {
+          margin: 22px 0 0;
+          display: block;
+        }
+        .weui-icon-success-no-circle {
+          font-size: 23px;
+          color: #09BB07;
+        }
+        .weui-icon_toast.weui-icon-success-no-circle:before {
+          color: #FFFFFF;
+          font-size: 35px;
+        }
+        .weui-toast__content {
+          margin: 0 0 15px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="pet_mian">
+        <div class="pet_head">
+            <header data-am-widget="header"
+                    class="am-header am-header-default pet_head_block" style="text-align:center; font-weight:bold; color:#fff;">
+                每天上午10点,下午3点更新
+            </header>
+        </div>
+
+        <div class="pet_content pet_content_list">
+            <div class="pet_article_like">
+                <div class="pet_content_main pet_article_like_delete">
+                    <div data-am-widget="list_news" class="am-list-news am-list-news-default am-no-layout" style="margin:0;">
+                        <div class="am-list-news-bd">                          
+                            <ul class="am-list">
+                                @foreach (var item in Model)
+                                {
+                                    <li class="am-g am-list-item-desced am-list-item-thumbed" style="padding:5px 0px;">
+                                        <div class="am-u-sm-4 am-list-thumb" style="padding:0 5px 0 0;">
+                                            <figure data-am-widget="figure" class="am am-figure am-figure-default " data-am-figure="{  pureview: 'true' }" style="margin:0;">
+                                                <img src="@item.PImgUrls" data-rel="@item.PImgUrls" alt="@item.PTitle" style="margin:0;" />
+                                                <figcaption class="am-figure-capition-btm"></figcaption>
+                                            </figure>
+                                        </div>
+                                        <div class="am-u-sm-8 am-list-main">
+                                            <div class="am-list-item-text" style="margin-top:0;">
+                                                <a target="_blank" href="@item.CouponShortLink">@item.PTitle</a></div>
+                                            @*<div class="am-list-item-text" style="margin-top:0;font-size:9px;">点评:@item.PIntro</div>*@
+                                            <div>
+                                                <span class="am-icon-coupon">¥@item.CouponMoney.Value.ToString("F0")</span>
+                                                <span style="color: red;font-size: 12px;font-weight:bold; height:21px;line-height:21px;display:inline-block;">券后:@(item.PPrice-item.CouponMoney)</span>
+                                                @if (item.PSales.HasValue && item.PSales.Value > 0)
+                                                {
+                                                    <span style="font-size: 12px; height:21px;line-height:21px;display:inline-block;">销量:@item.PSales</span>
+                                                }
+                                            </div>
+                                            <div style="display:none;" class="goto-taobao">
+                                                <a target="_blank" class="am-btn am-btn-default am-radius am-btn-xs" style="width:100%; margin:10px 0px" href="@item.CouponShortLink">去淘宝看看&gt;&gt;</a>
+                                            </div>
+                                            <div style="display:none; text-align:center; margin:5px 0;" class="copy">
+                                                <a class="am-btn am-btn-default am-radius am-btn-xs btn-copy" data-clipboard-text="@item.CouponCommand" style="width:80%;font-weight:bold;" href="javascrip:void(0)">复制</a>
+                                            </div>
+                                            <div style="display:none;font-size: 10px; text-align:center;" class="copy-tips">点击复制,打开☞手机淘宝☜查看并下单</div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="am_footer_erweima">
+            <div class="am_footer_weixin">
+                <figure data-am-widget="figure" class="am am-figure am-figure-default " data-am-figure="{  pureview: 'true' }" style="margin:0;">
+                    <img src="/assets-web/img/wx-xiaochengxu.jpg" data-rel="/assets-web/img/wx-xiaochengxu.jpg" alt="关注小程序" style="margin:0;" />
+                    <figcaption class="am-figure-capition-btm">关注小程序</figcaption>
+                </figure>
+            </div>
+            <div class="am_footer_weixin">
+                <figure data-am-widget="figure" class="am am-figure am-figure-default " data-am-figure="{  pureview: 'true' }" style="margin:0;">
+                    <img src="/assets-web/img/wx-gongzhonghao.jpg" data-rel="/assets-web/img/wx-gongzhonghao.jpg" alt="关注公众号" style="margin:0;" />
+                    <figcaption class="am-figure-capition-btm">关注公众号</figcaption>
+                </figure>
+            </div>
+        </div>
+        <div class="pet_article_footer_info">Copyright(c)2017 yougou8 All Rights Reserved</div>
+
+        <!--BEGIN toast-->
+        <div id="toast" style="display:none;">
+            <div class="weui-mask_transparent"></div>
+            <div class="weui-toast">
+                <i class="am-icon-check weui-icon-success-no-circle weui-icon_toast"></i>
+                <p class="weui-toast__content">复制成功</p>
+            </div>
+        </div>
+        <!--end toast-->
+        <!-- loading toast -->
+        <div id="loadingToast"  style="display:none;">
+            <div class="weui-mask_transparent"></div>
+            <div class="weui-toast">
+                @*<i class="weui-loading weui-icon_toast"></i>*@
+                <i class="am-icon-spinner am-icon-pulse weui-icon_toast"></i>
+                <p class="weui-toast__content">数据加载中</p>
+            </div>
+        </div>
+        <!--end loading-->
+    
+    </div>   
+     
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+            crossorigin="anonymous"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.widgets.helper.min.js"></script>
+    <script src="~/assets-web/js/clipboard.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var is_weixin = function () {
+                var ua = navigator.userAgent.toLowerCase();
+                if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                    $(".copy").show();
+                    $(".copy-tips").show();
+                    $(".goto-taobao").hide();
+                } else {
+                    $(".copy").hide();
+                    $(".copy-tips").hide();
+                    $(".goto-taobao").show();
+                }
+            }
+
+            is_weixin();
+
+            var clipboard = new Clipboard('.btn-copy');
+            clipboard.on('success', function (e) {
+                var $toast = $('#toast');
+                if ($toast.css('display') != 'none') return;
+                $('.weui-toast__content').text("复制成功");
+                $toast.fadeIn(100);
+                setTimeout(function () {
+                    $toast.fadeOut(100);
+                }, 2000);
+            });
+            clipboard.on('error', function (e) {
+                var $toast = $('#toast');
+                if ($toast.css('display') != 'none') return;
+                $('.weui-toast__content').text("您的浏览不支持复制");
+                $toast.fadeIn(100);
+                setTimeout(function () {
+                    $toast.fadeOut(100);
+                }, 2000);
+            });
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+Time:    2017/5/23 15:29:52
+Action:  
+Message: System.InvalidCastException: 无法将类型为“Chloe.Query.MappingObjectExpression”的对象强制转换为类型“Chloe.Query.MappingFieldExpression”。
+   在 Chloe.Query.Visitors.GeneralExpressionVisitor.VisitParameter(ParameterExpression exp) 位置 E:\Projects\YouGou8\Chloe\Query\Visitors\GeneralExpressionVisitor.cs:行号 75
+   在 Chloe.Core.Visitors.ExpressionVisitor`1.Visit(Expression exp) 位置 E:\Projects\YouGou8\Chloe\Core\Visitors\ExpressionVisitor`.cs:行号 78
+   在 Chloe.Core.Visitors.ExpressionVisitorBase.VisitBinary_Equal(BinaryExpression exp) 位置 E:\Projects\YouGou8\Chloe\Core\Visitors\ExpressionVisitorBase.cs:行号 309
+   在 Chloe.Core.Visitors.ExpressionVisitor`1.Visit(Expression exp) 位置 E:\Projects\YouGou8\Chloe\Core\Visitors\ExpressionVisitor`.cs:行号 59
+   在 Chloe.Core.Visitors.ExpressionVisitorBase.VisitLambda(LambdaExpression lambda) 位置 E:\Projects\YouGou8\Chloe\Core\Visitors\ExpressionVisitorBase.cs:行号 49
+   在 Chloe.Query.Visitors.GeneralExpressionVisitor.VisitLambda(LambdaExpression lambda) 位置 E:\Projects\YouGou8\Chloe\Query\Visitors\GeneralExpressionVisitor.cs:行号 48
+   在 Chloe.Core.Visitors.ExpressionVisitor`1.Visit(Expression exp) 位置 E:\Projects\YouGou8\Chloe\Core\Visitors\ExpressionVisitor`.cs:行号 70
+   在 Chloe.Core.Visitors.ExpressionVisitorBase.VisitMethodCall(MethodCallExpression exp) 位置 E:\Projects\YouGou8\Chloe\Core\Visitors\ExpressionVisitorBase.cs:行号 330
+   在 Chloe.Core.Visitors.ExpressionVisitor`1.Visit(Expression exp) 位置 E:\Projects\YouGou8\Chloe\Core\Visitors\ExpressionVisitor`.cs:行号 82
+   在 Chloe.Core.Visitors.ExpressionVisitorBase.VisitBinary_NotEqual(BinaryExpression exp) 位置 E:\Projects\YouGou8\Chloe\Core\Visitors\ExpressionVisitorBase.cs:行号 318
+   在 Chloe.Core.Visitors.ExpressionVisitor`1.Visit(Expression exp) 位置 E:\Projects\YouGou8\Chloe\Core\Visitors\ExpressionVisitor`.cs:行号 61
+   在 Chloe.Core.Visitors.ExpressionVisitorBase.VisitLambda(LambdaExpression lambda) 位置 E:\Projects\YouGou8\Chloe\Core\Visitors\ExpressionVisitorBase.cs:行号 49
+   在 Chloe.Query.Visitors.GeneralExpressionVisitor.VisitLambda(LambdaExpression lambda) 位置 E:\Projects\YouGou8\Chloe\Query\Visitors\GeneralExpressionVisitor.cs:行号 48
+   在 Chloe.Core.Visitors.ExpressionVisitor`1.Visit(Expression exp) 位置 E:\Projects\YouGou8\Chloe\Core\Visitors\ExpressionVisitor`.cs:行号 70
+   在 Chloe.Query.Visitors.GeneralExpressionVisitor.ParseLambda(LambdaExpression lambda, List`1 moeList) 位置 E:\Projects\YouGou8\Chloe\Query\Visitors\GeneralExpressionVisitor.cs:行号 31
+   在 Chloe.Query.Visitors.FilterPredicateExpressionVisitor.ParseFilterPredicate(LambdaExpression lambda, List`1 moeList) 位置 E:\Projects\YouGou8\Chloe\Query\Visitors\FilterPredicateExpressionVisitor.cs:行号 16
+   在 Chloe.Query.QueryState.QueryStateBase.Accept(WhereExpression exp) 位置 E:\Projects\YouGou8\Chloe\Query\QueryState\QueryStateBase.cs:行号 44
+   在 Chloe.Query.Visitors.QueryExpressionVisitor.Visit(WhereExpression exp) 位置 E:\Projects\YouGou8\Chloe\Query\Visitors\QueryExpressionVisitor.cs:行号 28
+   在 Chloe.Query.QueryExpressions.WhereExpression.Accept[T](QueryExpressionVisitor`1 visitor) 位置 E:\Projects\YouGou8\Chloe\Query\QueryExpressions\WhereExpression.cs:行号 21
+   在 Chloe.Query.Visitors.QueryExpressionVisitor.Visit(WhereExpression exp) 位置 E:\Projects\YouGou8\Chloe\Query\Visitors\QueryExpressionVisitor.cs:行号 27
+   在 Chloe.Query.QueryExpressions.WhereExpression.Accept[T](QueryExpressionVisitor`1 visitor) 位置 E:\Projects\YouGou8\Chloe\Query\QueryExpressions\WhereExpression.cs:行号 21
+   在 Chloe.Query.Visitors.QueryExpressionVisitor.Visit(AggregateQueryExpression exp) 位置 E:\Projects\YouGou8\Chloe\Query\Visitors\QueryExpressionVisitor.cs:行号 57
+   在 Chloe.Query.QueryExpressions.AggregateQueryExpression.Accept[T](QueryExpressionVisitor`1 visitor) 位置 E:\Projects\YouGou8\Chloe\Query\QueryExpressions\AggregateQueryExpression.cs:行号 30
+   在 Chloe.Query.Visitors.QueryExpressionVisitor.VisitQueryExpression(QueryExpression queryExpression) 位置 E:\Projects\YouGou8\Chloe\Query\Visitors\QueryExpressionVisitor.cs:行号 17
+   在 Chloe.Query.Internals.InternalQuery`1.GenerateCommandFactor() 位置 E:\Projects\YouGou8\Chloe\Query\Internals\InternalQuery.cs:行号 26
+   在 Chloe.Query.Internals.InternalQuery`1.GetEnumerator() 位置 E:\Projects\YouGou8\Chloe\Query\Internals\InternalQuery.cs:行号 45
+   在 System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   在 Chloe.Query.Query`1.ExecuteAggregateQuery[TResult](MethodInfo method, Expression argument, Boolean checkArgument) 位置 E:\Projects\YouGou8\Chloe\Query\Query`.cs:行号 298
+   在 Chloe.Query.Query`1.Count() 位置 E:\Projects\YouGou8\Chloe\Query\Query`.cs:行号 173
+   在 YouGou8.Service.ProductService.GetList(String types, String name, Int32 pageSize, Int32 pageIndex, Int32& totalCount) 位置 E:\Projects\YouGou8\YouGou8.Service\ProductService.cs:行号 62
+   在 YouGou8.Web.Controllers.ApiController.GetList(String name, String types, Int32 page, Int32 size) 位置 E:\Projects\YouGou8\YouGou8.Web\Controllers\ApiController.cs:行号 41
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+-----------------------------------------------------------
+
+
+Time:    2017/5/23 15:35:46
+Action:  
+Message: System.NotSupportedException: Does not support method 'Int32.ToString()'.
+   在 Chloe.MySql.SqlGenerator.Visit(DbMethodCallExpression exp) 位置 E:\Projects\YouGou8\Chloe.MySql\SqlGenerator.cs:行号 475
+   在 Chloe.DbExpressions.DbMethodCallExpression.Accept[T](DbExpressionVisitor`1 visitor) 位置 E:\Projects\YouGou8\Chloe\DbExpressions\DbMethodCallExpression.cs:行号 28
+   在 Chloe.MySql.SqlGenerator.Method_String_Contains(DbMethodCallExpression exp, SqlGenerator generator) 位置 E:\Projects\YouGou8\Chloe.MySql\SqlGenerator_MethodHandlers.cs:行号 137
+   在 Chloe.MySql.SqlGenerator.Method_Contains(DbMethodCallExpression exp, SqlGenerator generator) 位置 E:\Projects\YouGou8\Chloe.MySql\SqlGenerator_MethodHandlers.cs:行号 206
+   在 Chloe.MySql.SqlGenerator.Visit(DbMethodCallExpression exp) 位置 E:\Projects\YouGou8\Chloe.MySql\SqlGenerator.cs:行号 478
+   在 Chloe.DbExpressions.DbMethodCallExpression.Accept[T](DbExpressionVisitor`1 visitor) 位置 E:\Projects\YouGou8\Chloe\DbExpressions\DbMethodCallExpression.cs:行号 28
+   在 Chloe.MySql.SqlGenerator.ConcatOperands(IEnumerable`1 operands, String connector) 位置 E:\Projects\YouGou8\Chloe.MySql\SqlGenerator.cs:行号 758
+   在 Chloe.MySql.SqlGenerator.Visit(DbAndExpression exp) 位置 E:\Projects\YouGou8\Chloe.MySql\SqlGenerator.cs:行号 162
+   在 Chloe.DbExpressions.DbAndExpression.Accept[T](DbExpressionVisitor`1 visitor) 位置 E:\Projects\YouGou8\Chloe\DbExpressions\DbAndExpression.cs:行号 21
+   在 Chloe.MySql.SqlGenerator.BuildWhereState(DbExpression whereExpression) 位置 E:\Projects\YouGou8\Chloe.MySql\SqlGenerator.cs:行号 701
+   在 Chloe.MySql.SqlGenerator.BuildGeneralSql(DbSqlQueryExpression exp) 位置 E:\Projects\YouGou8\Chloe.MySql\SqlGenerator.cs:行号 681
+   在 Chloe.MySql.SqlGenerator.Visit(DbSqlQueryExpression exp) 位置 E:\Projects\YouGou8\Chloe.MySql\SqlGenerator.cs:行号 347
+   在 Chloe.DbExpressions.DbSqlQueryExpression.Accept[T](DbExpressionVisitor`1 visitor) 位置 E:\Projects\YouGou8\Chloe\DbExpressions\DbSqlQueryExpression.cs:行号 28
+   在 Chloe.MySql.DbExpressionTranslator.Translate(DbExpression expression, List`1& parameters) 位置 E:\Projects\YouGou8\Chloe.MySql\DbExpressionTranslator.cs:行号 18
+   在 Chloe.Query.Internals.InternalQuery`1.GenerateCommandFactor() 位置 E:\Projects\YouGou8\Chloe\Query\Internals\InternalQuery.cs:行号 37
+   在 Chloe.Query.Internals.InternalQuery`1.GetEnumerator() 位置 E:\Projects\YouGou8\Chloe\Query\Internals\InternalQuery.cs:行号 45
+   在 System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
+   在 Chloe.Query.Query`1.ExecuteAggregateQuery[TResult](MethodInfo method, Expression argument, Boolean checkArgument) 位置 E:\Projects\YouGou8\Chloe\Query\Query`.cs:行号 298
+   在 Chloe.Query.Query`1.Count() 位置 E:\Projects\YouGou8\Chloe\Query\Query`.cs:行号 173
+   在 YouGou8.Service.ProductService.GetList(String types, String name, Int32 pageSize, Int32 pageIndex, Int32& totalCount) 位置 E:\Projects\YouGou8\YouGou8.Service\ProductService.cs:行号 62
+   在 YouGou8.Web.Controllers.ApiController.GetList(String name, String types, Int32 page, Int32 size) 位置 E:\Projects\YouGou8\YouGou8.Web\Controllers\ApiController.cs:行号 41
+   在 lambda_method(Closure , ControllerBase , Object[] )
+   在 System.Web.Mvc.ActionMethodDispatcher.Execute(ControllerBase controller, Object[] parameters)
+   在 System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
+   在 System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
+   在 System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+-----------------------------------------------------------
+
+
+Time:    2017/5/23 17:54:25
+Action:  
+Message: MySql.Data.MySqlClient.MySqlException (0x80004005): Column 'NickName' cannot be null
+   在 MySql.Data.MySqlClient.MySqlStream.ReadPacket()
+   在 MySql.Data.MySqlClient.NativeDriver.GetResult(Int32& affectedRow, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.GetResult(Int32 statementId, Int32& affectedRows, Int64& insertedId)
+   在 MySql.Data.MySqlClient.Driver.NextResult(Int32 statementId, Boolean force)
+   在 MySql.Data.MySqlClient.MySqlDataReader.NextResult()
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteReader(CommandBehavior behavior)
+   在 MySql.Data.MySqlClient.MySqlCommand.ExecuteScalar()
+   在 Chloe.Core.InternalAdoSession.ExecuteScalar(String cmdText, DbParam[] parameters, CommandType cmdType) 位置 E:\Projects\YouGou8\Chloe\Core\InternalAdoSession.cs:行号 195
+-----------------------------------------------------------
+
+

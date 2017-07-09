@@ -1,0 +1,279 @@
+html,body { background:#ececec;}
+/* 覆盖 */
+ul,li { list-style: none; padding: 0; margin: 0}
+
+/* 外挂图形文字 */
+@font-face {font-family: "iconfont";
+  src: url('../fonts/iconfont.eot');
+  src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'),
+  url('../fonts/iconfont.woff') format('woff'),
+  url('../fonts/iconfont.ttf') format('truetype'),
+  url('../fonts/iconfont.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+@keyframes more_list {
+    from {
+    left: 0;
+    bottom: -900px;
+    }
+    to {
+    left: 0;
+    bottom: 0;
+    }
+}
+@-webkit-keyframes more_list {
+    from {
+    left: 0;
+    bottom: -900px;
+    }
+    to {
+    left:0;
+    bottom: 0;
+    }
+}
+
+/* 主体 */
+.pet_mian { max-width: 640px; margin: 0 auto; background: #ececec; position: relative;}
+.pet_content_main { max-width: 100%; background: #fff; padding:10px 20px; -webkit-box-shadow:  0 0 3px rgba(100,100,100,.1); box-shadow: 0 0 3px rgba(100,100,100,.1);}
+/* 圆形按钮 */
+.pet_circle_nav {padding:25px 10px 5px;max-width: 100%;  }
+.pet_circle_nav_list{ max-width: 100%; overflow: hidden;}
+.pet_circle_nav_list li { width: 25%; float: left; margin-bottom: 15px;}
+.pet_circle_nav_list a {border-radius: 50%; width: 55px; height: 55px; display: block; margin: 0 auto; color: #fff; text-align: center; line-height: 55px; font-size: 35px;-webkit-transition: all 0.2s ease;transition: all 0.2s ease;}
+.pet_circle_nav_list a:hover { -webkit-box-shadow: inset 0 0 40px rgba(0,0,0,.3); box-shadow: inset 0 0 40px rgba(0,0,0,.3);-webkit-transition: all 0.2s ease;transition: all 0.2s ease; }
+.pet_circle_nav_list span { display: block; width: 100%; text-align: center; padding-top: 5px; font-size: 14px;}
+.pet_nav_xinxianshi { background: #fe9700; }
+.pet_nav_zhangzhishi {background: #f26765; }
+.pet_nav_kantuya {background: #6f68df; }
+.pet_nav_mengzhuanti {background: #7f2d00;}
+.pet_nav_meirong {background: #fd7a49;}
+.pet_nav_gengduo { background: #7fd02b;}
+.pet_nav_yiyuan {background: #19cf8a; }
+.pet_nav_dianpu {background: #4493f7;}
+.pet_nav_bk {background: #6f67e0; }
+.pet_nav_wd {background: #fd7949; }
+.pet_nav_sy {background: #ff9702; }
+.pet_nav_xx {background: #00c2ea; }
+.pet_nav_sz {background: #3296ee; }
+.pet_nav_ms {background: #7fd02b; }
+.pet_nav_qs {background: #19ce8b; }
+.pet_nav_qt {background: #fe618e; }
+/* 文章列表 */
+.am-list-news-default { margin-top: 0;}
+.pet_content_main .am-list>li {margin-bottom: 0; border: none; border-bottom: 1px solid #f1f1f1;}
+.am-list-news-default .am-list .am-list-item-desced {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+ .am-list .am-list-item-thumbed .info{
+    margin-top:5px; font-size:12px;height:23px; line-height:23px;
+}
+ .am-list .am-list-item-thumbed .info .info-item{
+     padding:0px;
+     float:left;
+     width:33.33%;
+ }
+.am-list .am-list-item-thumbed .copy{
+    text-align:center; margin:5px 0 0 0;font-size:8px;
+        
+}
+.am-list .am-list-item-thumbed .copy a{
+    padding:3px 1em;
+    font-weight:bold; width:100%;
+}
+.am-list .am-list-item-thumbed .taobao{
+    width:100%;
+    margin-top:4.5em;
+}
+.am-list .am-list-item-thumbed .taobao a{
+    width:100%; margin:10px 0px;
+}
+.am-list-news-default .am-list .am-list-item-desced .am-list-item-text { margin: 10px 0 0 0; }
+.am-list-news-default .am-list .am-list-item-thumb-right .am-list-thumb{
+    padding-right:5px;
+    padding-left:0px;
+}
+.pet_content_main .am-list, .am-topbar { margin-bottom: 0;}
+.pet_content_main .am-list-news-default { margin: 0;}
+.pet_content_main .am-list-item-hd a  { font-size:13px;  }
+.pet_content_main .am-list-news-default .pet_list_one_bt {margin-top: 0px; line-height: 14px;}
+.pet_content_main .am-list-news-default  .pet_list_one_nr { }
+.pet_content_main .am-list-news-default  .pet_list_one_info { width: 100%; clear: both; height: 30px; margin-bottom: 10px;}
+.pet_content_main .am-list-news-default  .pet_list_one_info_l { float: left;}
+.pet_content_main .am-list-news-default  .pet_list_one_info_ico { width: 26px; height: 26px; float: left;}
+/*.am-list-news-default .am-list .pet_list_one_block { padding-bottom: 20px; margin-bottom: 7px;}*/
+.pet_content_main .am-list-news-default  .pet_list_one_info_ico img {width: 100%;border-radius: 50%;}
+.pet_content_main .am-list-news-default  .pet_list_one_info_name { color: #757575; float: left; font-size: 12px; height: 26px; line-height: 26px; text-indent: .5em;}
+.pet_content_main .am-list-news-default  .pet_list_one_info_r { float: right;}
+.am-list-news-default .am-list .am-list-item-desced  .pet_list_two_text { margin-top: 5px; }
+.pet_list_one_info_tytj { float: left; font-size: 16px; color: #222; font-weight: bold;}
+.pet_list_one_list { padding: 8px 0;}
+.pet_list_one_list li{ padding: 0;}
+.pet_list_one_list li:nth-of-type(1) { padding-right: 6px;}
+.pet_list_one_list li:nth-of-type(2) { padding: 0 3px;}
+.pet_list_one_list li:nth-of-type(3) { padding-left: 6px;}
+.pet_list_one_list li:nth-of-type(4) { padding-right: 6px; padding-top: 6px;}
+.pet_list_one_list li:nth-of-type(5) { padding: 0 3px; padding-top: 6px;}
+.pet_list_one_list li:nth-of-type(6) { padding-left: 6px; padding-top: 6px;}
+.pet_list_tag {height: 20px; line-height: 20px;padding-right: 8px; margin: 3px 0; font-size: 12px;}
+.pet_list_tag_xxs { border-right: 3px solid #fe9700; color: #fe9700;  }
+.pet_list_tag_zzs { border-right: 3px solid #f26765; color: #f26765;  }
+.pet_list_tag_stj { border-right: 3px solid #764f9c; color: #764f9c;  }
+.pet_list_tag_kty { border-right: 3px solid #6f68df; color: #6f68df;  }
+.pet_list_tag_mzt { border-right: 3px solid #7f2d00; color: #7f2d00;  }
+.pet_content_main .am-list-news-default .pet_list_one_text { margin-top:10px;}
+.pet_content_main .am-list-news-default .pet_list_zt_img { width: 100%;padding: 8px 0;}
+.pet_content_main .am-list-news-default .pet_list_zt_img img { width: 100%;}
+.pet_list_one_tytj { padding: 0px}
+
+/* 弹出更多列表 */
+.pet_more_list { width: 100%; left: 0; height: 92%;background:rgba(48,52,53,.9);   position: fixed; bottom: -9900px; z-index: 9999;-webkit-transition: all .5s;
+      transition: all 0.5s;}
+.pet_more_list_block {max-width: 640px; margin: 0 auto; color: #fff; }
+.pet_more_close { text-align: right; height: 35px; width: 100%; line-height: 45px; padding-right: 15px;font-size: 30px;color: #cbc8d9; }
+.pet_more_list_show {bottom: 0;left: 0;animation: more_list 0.5s;-webkit-animation: more_list 0.5s;}
+.pet_more_list_block { width: 98%; margin: 0 auto; text-align: left;}
+.pet_more_list_block_name_title { color: #918f90; font-size: 15px; clear: both; display: block;
+    float: left;
+    height: 24px;
+    line-height: 24px;}
+.pet_more_list_block_line { cursor: pointer; color: #fff; padding:2px 5px;margin-left: 0px; display: inline-block; background: #303435; border-radius: 5px;}
+.pet_more_list_block_line:hover { color: #fff;}
+.pet_more_list_block_line_height { padding-top: 10px;}
+.pet_more_list_block_line_font {display: block; float: left; height: 20px; line-height: 20px; font-size: 12px; }
+.pet_list_tytj_ico { margin: 0; margin-top: 2px; margin-right: 5px;}
+/* 内页头部 */
+.pet_head {position: fixed; height: 49px; width: 100%; left: 0; right: 0; z-index: 999; }
+.pet_head_block {background: #303435; max-width: 640px; margin: 0 auto; line-height: 53px; color:#fff;font-weight:bold; }
+.pet_head_jt_ico { font-size: 25px; border-right: 1px solid #4c4a4b;  }
+.pet_head_gd_ico { font-size: 27px; }
+.pet_head_block .am-header-nav>a {color: #918f90; height: 30px; line-height: 30px; min-width: 48px;}
+
+/* 内页文章 */
+.pet_content { width: 100%; background: #ececec; padding-top: 49px;}
+.am-paragraph-default a { color: #ff5656;}
+.pet_content_block { width: 100%; background: #fff; margin: 0 auto;  box-shadow: 0 1px 2px rgba(0,0,0,0.05);}
+.pet_content_block .am-paragraph-default img { border: none; padding: 0; margin: 0 auto;max-width: 100%;}
+.pet_content_block .am-paragraph-default p {font-size: 17px;line-height: 1.8;}
+.pet_content_article {padding: 20px 8px 0;}
+.pet_content_article img { border-radius: 5px;}
+.pet_content_article blockquote p { margin-top: 0;}
+.pet_content_article embed { width: 100%;}
+
+/*  喜欢 分享*/
+.pet_content_list { padding-top: 49px;}
+
+/* 文章作者 */
+.pet_article_title { font-weight:bold; margin: 0;}
+.pet_head_block .pet_article_user { margin: 0;margin-left: 65px; position: relative; overflow: visible;}
+.pet_article_user_info_tab { text-align: left;position: absolute;  background: #fff; top: -50px; left: -30px; border: 1px solid rgba(0,0,0,0.01); width: 160px; height:38px;  box-shadow: 0px 1px 3px rgba(0,0,0,0.08);}
+.pet_article_user_info_tab_show {top: 45px;left: -30px;animation: pet_article_user_info 0.5s;-webkit-animation: pet_article_user_info 0.5s; }
+.pet_article_user_info_tab_cloes { top: -50px; left: -30px; animation: pet_article_user_info_over 0.5s;-webkit-animation: pet_article_user_info_over 0.5s;}
+.pet_article_user_info_tab_font { font-size: 12px; color: #222; position: relative;padding: 10px;}
+.pet_article_user_info_tab_font_center { width: 100%; height: 18px; line-height: 15px;}
+.pet_article_user_info_tab_font_center i { font-style: normal; display:block; float: left; font-size: 10px; text-align: center;  border:1px solid #b9b8b8; color: #b9b8b8; border-radius: 8px; width: 35px; line-height: 15px; height: 15px;}
+.pet_article_user_info_tab_font_center span {display:block; margin-left: 40px;  line-height: 16px; height: 15px;}
+.pet_article_user_info_tab_font_center_line { border-bottom: 1px solid #f7f7f7; padding-top: 3px;}
+.pet_head .pet_article_user_info_tab_font_center a { color: #b9b8b8; display: block; width: 100%; padding-top: 5px;}
+.pet_article_user_info_tab_font_triangle {position: absolute; top:-9px; left: 69px; height:0;width:0;border-bottom:solid 8px #fff;border-left:solid 8px #303435;border-right:solid 8px #303435;}
+.pet_article_user_info_tab_ico{}
+.pet_article_user_ico { width: 26px; height: 50px; display:block; float: left; }
+.pet_article_user_ico img { width: 100%;border-radius: 50%;}
+.pet_head_block .pet_article_user_name { font-size: 16px;line-height: 50px; margin-left: 35px; text-align: left; height: 50px;color: #918f90; display:block;}
+.pet_article_user_time {color: #aaaaaa;font-size: 14px; margin-bottom: 10px;}
+.pet_article_dowload { border-top: 1px solid #f2f2f2; width: 100%; margin: 15px 0 0; overflow: hidden; padding-top: 15px;}
+.pet_article_dowload_ico { width: 35px; height: 35px; position: relative; float: left;}
+.pet_article_dowload_ico img { width: 100%;}
+.pet_article_dowload_title { width: 100%;font-size: 15px;  color: #b2b2b2;padding: 0 16px 15px;}
+.pet_article_dowload_content { width: 100%; position: relative; background: #fafafa; padding:23px 16px;}
+.pet_article_dowload_triangle { position: absolute; top:-41px; left: 13px; margin:30px;height:0;width:0;border-bottom:solid 11px #f7f7f7;border-left:solid 11px #fff;border-right:solid 11px #fff;}
+.pet_article_dowload_content_font { color: #b2b2b2; font-size: 12px; position: relative; margin-left: 45px;  margin-top: -2px;}
+.pet_article_dowload_all { width: 100%; text-align: center; font-size: 12px; padding-top: 10px;}
+.pet_article_dowload_Az { display:inline-block; text-align: center;  border:1px solid #b9b8b8; color: #b9b8b8; border-radius: 10px; width: 85px; line-height: 19px; height: 21px;}
+.pet_article_dowload_Pg {  display:inline-block; text-align: center;  border:1px solid #b9b8b8; color: #b9b8b8; border-radius: 10px; width: 85px; height: 21px; line-height: 19px;}
+.pet_article_dowload_Az:hover { border: 1px solid #ff5656; color: #ff5656;}
+.pet_article_dowload_Pg:hover { border: 1px solid #54d669 ; color: #54d669 ;}
+.pet_article_footer_info { clear:both; text-align: center; font-size: 12px; color:#b9b8b8; height: 30px; line-height: 30px; margin:17px;}
+.pet_article_like {  width: 100%; background: #fff; margin: 0 auto;  box-shadow: 0 1px 2px rgba(0,0,0,0.05); padding: 5px;}
+.pet_article_like_delete { padding: 0;box-shadow:none;}
+.pet_article_like_title {font-weight: bold; color: #222; font-size: 16px; width: 100%;border-bottom: 1px solid #f1f1f1; padding-bottom: 15px; margin-bottom: 5px;}
+.pet_dowload_more_top_off { border:none;}
+.pet_dowload_more_top_san {border-bottom:solid 11px #fff;border-left:solid 11px #ececec;border-right:solid 11px #ececec;}
+.pet_dowload_more_top_bg { background: #fff;}
+
+.am-icon-coupon{font-size:12px;display:inline-block;height:21px;line-height:21px;margin:0 10px 0 22px;position:relative;border:1px #e44a4a solid;border-left-width:0;border-right-width:0;padding:0 4px;color:#e44a4a}
+.am-icon-coupon::before{content:'';background-image:url(../img/coupon.png);background-position:0 0;position:absolute;top:-1px;left:-22px;width:22px;height:21px}
+.am-icon-coupon::after{content:'';background-image:url(../img/coupon.png);background-position:-26px 0;position:absolute;top:-1px;right:-4px;width:4px;height:21px}
+
+.weui-mask_transparent {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+.weui-toast {
+    position: fixed;
+    z-index: 5000;
+    width: 7.6em;
+    min-height: 7.6em;
+    top: 180px;
+    left: 50%;
+    margin-left: -3.8em;
+    background: rgba(17, 17, 17, 0.7);
+    text-align: center;
+    border-radius: 5px;
+    color: #FFFFFF;
+}
+.weui-icon_toast {
+    margin: 22px 0 0;
+    display: block;
+}
+.weui-icon-success-no-circle {
+    font-size: 23px;
+    color: #09BB07;
+}
+.weui-icon_toast.weui-icon-success-no-circle:before {
+    color: #FFFFFF;
+    font-size: 35px;
+}
+.weui-toast__content {
+    margin: 0 0 15px;
+}
+
+.no-data{
+    display:none;
+    text-align:center; 
+    margin:25px 0;
+}
+
+/* IP */
+@media only screen and (max-width:414px){
+    .pet_content_main .am-list-news-default .pet_list_one_text { display:none;}
+     .am-list .am-list-item-thumbed .info .info-item{
+         padding:0px;
+         float:left;
+         width:auto;
+     }
+     .am-list-news-default .am-list .am-list-item-thumb-right .am-list-thumb{
+         padding-right:5px;
+         padding-left:0px;
+         max-height:100px;
+     }
+     .am-list .am-list-item-thumbed .taobao{
+        margin-top:0;
+    }
+}
+@media only screen and (max-width: 340px) {
+.pet_wiki_head_info_title { font-size: 23px;line-height: 25px; padding-top: 10px; }
+.pet_wiki_head_info_title  span { font-size: 10px; line-height: 15px;}
+.pet_wiki_text_line_r { display: none;}
+}

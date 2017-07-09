@@ -1,0 +1,36 @@
+<!--brand.wxml-->
+<view class="page">
+  <!--<view class="page__hd">
+    <image mode="widthFix" src="https://63971804.qcloud.la/images/t-brand.jpg"></image>
+  </view>-->
+  <view class="page__bd">
+    <view class="product_container">
+      <block wx:for="{{productList}}" wx:key="id">
+        <navigator url="/pages/detail/detail?id={{item.id}}">
+          <view class="product_item">
+            <image src="{{item.img}}" mode="widthFix"></image>
+            <text class="product_name">{{item.name}}</text>
+            <view class="product_prices">
+              <view class="product_prices_f">{{item.sales}}人喜欢</view>
+              <view>参考价:¥{{item.price}}</view>
+            </view>
+          </view>
+        </navigator>
+      </block>
+    </view>
+
+  </view>
+  <view class="weui-loadmore" hidden="{{pageFinished}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+  </view>
+  <!--<view class="weui-loadmore" hidden="{{pageFinished||sdkVersion>=121||loading}}">
+    <button class="weui-btn" type="default" bindtap="onReachBottom">点击加载更多>></button>
+  </view>-->
+  <view class="weui-loadmore weui-loadmore_line" hidden="{{!(pageFinished&&!loading&&productList.length==0)}}">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">即将上架,敬请期待</view>
+  </view>
+  <view class="weui-loadmore weui-loadmore_line" hidden="{{!(pageFinished&&!loading&&productList.length>0)}}">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">已经到底线了</view>
+  </view>
+</view>
