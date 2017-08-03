@@ -52,6 +52,7 @@
     <Compile Include="AdminService.cs" />
     <Compile Include="CategoryService.cs" />
     <Compile Include="ConfigService.cs" />
+    <Compile Include="DarenProService.cs" />
     <Compile Include="FreeProductService.cs" />
     <Compile Include="FreeRecordService.cs" />
     <Compile Include="MySqlConnectionFactory.cs" />

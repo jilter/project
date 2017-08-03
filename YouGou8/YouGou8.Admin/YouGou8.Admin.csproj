@@ -130,6 +130,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\DarenController.cs" />
     <Compile Include="Controllers\FreeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -183,6 +184,7 @@
     <Content Include="Views\ProductGet\Import.cshtml" />
     <Content Include="Views\ProductGet\Taobao.cshtml" />
     <Content Include="Views\Product\Update.cshtml" />
+    <Content Include="Views\Daren\Import.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -18,7 +18,7 @@ namespace YouGou8.Service
             Regex priceReg = new Regex("(?<=（售价 ).+(?=元）)");
             Regex introReg = new Regex("(?<=【推荐理由】).+(?=\\n)");
             Regex salesReg = new Regex("(?<=已抢).+(?=件)");
-            Regex couponReg = new Regex("(?<=领).+(?=元内部券包邮秒杀)");
+            Regex couponReg = new Regex("(?<=领).+(?=元券包邮秒杀)");
             Regex urlReg = new Regex("(?<=商品链接：).+(?=；)");
             Regex cmdReg = new Regex("(?<=或复制这条信息).+(?=，)");
 

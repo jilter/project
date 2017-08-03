@@ -164,9 +164,8 @@ namespace YouGou8.Service
             return q.ToList();
         }
 
-        public static string SaveExcle(HttpPostedFileBase file)
+        public static string SaveExcle(HttpPostedFileBase file,string root= "~/Upload/Product/")
         {
-            var root = "~/Upload/Product/";
             var phicyPath = HostingEnvironment.MapPath(root);
             if (!Directory.Exists(phicyPath))
             {
@@ -197,14 +196,18 @@ namespace YouGou8.Service
                                     "Extended Properties=\"Excel {1}.0;HDR={2};IMEX=1;\";" +
                                     "data source={3};",
                                     (fileType == ".xls" ? 4 : 12), (fileType == ".xls" ? 8 : 12), (hasTitle ? "Yes" : "NO"), path);
-                    string strCom = " SELECT * FROM [Page1$]";
+                    string strCom = " SELECT * FROM [{0}]";
                     using (OleDbConnection myConn = new OleDbConnection(strCon))
                     {
+                        myConn.Open();
+                        DataTable sheetNames = myConn.GetOleDbSchemaTable(System.Data.OleDb.OleDbSchemaGuid.Tables, new object[] { null, null, null, "TABLE" });
+                        string tableName = sheetNames.Rows[0][2].ToString();
+                        strCom = string.Format(strCom, tableName);
                         using (OleDbDataAdapter myCommand = new OleDbDataAdapter(strCom, myConn))
                         {
-                            myConn.Open();
                             myCommand.Fill(ds);
                         }
+                        myConn.Close();
                     }
                     if (ds != null && ds.Tables.Count > 0)
                     {

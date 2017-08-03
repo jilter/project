@@ -1,0 +1,152 @@
+﻿
+@{
+    ViewBag.Title = "邓总专用";
+}
+
+<div id="wrapper">
+    @Html.Partial("../Shared/_Left")
+    <div id="page-wrapper">
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <!-- Form Elements -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading text-center">
+                            邓总专用
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form role="form" id="importForm" method="post" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label>导入的Excel文件</label>
+                                            <input id="excelFile" name="excelFile" type="file" />
+                                        </div>
+                                        <button type="submit" class="btn btn-primary" style="width:50%;">导入</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Form Elements -->
+                </div>
+            </div>
+            <div class="row" id="list-div" style="display:none;">
+                <div class="col-md-6">
+                    重复
+                    <table class="table table-hover" id="repeat-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>链接</th>
+                                <th>日期</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    失败
+                    <table class="table table-hover" id="fail-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>链接</th>
+                                <th>日期</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="row" id="list-div1" style="display:none;">
+                <div class="col-md-6">
+                    成功
+                    <table class="table table-hover" id="success-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>链接</th>
+                                <th>日期</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+
+<div id="importModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content text-center" style="padding:30px;">
+            ...
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        function ChangeDateFormat(cellval) {
+            var date = new Date(parseInt(cellval.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            return date.getFullYear() + "-" + month + "-" + currentDate + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        }
+
+        $(function () {
+            $("#importForm").submit(function (event) {
+                $('.modal-content').html("商品导入中,请稍等");
+                $('#importModal').modal('show');
+                $.ajax({
+                    url: "/daren/importp",
+                    type: "post",
+                    data: new FormData($('#importForm')[0]),
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        console.log(data);
+                        $('.modal-content').html(data.msg);
+                        setTimeout(function () { $('#importModal').modal('hide'); }, 2000);
+                        if (data.code == 0) {
+                            $("#list-div").show();
+                            $("#list-div1").show();
+                            $.each(data.data.rlist, function (index, item) {
+                                var html = "<tr>";
+                                html += "<td>" + item.ItemID + "</td>";
+                                html += "<td>" + item.Link + "</td>";
+                                html += "<td>" + ChangeDateFormat(item.AddedDate) + "</td>";
+                                html += "</tr>";
+                                $("#repeat-table").append(html);
+                            });
+                            $.each(data.data.flist, function (index, item) {
+                                var html = "<tr>";
+                                html += "<td>" + item.ItemID + "</td>";
+                                html += "<td>" + item.Link + "</td>";
+                                html += "<td>" + ChangeDateFormat(item.AddedDate) + "</td>";
+                                html += "</tr>";
+                                $("#fail-table").append(html);
+                            });
+                            $.each(data.data.slist, function (index, item) {
+                                var html = "<tr>";
+                                html += "<td>" + item.ItemID + "</td>";
+                                html += "<td>" + item.Link + "</td>";
+                                html += "<td>" + ChangeDateFormat(item.AddedDate) + "</td>";
+                                html += "</tr>";
+                                $("#success-table").append(html);
+                            });
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        $('.modal-content').html("商品导入失败");
+                    },
+                    complete: function (XMLHttpRequest, textStatus) {
+                        setTimeout(function () { $('#importModal').modal('hide'); }, 2000);
+                    }
+                });
+                event.preventDefault();
+                return false;
+            });
+        })
+    </script>
+}

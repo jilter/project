@@ -52,6 +52,9 @@
                 <a class='@(Request.Path.ToLower().IndexOf("category")>-1?"active-menu":"")' href="/category/index"><i class="fa fa-table fa-3x"></i> 分类管理</a>
             </li>*@
             <li>
+                <a class='@(Request.Path.ToLower().IndexOf("daren")>-1?"active-menu":"")' href="/daren/import"><i class="fa fa-bar-chart-o fa-3x"></i> 邓总专用</a>
+            </li>
+            <li>
                 <a href="/home/logout"><i class="fa fa-bar-chart-o fa-3x"></i> 退出登录</a>
             </li>
         </ul>
