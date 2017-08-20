@@ -214,9 +214,14 @@ namespace YouGou8.Admin.Helper
             theGraphics.DrawImage(imgProduct,0,0,320,320);
             Bitmap imgQRCode = GetQRCode("http://yougou8.com.cn/wechat/p" + id, "Byte", "H", 8, 2);
             theGraphics.DrawImage(imgQRCode, 210, 330, 100, 100);
-            theGraphics.DrawString(title.Substring(0,12), theFont, theBrush, 5, 325);
-            if (title.Length > 12)
+            theGraphics.DrawString("长按识别二维码", new Font(FontType, 8.0f, FontStyle.Regular), thePriceBrush, 212, 432);
+            if (title.Length <= 12)
             {
+                theGraphics.DrawString(title, theFont, theBrush, 5, 325);
+            }
+            else 
+            {
+                theGraphics.DrawString(title.Substring(0, 12), theFont, theBrush, 5, 325);
                 theGraphics.DrawString(title.Substring(12), theFont, theBrush, 5, 345);
             }
             theGraphics.DrawString("现价:"+price, theFont, theBrush, 5, 375);

@@ -276,8 +276,8 @@ namespace YouGou8.Admin.Controllers
         public ActionResult Test()
         {
             //string p=CodeHelper.SaveImageFromWeb("http://img.alicdn.com/imgextra/i4/2635320108/TB20kWYmCJjpuFjy0FdXXXmoFXa_!!2635320108.jpg_310x310.jpg");
-            string c = CodeHelper.CreateQRCode("http://yougou8.com.cn/wechat/2.html", "Byte", "H", 8, 2);
-            return Content(c);
+            //string c = CodeHelper.CreateQRCode("http://yougou8.com.cn/wechat/2.html", "Byte", "H", 8, 2);
+            return Content("");
         }
     }
 }
