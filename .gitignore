@@ -46,3 +46,6 @@
 /YouGou8/Chloe.MySql/bin/Release/Chloe.dll
 /YouGou8/Chloe.MySql/bin/Release/Chloe.pdb
 /YouGou8/YouGou8.Admin/System
+/YouGou8/YouGou8.Admin/*.user
+/YouGou8/YouGou8.Web/Properties/PublishProfiles/*.user
+/YouGou8/YouGou8.Admin/Properties/PublishProfiles/*.user

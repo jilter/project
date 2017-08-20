@@ -20,6 +20,12 @@ namespace YouGou8.Web
             );
 
             routes.MapRoute(
+               "WechatDetail",
+               "{controller}/p{id}",
+               new { controller = "Wechat", action = "Detail", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                "Html2",
                "{controller}/{id}.html",
                new { controller = "Weibo", action = "Index", id = UrlParameter.Optional }

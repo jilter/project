@@ -123,6 +123,7 @@
     <Content Include="assets-web\css\amazeui.page.css" />
     <Content Include="assets-web\css\animate.min.css" />
     <Content Include="assets-web\css\wechat.css" />
+    <Content Include="assets-web\css\wechatdetail.css" />
     <Content Include="assets-web\css\yougou8.css" />
     <Content Include="assets-web\img\a1.png" />
     <Content Include="assets-web\img\a2.jpg" />
@@ -184,6 +185,7 @@
     <Content Include="assets-web\img\qqq1.jpg" />
     <Content Include="assets-web\img\s1.jpg" />
     <Content Include="assets-web\img\search-bg.png" />
+    <Content Include="assets-web\img\tb.jpg" />
     <Content Include="assets-web\img\w1.jpg" />
     <Content Include="assets-web\img\w2.jpg" />
     <Content Include="assets-web\img\w3.jpg" />
@@ -259,6 +261,7 @@
     <Content Include="Views\Default\Goto.cshtml" />
     <Content Include="Views\Wechat\Index.cshtml" />
     <Content Include="Views\Weibo\Index.cshtml" />
+    <Content Include="Views\Wechat\Detail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
