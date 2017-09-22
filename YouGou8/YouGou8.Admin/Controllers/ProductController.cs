@@ -248,5 +248,36 @@ namespace YouGou8.Admin.Controllers
             }
             
         }
+
+        public ActionResult Code(long id)
+        {
+            Product_MY product = ProductMyService.GetInfo(id);
+            string imgSrc = "";
+            if (product != null )
+            {
+                if (string.IsNullOrWhiteSpace(product.Remark))
+                {
+                    imgSrc = CodeHelper.CombinImage(product.PImgUrls.Split('|')[0], product.ID, product.PTitle, product.PPrice.Value, product.CouponMoney.Value, product.PSales.Value);
+                    if (!string.IsNullOrWhiteSpace(imgSrc))
+                    {
+                        product.Remark = imgSrc;
+                        ProductMyService.Update(product);
+                    }
+                }
+                else
+                {
+                    imgSrc = product.Remark;
+                }
+            }
+            ViewBag.Src = imgSrc;
+            return View();
+        }
+
+        public ActionResult Test()
+        {
+            //string p=CodeHelper.SaveImageFromWeb("http://img.alicdn.com/imgextra/i4/2635320108/TB20kWYmCJjpuFjy0FdXXXmoFXa_!!2635320108.jpg_310x310.jpg");
+            //string c = CodeHelper.CreateQRCode("http://yougou8.com.cn/wechat/2.html", "Byte", "H", 8, 2);
+            return Content("");
+        }
     }
 }

@@ -73,7 +73,8 @@
                                                     <td>@item.Remark</td>
                                                     <td>
                                                         <input id="txt-big-@item.ID" type="hidden" value="@(item.IsBig?"true":"false")" />
-                                                        <a id="btn-big-@item.ID" href="javascript:setProduct(@item.ID)" class="btn btn-info btn-xs">@(item.IsBig?"取消品牌":"设为大牌")</a>
+                                                        @*<a id="btn-big-@item.ID" href="javascript:setProduct(@item.ID)" class="btn btn-info btn-xs">@(item.IsBig?"取消品牌":"设为大牌")</a>*@
+                                                        <a target="_blank" href="/product/code?id=@(item.ID)" class="btn btn-info btn-xs">二维码</a>
                                                         <a href="/product/update?id=@item.ID" class="btn btn-primary btn-xs">修改</a>
                                                         <a href="javascript:deleteProduct(@item.ID)" class="btn btn-danger btn-xs">删除</a>
                                                     </td>

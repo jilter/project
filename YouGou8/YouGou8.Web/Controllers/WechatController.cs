@@ -39,6 +39,7 @@ namespace YouGou8.Web.Controllers
                 {
                     objList.Add(new
                     {
+                        id = item.ID,
                         title = item.PTitle,
                         intro = item.PIntro,
                         img = item.PImgUrls.Split('|')[0],
@@ -51,6 +52,13 @@ namespace YouGou8.Web.Controllers
                 }
             }
             return Json(new { code = 0, data = objList }, JsonRequestBehavior.AllowGet);
+        }
+
+        [OutputCache(Duration =300, VaryByParam="id")]
+        public ActionResult Detail(long id)
+        {
+            Product_MY product = ProductMyService.GetInfo(id);
+            return View(product);
         }
     }
 }

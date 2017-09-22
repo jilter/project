@@ -1,0 +1,110 @@
+﻿@model YouGou8.Model.Product_MY
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
+    <link rel="stylesheet" href="~/assets-web/css/wechatdetail.css">
+    <title>抢@(Convert.ToInt16(Model.CouponMoney))元券-@(Model.PTitle)</title>
+</head>
+<body>
+    <div class="fq-whole am-text-sm">
+        <div style="width:100%;text-align:center;">
+            <img id="img" src="@(Model.PImgUrls.Split('|')[0])" style="max-width:320px; width:100%;">
+        </div>
+        <div class="am-margin-top-xs">
+            <div class="am-text-sm am-padding-xs"><strong id="item_title">@(Model.PTitle)</strong></div>
+        </div>
+        @if (Model.PSales > 0 && Model.CouponMoney > 0 && Model.PPrice > 0)
+        {
+            <div class="am-margin-top-xs">
+                <div class="info">               
+                <div class="info-item">                   
+                    <span class="am-icon-coupon">¥@(Convert.ToInt16(Model.CouponMoney))</span>               
+                    </div>               
+                <div class="info-item" style="font-weight:bold; color:red;">券后:@(Model.PPrice - Model.CouponMoney)&nbsp;&nbsp;</div>
+                <div class="info-item">销量:@(Model.PSales)</div>           
+                </div>
+            </div>
+        }
+        <div class="fq-exquisite-style">
+            <!--淘口令-->
+            <div class="fq-amoy-password fq-background-white am-margin-vertical-xs am-padding-vertical-sm" style="padding-top:1px;">
+
+
+                <div class="copy_taowords">
+                    <textarea class="share_content am-margin-bottom am-badge-success am-badge" id="share_content"></textarea>
+                    <div class="am-text-center am-margin-top-sm ">
+                        <a class="js_copy_taowords share_generalize share_generalize1 am-padding-vertical-xs am-padding-horizontal-lg am-round am-inline-block share" style="background: #f54d23; color: white;" data-clipboard-text="@(Model.CouponCommand)">
+                            一键复制
+                        </a>
+                    </div>
+                </div>
+
+                <div class="am-margin-top-sm am-text-xs am-text-primary am-margin-horizontal-sm" style="text-align: center!important;"><span id="copy_desc">复制/拷贝后</span>，请打开手机【<img src="~/assets-web/img/tb.jpg" style="width:20px;height:20px;border-radius: 4px;position: relative;top: -2px;">】购买！</div>
+
+                <div class="am-margin-top-sm am-margin-horizontal-sm">
+                    <div class="fq-goods-border fq-background-white am-text-center am-margin-top-sm am-padding-vertical-sm am-padding-horizontal-sm">
+                        <div class="fq-explain am-center am-text-center">
+                            <span class="fq-nowrap fq-text-white am-padding-horizontal-sm">长按框内 &gt; 拷贝</span>
+                        </div>
+                        <span id="copy_key_ios" class="fq-abstract-color" style="">复制框内整段文字，打开「手淘」即可「领取优惠券」并购买@(Model.CouponCommand)</span>
+                        <textarea style="display: none; " id="copy_key_android" type="text" class="fq-abstract-color am-form-field am-text-center am-text-sm " oninput="regain();"></textarea>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--BEGIN toast-->
+    <div id="toast" style="display:none;">
+        <div class="weui-mask_transparent"></div>
+        <div class="weui-toast">
+            <i class="am-icon-check weui-icon-success-no-circle weui-icon_toast"></i>
+            <p class="weui-toast__content">复制成功</p>
+        </div>
+    </div>
+    <!--end toast-->
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+            crossorigin="anonymous"></script>
+    <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
+    <script src="~/assets-web/js/clipboard.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var tips = function (title) {
+                var $toast = $('#toast');
+                if ($toast.css('display') != 'none') return;
+                $('.weui-toast__content').text(title);
+                $toast.fadeIn(100);
+                setTimeout(function () {
+                    $toast.fadeOut(100);
+                }, 2000);
+            }
+
+            var copy_init = function () {
+                var clipboard = new Clipboard('.js_copy_taowords');
+                clipboard.on('success', function (e) {
+                    tips('复制成功');
+                });
+                clipboard.on('error', function (e) {
+                    tips('您的浏览不支持复制');
+                });
+            }
+
+            copy_init();
+        });
+    </script>
+</body>
+</html>
