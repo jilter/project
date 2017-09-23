@@ -1,10 +1,419 @@
-<!--index.wxml-->
-<view class="container">
-  <view  bindtap="bindViewTap" class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+<view class="header">
+    <image  id="bg" src="/images/test/bg.jpg" />
+    <view class="data-name" id="user-name">万虎科技~贾素杰</view>
+    <image  id="avt" class="data-avt" src="/images/test/0.jpg" />
+</view>
+<view id="main">
+    <view id="list">
+        <ul>
+            <li>
+                <view class="po-avt-wrap">
+                    <image  class="po-avt data-avt" src="/images/test/0.jpg" />
+                </view>
+                <view class="po-cmt">
+                    <view class="po-hd">
+                        <view class="po-name"><span>万虎科技~贾素杰</span></view>
+                        <view class="post">
+                            <view>大家好，听说国内冻成狗🐶？我这边还挺热～</view>
+                            <view>
+                                <image  class="list-img" src="/images/test/jt1.jpg" />
+                                <image  class="list-img" src="/images/test/yt3.jpg" />
+                                <image  class="list-img data-avt" src="/images/test/0.jpg" />
+                            </view>
+                        </view>
+                        <view class="time">刚刚</view><image  class="c-icon" src="/images/test/c.png" />
+                    </view>
+                    <view class="r"></view>
+                    <view class="cmt-wrap">
+                        <view class="like"><image class="likeimg" src="/images/test/l.png" />苍井空，陈冠希，杨幂，王思聪，陈赫，刘德华，马云...</view>
+                        <view class="cmt-list">
+                            <view><span>wu世勋-EXO：</span>나는 서명～</view>
+                            <view><span>鹿晗：</span>我们在国内冻成狗，我也想跟哥您去热热～</view>
+                            <view><span>权志龙：</span>나는 서명～</view>
+                            <view><span>王思聪：</span>去哪玩啊？那么爽</view>
+                            <view>
+                                <span>万虎科技~贾素杰</span>回复<span>王思聪</span><span>：</span>
+                                澳洲大堡礁，这边刚好是夏季，挺适合避寒的。
+                            </view>
+                            <view><span>杨幂：</span>😘私人飞机出行，求带上我～</view>
+                        </view>
+                    </view>
+                </view>
+            </li>
+            <li>
+                <view class="po-avt-wrap">
+                    <image  class="po-avt" src="/images/test/n5.jpg" />
+                </view>
+                <view class="po-cmt">
+                    <view class="po-hd">
+                        <view class="po-name">
+                            王思聪
+                        </view>
+                        <view class="post">
+                            <view>
+                                那一年这兄弟三人发誓一定要出人头地
+                                <br />
+                                以后有福同享有难同当
+                                <br />
+                                如今：
+                                <br />
+                                大哥只手遮天万人之上
+                                <br />
+                                二哥黄金万两富甲一方
+                                <br />
+                                三弟淡泊名利为人低调
+                            </view>
+                            <image  class="list-img" src="/images/test/xa1.jpg" />
+                            <image  class="list-img" src="/images/test/ma1.jpg" />
+                            <image  class="data-avt list-img" src="/images/test/0.jpg" />
+                        </view>
+                        <view class="time">
+                            1分钟前
+                        </view>
+                        <image  class="c-icon" src="/images/test/c.png" />
+                    </view>
+                    <view class="r">
+                    </view>
+                    <view class="cmt-wrap">
+                        <view class="like">
+                            <image  class="likeimg"  src="/images/test/l.png" />
+                            鹿晗，林更新，杨幂，angelababy，范冰冰...
+                        </view>
+                        <view class="cmt-list">
+                            <view>
+                                        <span>
+                                            鹿晗：
+                                        </span>
+                                赞！
+                            </view>
+                            <view>
+                                <span>万虎科技~贾素杰</span>
+                                        <span>
+                                            ：
+                                        </span>
+                                低调低调。。
+                            </view>
+                            <view>
+                                        <span>
+                                            王思聪
+                                        </span>
+                                回复
+                                <span>万虎科技~贾素杰</span>
+                                        <span>
+                                            ：
+                                        </span>
+                                哥您就是太低调了
+                            </view>
+                            <view>
+                                        <span>
+                                            习
+                                        </span>
+                                回复
+                                <span>万虎科技~贾素杰</span>
+                                        <span>
+                                            ：
+                                        </span>
+                                好几天没见，我们该聚聚了
+                            </view>
+                            <view>
+                                        <span>
+                                            马云
+                                        </span>
+                                回复
+                                <span>万虎科技~贾素杰</span>
+                                        <span>
+                                            ：
+                                        </span>
+                                有笔大生意找你聊聊
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </li>
+            <li>
+                <view class="po-avt-wrap">
+                    <image  class="po-avt" src="/images/test/a1.jpg" />
+                </view>
+                <view class="po-cmt">
+                    <view class="po-hd">
+                        <view class="po-name">
+                            苍井空
+                        </view>
+                        <view class="post">
+                            <view>还是好困~</view>
+                            <image class="list-img" src="/images/test/c1.jpg" />
+                        </view>
+                        <view class="time">
+                            2分钟前
+                        </view>
+                        <image  class="c-icon" src="/images/test/c.png" />
+                        <view class="r">
+                        </view>
+                        <view class="cmt-wrap">
+                            <view class="like">
+                                <image class="likeimg" src="/images/test/l.png" />
+                                陈赫，叫兽易小星，王思聪，陈冠希，余文乐...
+                            </view>
+                            <view class="cmt-list">
+                                <view>
+                                            <span>
+                                                陈赫：
+                                            </span>
+                                    怪我咯~
+                                </view>
+                                <view>
+                                            <span>
+                                                陈冠希：
+                                            </span>
+                                    怪我咯~
+                                </view>
+                                <view>
+                                    <span>万虎科技~贾素杰</span>
+                                            <span>
+                                                ：
+                                            </span>
+                                    怪我咯~
+                                </view>
+                                <view>
+                                            <span>
+                                                苍井空
+                                            </span>
+                                    回复
+                                    <span>万虎科技~贾素杰</span>
+                                            <span>
+                                                ：
+                                            </span>
+                                    知道就好！
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view></li>
+            <li>
+                <view class="po-avt-wrap">
+                    <image  class="po-avt" src="/images/test/a2.jpg" />
+                </view>
+                <view class="po-cmt">
+                    <view class="po-hd">
+                        <view class="po-name">
+                            周杰伦
+                        </view>
+                        <view class="post">
+                            <view>
+                                <b>万虎科技~贾素杰</b>
+                                ，决战夜你要加油！我们哎哟不错战队是最屌的！
+                            </view>
+                            <image  class="list-img" src="/images/test/c2.jpg" />
+                            <image  class="data-avt list-img" src="/images/test/0.jpg" />
+                        </view>
+                        <view class="time">
+                            2分钟前
+                        </view>
+                        <image  class="c-icon" src="/images/test/c.png" />
+                    </view>
+                    <view class="r">
+                    </view>
+                    <view class="cmt-wrap">
+                        <view class="like">
+                            <image  class="likeimg" src="/images/test/l.png" />
+                            汪峰，那英，庾澄庆
+                        </view>
+                        <view class="cmt-list">
+                            <view>
+                                <span>万虎科技~贾素杰</span>
+                                        <span>
+                                            ：
+                                        </span>
+                                杰伦老师，决战夜小公举会来吗。~
+                            </view>
+                            <view>
+                                        <span>
+                                            周杰伦
+                                        </span>
+                                回复
+                                <span>万虎科技~贾素杰</span>
+                                        <span>
+                                            ：
+                                        </span>
+                                你拿冠军了，我让你当小公举的小王纸。
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </li>
+            <li>
+                <view class="po-avt-wrap">
+                    <image  class="po-avt" src="/images/test/a5.jpg" />
+                </view>
+                <view class="po-cmt">
+                    <view class="po-hd">
+                        <view class="ads">推广<image  src="/images/test/ads.png" /></view>
+                        <view class="po-name">金猫银猫CSmall官方</view>
+                        <view class="post">金猫银猫CSmall情人节买珠宝赠永生花专场
+                            <view><a class="ad-link" href="http://m.csmall.com/activity/3914.html">查看详情 <image  src="/images/test/link.png" /></a></view>
+                            <a href="http://m.csmall.com/activity/3914.html"><image  class="noplayimg" src="/images/test/asd888.jpg" /></a></view>
+                        <view class="time">45分钟前</view><image  class="c-icon" src="/images/test/c.png" />
+                    </view>
+                    <view class="r"></view>
+                    <view class="cmt-wrap">
+                        <view class="like"><image class="likeimg" src="/images/test/l.png" />范冰冰，李晨，王思聪，王健林，...</view>
+                        <view class="cmt-list">
+                            <view><span>范冰冰：</span>珠宝再加上永生花，花永生，爱永恒，想想都觉得好浪漫哦~<image  class="bq" src="/images/test/bq1.png" /></view>
+                            <view><span>李晨</span>回复<span>范冰冰 ：</span>小肥羊~初七情人节见！定格我们的爱情吧❤</view>
+                            <view><span>王思聪：</span>我女朋友多，团购才能搞定啊！</view>
+                        </view>
+                    </view>
+                </view></li>
+            <li>
+                <view class="po-avt-wrap">
+                    <image  class="po-avt" src="/images/test/a3.jpg" />
+                </view>
+                <view class="po-cmt">
+                    <view class="po-hd">
+                        <view class="po-name">
+                            邓超
+                        </view>
+                        <view class="post">
+                            <view>
+                                we are伐木累！欢迎加入跑男第三季！
+                            </view>
+                            <view>
+                                <image  class="list-img" src="/images/test/c3.jpg" />
+                                <image  class="list-img" src="/images/test/c4.jpg" />
+                                <image  class="data-avt list-img" src="/images/test/0.jpg" />
+                            </view>
+                        </view>
+                        <view class="time">
+                            50分钟前
+                        </view>
+                        <image  class="c-icon" src="/images/test/c.png" />
+                    </view>
+                    <view class="r">
+                    </view>
+                    <view class="cmt-wrap">
+                        <view class="like">
+                            <image   class="likeimg" src="/images/test/l.png" />
+                            <b>万虎科技~贾素杰</b>
+                        </view>
+                        <view class="cmt-list">
+                            <view>
+                                <span>万虎科技~贾素杰</span>
+                                        <span>
+                                            ：
+                                        </span>
+                                超哥，当初为什么要选我。
+                            </view>
+                            <view>
+                                        <span>
+                                            邓超
+                                        </span>
+                                回复
+                                <span>万虎科技~贾素杰</span>
+                                        <span>
+                                            ：
+                                        </span>
+                                你是我认识的人当中，最快的！
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </li>
+            <li>
+                <view class="po-avt-wrap">
+                    <image  class="po-avt" src="/images/test/a4.jpg" />
+                </view>
+                <view class="po-cmt">
+                    <view class="po-hd">
+                        <view class="po-name">
+                            范冰冰
+                        </view>
+                        <view class="post">
+                            <view>我的生日趴，你为什么不来</view>
+                            <image  class="data-avt" src="/images/test/0.jpg" />
+                        </view>
+                        <view class="time">
+                            52分钟前
+                        </view>
+                        <image  class="c-icon" src="/images/test/c.png" />
+                    </view>
+                    <view class="r">
+                    </view>
+                    <view class="cmt-wrap">
+                        <view class="like">
+                            <image   class="likeimg" src="/images/test/l.png" />
+                            <b>万虎科技~贾素杰</b>
+                            ，李晨，李治廷，黎明...
+                        </view>
+                        <view class="cmt-list">
+                            <view>
+                                        <span>
+                                            李晨：
+                                        </span>
+                                呵呵。
+                            </view>
+                            <view>
+                                <span>万虎科技~贾素杰</span>
+                                        <span>
+                                            ：
+                                        </span>
+                                最近忙，就酱。
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </li>
+            <li>
+                <view class="po-avt-wrap">
+                    <image  class="po-avt" src="/images/test/a7.jpg" />
+                </view>
+                <view class="po-cmt">
+                    <view class="po-hd">
+                        <view class="po-name">
+                            金星
+                        </view>
+                        <view class="post">
+                            <view>完美！</view>
+                            <image  src="/images/test/c8.jpg" />
+                        </view>
+                        <view class="time">
+                            55分钟前
+                        </view>
+                        <image  class="c-icon" src="/images/test/c.png" />
+                    </view>
+                    <view class="r">
+                    </view>
+                    <view class="cmt-wrap">
+                        <view class="cmt-list">
+                            <view>
+                                <span>万虎科技~贾素杰</span>
+                                        <span>
+                                            ：
+                                        </span>
+                                星姐，求虐！
+                            </view>
+                            <view>
+                                        <span>
+                                            金星
+                                        </span>
+                                回复
+                                <span>万虎科技~贾素杰</span>
+                                        <span>
+                                            ：
+                                        </span>
+                                你呢，人长的挺好看，就是偏偏要靠才华。
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </li>
+        </ul>
+    </view>
+
+    <view id="share">
+        <view class="share-xu">（此朋友圈纯属虚构）</view>
+        <view style="padding:15px;padding-bottom:20px">
+            <button id="gotoplay" onClick="showActionSheet();" class="btn btn-success btn-lg btn-block">我也要玩</button>
+            <br />
+        </view>
+    </view>
 </view>

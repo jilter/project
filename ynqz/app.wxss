@@ -1,5 +1,9 @@
 @import 'style/weui.wxss';
 /**app.wxss**/
+page{
+  font-family: Arial,sans-serif;
+  font-size: 13px;
+}
 .container {
   height: 100%;
   display: flex;
