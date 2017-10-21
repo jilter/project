@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/uc/uc",
     "pages/live/live",
-    "pages/joke/joke"
+    "pages/joke/joke",
+    "pages/add/add"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",
