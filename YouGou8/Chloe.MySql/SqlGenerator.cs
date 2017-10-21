@@ -14,10 +14,8 @@ namespace Chloe.MySql
 {
     partial class SqlGenerator : DbExpressionVisitor<DbExpression>
     {
-        public const string ParameterPrefix = "?P_";
-
         internal ISqlBuilder _sqlBuilder = new SqlBuilder();
-        List<DbParam> _parameters = new List<DbParam>();
+        DbParamCollection _parameters = new DbParamCollection();
 
         static readonly Dictionary<string, Action<DbMethodCallExpression, SqlGenerator>> MethodHandlers = InitMethodHandlers();
         static readonly Dictionary<string, Action<DbAggregateExpression, SqlGenerator>> AggregateHandlers = InitAggregateHandlers();
@@ -62,14 +60,14 @@ namespace Chloe.MySql
             List<string> cacheParameterNames = new List<string>(cacheParameterNameCount);
             for (int i = 0; i < cacheParameterNameCount; i++)
             {
-                string paramName = ParameterPrefix + i.ToString();
+                string paramName = UtilConstants.ParameterNamePrefix + i.ToString();
                 cacheParameterNames.Add(paramName);
             }
             CacheParameterNames = cacheParameterNames;
         }
 
         public ISqlBuilder SqlBuilder { get { return this._sqlBuilder; } }
-        public List<DbParam> Parameters { get { return this._parameters; } }
+        public List<DbParam> Parameters { get { return this._parameters.ToParameterList(); } }
 
         public static SqlGenerator CreateInstance()
         {
@@ -190,8 +188,6 @@ namespace Chloe.MySql
                     handler(exp, this);
                     return exp;
                 }
-
-                throw UtilExceptions.NotSupportedMethod(exp.Method);
             }
 
             Stack<DbExpression> operands = GatherBinaryExpressionOperand(exp);
@@ -229,6 +225,16 @@ namespace Chloe.MySql
             Stack<DbExpression> operands = GatherBinaryExpressionOperand(exp);
             this.ConcatOperands(operands, " % ");
 
+            return exp;
+        }
+        public override DbExpression Visit(DbNegateExpression exp)
+        {
+            this._sqlBuilder.Append("(");
+
+            this._sqlBuilder.Append("-");
+            exp.Operand.Accept(this);
+
+            this._sqlBuilder.Append(")");
             return exp;
         }
         // <
@@ -425,7 +431,39 @@ namespace Chloe.MySql
             return exp;
         }
 
+        public override DbExpression Visit(DbExistsExpression exp)
+        {
+            this._sqlBuilder.Append("Exists ");
 
+            DbSqlQueryExpression rawSqlQuery = exp.SqlQuery;
+            DbSqlQueryExpression sqlQuery = new DbSqlQueryExpression()
+            {
+                TakeCount = rawSqlQuery.TakeCount,
+                SkipCount = rawSqlQuery.SkipCount,
+                Table = rawSqlQuery.Table,
+                Condition = rawSqlQuery.Condition,
+                HavingCondition = rawSqlQuery.HavingCondition
+            };
+
+            sqlQuery.GroupSegments.AddRange(rawSqlQuery.GroupSegments);
+
+            DbColumnSegment columnSegment = new DbColumnSegment(DbExpression.Constant("1"), "C");
+            sqlQuery.ColumnSegments.Add(columnSegment);
+
+            DbSubQueryExpression subQuery = new DbSubQueryExpression(sqlQuery);
+            return subQuery.Accept(this);
+        }
+
+        public override DbExpression Visit(DbCoalesceExpression exp)
+        {
+            this._sqlBuilder.Append("IFNULL(");
+            exp.CheckExpression.Accept(this);
+            this._sqlBuilder.Append(",");
+            exp.ReplacementValue.Accept(this);
+            this._sqlBuilder.Append(")");
+
+            return exp;
+        }
         public override DbExpression Visit(DbCaseWhenExpression exp)
         {
             this._sqlBuilder.Append("CASE");
@@ -558,9 +596,9 @@ namespace Chloe.MySql
                 this._sqlBuilder.Append("N'", exp.Value, "'");
                 return exp;
             }
-            else if (objType.IsEnum())
+            else if (objType.IsEnum)
             {
-                this._sqlBuilder.Append(((int)exp.Value).ToString());
+                this._sqlBuilder.Append(Convert.ChangeType(exp.Value, Enum.GetUnderlyingType(objType)).ToString());
                 return exp;
             }
             else if (NumericTypes.ContainsKey(exp.Value.GetType()))
@@ -579,25 +617,17 @@ namespace Chloe.MySql
             object paramValue = exp.Value;
             Type paramType = exp.Type;
 
-            if (paramType.IsEnum())
+            if (paramType.IsEnum)
             {
-                paramType = UtilConstants.TypeOfInt32;
+                paramType = Enum.GetUnderlyingType(paramType);
                 if (paramValue != null)
-                {
-                    paramValue = (int)paramValue;
-                }
+                    paramValue = Convert.ChangeType(paramValue, paramType);
             }
 
             if (paramValue == null)
                 paramValue = DBNull.Value;
 
-            DbParam p;
-            if (paramValue == DBNull.Value)
-            {
-                p = this._parameters.Where(a => Utils.AreEqual(a.Value, paramValue) && a.Type == paramType).FirstOrDefault();
-            }
-            else
-                p = this._parameters.Where(a => Utils.AreEqual(a.Value, paramValue)).FirstOrDefault();
+            DbParam p = this._parameters.Find(paramValue, paramType, exp.DbType);
 
             if (p != null)
             {
@@ -665,6 +695,9 @@ namespace Chloe.MySql
         void BuildGeneralSql(DbSqlQueryExpression exp)
         {
             this._sqlBuilder.Append("SELECT ");
+
+            if (exp.IsDistinct)
+                this._sqlBuilder.Append("DISTINCT ");
 
             List<DbColumnSegment> columns = exp.ColumnSegments;
             for (int i = 0; i < columns.Count; i++)

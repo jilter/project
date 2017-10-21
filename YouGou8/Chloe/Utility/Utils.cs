@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Chloe.Utility
+namespace Chloe
 {
     static class Utils
     {
@@ -44,7 +44,12 @@ namespace Chloe.Utility
 
         public static Dictionary<TKey, TValue> Clone<TKey, TValue>(Dictionary<TKey, TValue> source)
         {
-            Dictionary<TKey, TValue> ret = new Dictionary<TKey, TValue>(source.Count);
+            Dictionary<TKey, TValue> ret = Clone<TKey, TValue>(source, source.Count);
+            return ret;
+        }
+        public static Dictionary<TKey, TValue> Clone<TKey, TValue>(Dictionary<TKey, TValue> source, int capacity)
+        {
+            Dictionary<TKey, TValue> ret = new Dictionary<TKey, TValue>(capacity);
 
             foreach (var kv in source)
             {
@@ -52,6 +57,48 @@ namespace Chloe.Utility
             }
 
             return ret;
+        }
+
+        public static DbJoinType AsDbJoinType(this JoinType joinType)
+        {
+            switch (joinType)
+            {
+                case JoinType.InnerJoin:
+                    return DbJoinType.InnerJoin;
+                case JoinType.LeftJoin:
+                    return DbJoinType.LeftJoin;
+                case JoinType.RightJoin:
+                    return DbJoinType.RightJoin;
+                case JoinType.FullJoin:
+                    return DbJoinType.FullJoin;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+
+        public static Type GetFuncDelegateType(Type[] typeArguments)
+        {
+            int parameters = typeArguments.Length;
+            Type funcType = null;
+            switch (parameters)
+            {
+                case 3:
+                    funcType = typeof(Func<,,>);
+                    break;
+                case 4:
+                    funcType = typeof(Func<,,,>);
+                    break;
+                case 5:
+                    funcType = typeof(Func<,,,,>);
+                    break;
+                case 6:
+                    funcType = typeof(Func<,,,,,>);
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
+
+            return funcType.MakeGenericType(typeArguments);
         }
     }
 }

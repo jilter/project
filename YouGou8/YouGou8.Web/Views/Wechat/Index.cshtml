@@ -12,14 +12,14 @@
     <meta name="description" content="" />
     <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
     <link rel="stylesheet" href="~/assets-web/css/wechat.css">
-    <title>@(DateTime.Now.ToString("M月d日")+ "淘宝品牌优惠")</title>
+    <title>@("每天更新双11预售爆款")</title>
 </head>
 <body>
     <div class="pet_mian">
         <div class="pet_head">
             <header data-am-widget="header"
                     class="am-header am-header-default pet_head_block">
-                每天上午10点,下午3点更新
+                双11预售爆款商品抢先购
                 <div class="am-header-right am-header-nav">
                     <a href="javascript:void(0);" class="iconfont pet_head_gd_ico">&#xe600;</a>
                 </div>
@@ -382,22 +382,47 @@
                 }, 2000);
             }
 
-            var copy_init = function () {
-                var clipboard = new Clipboard('.btn-copy');
-                clipboard.on('success', function (e) {
-                    tips('复制成功');
-                });
-                clipboard.on('error', function (e) {
-                    tips('您的浏览不支持复制');
-                });
-            }
+            //var copy_init = function () {
+            //    var clipboard = new Clipboard('.btn-copy');
+            //    clipboard.on('success', function (e) {
+            //        alert('复制成功');
+            //    });
+            //    clipboard.on('error', function (e) {
+            //        alert('您的浏览不支持复制');
+            //    });
+            //}
+
+            //$('.btn-copy').click(function(e){
+            //    //var btnId = $(this).attr("id");
+            //    var id = $(this).attr("data-id");
+            //    var text = $(this).attr("data-clipboard-text");
+            //    alert(text);
+            //    if (text == '') {
+            //        $.get('/wechat/p' + id, { isjson: true }, function (data) {
+            //            if (data.key != '') {
+            //                $("#" + btnId).attr("data-clipboard-text", data.key);
+            //                copy_init();
+            //            } else {
+            //                tips('网络连接超时，请稍后再试');
+            //            }                    
+            //        }, "json");
+            //    } else {
+            //        copy_init();
+            //    }
+            //});
 
             var page = 1;
             var size = 50;
-            var getCopyTemp = function (text) {
+            var loading = false;
+            var loadMore = true;
+
+            var getCopyTemp = function (text, id) {
+                if (text == null || typeof (text) == 'undefined') {
+                    text = '';
+                }
                 var copyTemp = '<div class="copy">' +
-                            '     <a class="am-btn am-btn-default am-radius am-btn-xs btn-copy" data-clipboard-text="'+text+'" href="javascrip:void(0)">复制</a>' +
-                            '     <span>复制后打开☞手机淘宝☜查看并下单</span>' +
+                            '     <a class="am-btn am-btn-default am-radius am-btn-xs btn-copy" href="/wechat/p'+id+'">复制淘口令</a>' +
+                            //'     <span>复制后打开☞手机淘宝☜查看并下单</span>' +
                             '  </div>';
                 return copyTemp;
             }
@@ -410,61 +435,75 @@
             }
 
             var getlist = function () {
-                var title = $('#txt-title').val();
-                var start = $('#hid-start').val();
-                var end = $('#hid-end').val();
-                var id = $('#hid-id').val();
-                var flag = is_weixin();                
+                if (!loading) {
+                    loading = true;
+                    var title = $('#txt-title').val();
+                    var start = $('#hid-start').val();
+                    var end = $('#hid-end').val();
+                    var id = $('#hid-id').val();
+                    var flag = is_weixin();
 
-                $.post('/wechat/getlist', { id: id, title: title, start: start, end: end, page: page, size: size }, function (response) {
-                    if (response && response.code == 0) {
-                        if (response.data.length > 0) {
-                            $("#div-nodata-try").hide();
-                            $.each(response.data, function (index, item) {
-                                var salesTemp = item.sales > 0 ? '<div class="info-item">销量:' + item.sales + '</div>' : '<div class="info-item"></div>';
-                                var introTemp = item.intro.length > 0 ? '<div class="am-list-item-text pet_list_one_text">推荐理由：' + item.intro + '</div>' : "";
-                                var template = '<li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right pet_list_one_block">' +
-                                            '       <div class="am-u-sm-4 am-list-thumb">' +
-                                            '           <img src="/assets-web/img/loading.gif" data-original="' + item.img + '" alt="' + item.title + '" style="margin:0;" />' +
-                                            '       </div>' +
-                                            '       <div class="am-u-sm-8 am-list-main pet_list_one_nr">' +
-                                            '           <h3 class="am-list-item-hd pet_list_one_bt"><a target="_blank" href="/wechat/p' + item.id + '">' + item.title + '</a></h3>' + introTemp +
-                                            '           <div class="info">' +
-                                            '               <div class="info-item">' +
-                                            '                   <span class="am-icon-coupon">¥' + item.coupon + '</span>' +
-                                            '               </div>' +
-                                            '               <div class="info-item" style="font-weight:bold; color:red;">券后:' + parseFloat(item.price-item.coupon).toFixed(1) + '&nbsp;&nbsp;</div>' + salesTemp +
-                                            '           </div>' + (flag ? getCopyTemp(item.key) : getTaobaoTemp(item.link)) +
-                                            '       </div>' +
-                                            '</li>';
-                                $(".am-list").append(template);
-                            });
-                            
-                            //懒加载
-                            $(".am-list-thumb img").lazyload({ threshold: 500 });
+                    $.post('/wechat/getlist', { id: id, title: title, start: start, end: end, page: page, size: size }, function (response) {
+                        loading = false;
+                        if (response && response.code == 0) {
+                            if (response.data.length > 0) {
+                                $("#div-nodata-try").hide();
+                                $.each(response.data, function (index, item) {
+                                    var salesTemp = item.sales > 0 ? '<div class="info-item">销量:' + item.sales + '</div>' : '<div class="info-item"></div>';
+                                    var introTemp = item.intro != null && item.intro.length > 0 ? '<div class="am-list-item-text pet_list_one_text">推荐理由：' + item.intro + '</div>' : "";
+                                    var template = '<li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right pet_list_one_block">' +
+                                                '       <div class="am-u-sm-4 am-list-thumb">' +
+                                                '           <img src="/assets-web/img/loading.gif" data-original="' + item.img + '" alt="' + item.title + '" style="margin:0;" />' +
+                                                '       </div>' +
+                                                '       <div class="am-u-sm-8 am-list-main pet_list_one_nr">' +
+                                                '           <h3 class="am-list-item-hd pet_list_one_bt"><a target="_blank" href="' + (flag ? '/wechat/p' + item.id : item.link) + '">' + item.title + '</a></h3>' + introTemp +
+                                                '           <div class="info">' +
+                                                '               <div class="info-item">' +
+                                                '                   <span class="am-icon-coupon">¥' + item.coupon + '</span>' +
+                                                '               </div>' +
+                                                '               <div class="info-item" style="font-weight:bold; color:red;">券后:' + parseFloat(item.price - item.coupon).toFixed(1) + '&nbsp;&nbsp;</div>' + salesTemp +
+                                                '           </div>' + (flag ? getCopyTemp(item.key, item.id) : getTaobaoTemp(item.link)) +
+                                                '       </div>' +
+                                                '</li>';
+                                    $(".am-list").append(template);
+                                });
 
-                            if (response.data.length == size) {
-                                setTimeout(function () { page++; getlist();},3000);
+                                //懒加载
+                                $(".am-list-thumb img").lazyload({ threshold: 500 });
+
+                                //if (response.data.length == size) {
+                                //    setTimeout(function () { page++; getlist();},3000);
+                                //}
+                            } else {
+                                loadMore = false;
+                                if ($(".am-list").text() == "") {
+                                    $("#div-nodata-try").show();
+                                }
                             }
+                            //copy_init();
+                            auto_resize();
+                            $("#loadingToast").hide();
                         } else {
-                            if ($(".am-list").text() == "") {
-                                $("#div-nodata-try").show();
-                            }
+                            tips('网络连接失败');
+                            $("#loadingToast").hide();
                         }
-                        copy_init();
-                        auto_resize();
-                        $("#loadingToast").hide();
-                    } else {
-                        tips('网络连接失败');
-                        $("#loadingToast").hide();
-                    }
-                }, "json");
+                    }, "json");
+                }
             }
 
             getlist();
 
             $(window).resize(function () {
                 auto_resize();
+            });
+
+            $(window).scroll(function () {
+
+                var sc = $(document).height() - $(window).height() - 700;
+                if ($(window).scrollTop() > sc && !loading && loadMore) {
+                    page++;
+                    getlist();
+                }
             });
 
             $('.am-list-thumb img').load(function () {

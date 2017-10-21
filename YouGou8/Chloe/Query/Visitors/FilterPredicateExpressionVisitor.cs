@@ -11,9 +11,9 @@ namespace Chloe.Query.Visitors
 {
     class FilterPredicateExpressionVisitor : ExpressionVisitor<DbExpression>
     {
-        public static DbExpression ParseFilterPredicate(LambdaExpression lambda, List<IMappingObjectExpression> moeList)
+        public static DbExpression ParseFilterPredicate(LambdaExpression lambda, ScopeParameterDictionary scopeParameters, KeyDictionary<string> scopeTables)
         {
-            return GeneralExpressionVisitor.ParseLambda(ExpressionVisitorBase.ReBuildFilterPredicate(lambda), moeList);
+            return GeneralExpressionVisitor.ParseLambda(ExpressionVisitorBase.ReBuildFilterPredicate(lambda), scopeParameters, scopeTables);
         }
     }
 }

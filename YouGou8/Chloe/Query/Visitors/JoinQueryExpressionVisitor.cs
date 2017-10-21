@@ -2,34 +2,35 @@
 using Chloe.Descriptors;
 using Chloe.Query.QueryExpressions;
 using Chloe.Query.QueryState;
-using Chloe.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Reflection;
+using Chloe.InternalExtensions;
 
 namespace Chloe.Query.Visitors
 {
     class JoinQueryExpressionVisitor : QueryExpressionVisitor<JoinQueryResult>
     {
         ResultElement _resultElement;
-        DbJoinType _joinType;
+        JoinType _joinType;
 
         LambdaExpression _conditionExpression;
-        List<IMappingObjectExpression> _moeList;
+        ScopeParameterDictionary _scopeParameters;
 
-        JoinQueryExpressionVisitor(ResultElement resultElement, DbJoinType joinType, LambdaExpression conditionExpression, List<IMappingObjectExpression> moeList)
+        JoinQueryExpressionVisitor(ResultElement resultElement, JoinType joinType, LambdaExpression conditionExpression, ScopeParameterDictionary scopeParameters)
         {
             this._resultElement = resultElement;
             this._joinType = joinType;
             this._conditionExpression = conditionExpression;
-            this._moeList = moeList;
+            this._scopeParameters = scopeParameters;
         }
 
-        public static JoinQueryResult VisitQueryExpression(QueryExpression queryExpression, ResultElement resultElement, DbJoinType joinType, LambdaExpression conditionExpression, List<IMappingObjectExpression> moeList)
+        public static JoinQueryResult VisitQueryExpression(QueryExpression queryExpression, ResultElement resultElement, JoinType joinType, LambdaExpression conditionExpression, ScopeParameterDictionary scopeParameters)
         {
-            JoinQueryExpressionVisitor visitor = new JoinQueryExpressionVisitor(resultElement, joinType, conditionExpression, moeList);
+            JoinQueryExpressionVisitor visitor = new JoinQueryExpressionVisitor(resultElement, joinType, conditionExpression, scopeParameters);
             return queryExpression.Accept(visitor);
         }
 
@@ -38,29 +39,30 @@ namespace Chloe.Query.Visitors
             Type type = exp.ElementType;
             TypeDescriptor typeDescriptor = TypeDescriptor.GetDescriptor(type);
 
-            string alias = this._resultElement.GenerateUniqueTableAlias(typeDescriptor.Table.Name);
+            string explicitTableName = exp.ExplicitTable;
+            DbTable dbTable = typeDescriptor.Table;
+            if (explicitTableName != null)
+                dbTable = new DbTable(explicitTableName, dbTable.Schema);
+            string alias = this._resultElement.GenerateUniqueTableAlias(dbTable.Name);
 
-            DbTableSegment tableSeg = CreateTableExpression(typeDescriptor.Table, alias);
+            DbTableSegment tableSeg = CreateTableExpression(dbTable, alias);
             MappingObjectExpression moe = new MappingObjectExpression(typeDescriptor.EntityType.GetConstructor(Type.EmptyTypes));
 
             DbTable table = new DbTable(alias);
             foreach (MappingMemberDescriptor item in typeDescriptor.MappingMemberDescriptors.Values)
             {
                 DbColumnAccessExpression columnAccessExpression = new DbColumnAccessExpression(table, item.Column);
-                moe.AddMemberExpression(item.MemberInfo, columnAccessExpression);
+                moe.AddMappingMemberExpression(item.MemberInfo, columnAccessExpression);
 
                 if (item.IsPrimaryKey)
                     moe.PrimaryKey = columnAccessExpression;
             }
 
             //TODO 解析 on 条件表达式
-            DbExpression condition = null;
-            List<IMappingObjectExpression> moeList = new List<IMappingObjectExpression>(this._moeList.Count + 1);
-            moeList.AddRange(this._moeList);
-            moeList.Add(moe);
-            condition = GeneralExpressionVisitor.ParseLambda(this._conditionExpression, moeList);
+            var scopeParameters = this._scopeParameters.Clone(this._conditionExpression.Parameters.Last(), moe);
+            DbExpression condition = GeneralExpressionVisitor.ParseLambda(this._conditionExpression, scopeParameters, this._resultElement.ScopeTables);
 
-            DbJoinTableExpression joinTable = new DbJoinTableExpression(this._joinType, tableSeg, condition);
+            DbJoinTableExpression joinTable = new DbJoinTableExpression(this._joinType.AsDbJoinType(), tableSeg, condition);
 
             JoinQueryResult result = new JoinQueryResult();
             result.MappingObjectExpression = moe;
@@ -108,11 +110,16 @@ namespace Chloe.Query.Visitors
             JoinQueryResult ret = this.Visit(exp);
             return ret;
         }
+        public override JoinQueryResult Visit(DistinctExpression exp)
+        {
+            JoinQueryResult ret = this.Visit(exp);
+            return ret;
+        }
 
         JoinQueryResult Visit(QueryExpression exp)
         {
-            IQueryState state = QueryExpressionVisitor.VisitQueryExpression(exp);
-            JoinQueryResult ret = state.ToJoinQueryResult(this._joinType, this._conditionExpression, this._resultElement.FromTable, this._moeList, this._resultElement.GenerateUniqueTableAlias());
+            IQueryState state = QueryExpressionVisitor.VisitQueryExpression(exp, this._scopeParameters, this._resultElement.ScopeTables);
+            JoinQueryResult ret = state.ToJoinQueryResult(this._joinType, this._conditionExpression, this._scopeParameters, this._resultElement.ScopeTables, this._resultElement.GenerateUniqueTableAlias());
             return ret;
         }
         static DbTableSegment CreateTableExpression(DbTable table, string alias)

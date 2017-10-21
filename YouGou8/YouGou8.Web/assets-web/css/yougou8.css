@@ -53,7 +53,7 @@ ul.am-dropdown-content>li>a:focus, ul.am-dropdown-content>li>a:hover { backgroun
 .am-imglist { max-width: 1540px; padding: 10px 20px;min-height:200px;}
 .banner_nav { line-height: 41px; font-size: 12px; margin: 0 10px;}
 .am_list_block { padding: 0px; background: #fff; position: relative; }
-.am_listimg_info {  padding:2px 5px; }
+.am_listimg_info {  padding:5px 5px; }
 .am-icon-heart:before { font-size: 14px; margin-right: 8px;}
 .am-icon-comments:before { font-size: 14px; margin-right: 8px;}
 .am_listimg_right {  float: right; margin-right: 0;}

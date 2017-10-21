@@ -1,5 +1,4 @@
-﻿using Chloe.Utility;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -8,7 +7,7 @@ using System.Text;
 
 namespace Chloe.Extensions
 {
-    internal static class ExpressionExtension
+    public static class ExpressionExtension
     {
         public static BinaryExpression Assign(MemberInfo propertyOrField, Expression instance, Expression value)
         {
@@ -31,13 +30,12 @@ namespace Chloe.Extensions
             throw new ArgumentException();
         }
 
-        public static bool IsDerivedFromParameter(this MemberExpression exp)
+        internal static bool IsDerivedFromParameter(this MemberExpression exp)
         {
             ParameterExpression p;
             return IsDerivedFromParameter(exp, out p);
         }
-
-        public static bool IsDerivedFromParameter(this MemberExpression exp, out ParameterExpression p)
+        internal static bool IsDerivedFromParameter(this MemberExpression exp, out ParameterExpression p)
         {
             p = null;
             Expression prevExp = exp.Expression;
@@ -78,6 +76,16 @@ namespace Chloe.Extensions
                 exp = ((UnaryExpression)exp).Operand;
             }
             return exp;
+        }
+
+        public static Expression StripConvert(this Expression exp)
+        {
+            Expression operand = exp;
+            while (operand.NodeType == ExpressionType.Convert || operand.NodeType == ExpressionType.ConvertChecked)
+            {
+                operand = ((UnaryExpression)operand).Operand;
+            }
+            return operand;
         }
 
         public static Stack<MemberExpression> Reverse(this MemberExpression exp)
@@ -138,14 +146,5 @@ namespace Chloe.Extensions
             ConstructorInfo constructor = wrapperType.GetConstructor(new Type[] { valueType });
             return constructor.Invoke(new object[] { value });
         }
-    }
-
-    internal class ConstantWrapper<T>
-    {
-        public ConstantWrapper(T value)
-        {
-            this.Value = value;
-        }
-        public T Value { get; private set; }
     }
 }

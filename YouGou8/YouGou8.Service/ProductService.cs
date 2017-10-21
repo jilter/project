@@ -363,5 +363,54 @@ namespace YouGou8.Service
             }
         }
 
+        public static List<Product_MY> GetDouble11List(DataTable dt, int productType)
+        {
+            if (dt == null || dt.Rows.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                List<Category> cList = CategoryService.GetList();
+                Category matchCategory = new Category();
+                List<Product_MY> pList = new List<Product_MY>();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    if (!string.IsNullOrWhiteSpace(dr[0].ToString()))
+                    {
+                        matchCategory = cList.Find(c => c.MappingName.Contains(dr[0].ToString()));
+
+                        Product_MY product = new Product_MY();
+                        product.AddedID = ConfigService.LoginUser == null ? 1 : ConfigService.LoginUser.ID;
+                        product.PlanID = ConfigService.LoginUser == null ? "0" : ConfigService.LoginUser.PID;
+                        product.AddedType = 4;
+                        product.PID = Convert.ToInt64(dr[3]);
+                        product.PTitle = dr[4].ToString();
+                        product.PImgUrls = dr[6].ToString() + "_300x300.jpg";
+                        product.PLink = dr[5].ToString();
+                        product.PCID = matchCategory == null || matchCategory.ID == 0 ? 15 : matchCategory.ID;
+                        product.PPrice = Convert.ToDecimal(dr[7]);
+                        //product.PSales = Convert.ToInt32(dr[7]);
+                        product.PRate = Convert.ToDecimal(dr[8]);
+                        product.CouponMoney = UtilityService.GetMinPriceFromStr(dr[10].ToString());
+                        product.PCommission = (product.PPrice - product.CouponMoney) * (product.PRate / 100);
+                        product.PRedPack = UtilityService.GetRedPack(product.PPrice.Value, product.CouponMoney.Value, product.PRate.Value);
+                        product.CouponEndTime = string.IsNullOrWhiteSpace(dr[15].ToString()) ? DateTime.Now.AddDays(7) : Convert.ToDateTime(dr[15]).AddDays(1);
+                        product.CouponCount = Convert.ToInt32(dr[12]);
+                        product.CouponRemain = Convert.ToInt32(dr[13]);
+                        product.CouponShortLink = string.IsNullOrWhiteSpace(dr[16].ToString()) ? dr[5].ToString() : dr[16].ToString();
+                        product.CouponLink = string.IsNullOrWhiteSpace(dr[16].ToString()) ? dr[5].ToString() : dr[16].ToString();
+                        //product.CouponCommand = dt.Columns.Count == 23 ? dr[22].ToString() : "";
+                        product.AddedTime = DateTime.Now;
+                        if (product.CouponEndTime > DateTime.Now)
+                        {
+                            pList.Add(product);
+                        }
+                    }
+                }
+                return pList;
+            }
+        }
+
     }
 }

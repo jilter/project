@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Chloe.Utility;
 
 namespace Chloe.Query
 {
@@ -15,14 +14,14 @@ namespace Chloe.Query
     {
         IObjectActivatorCreator GenarateObjectActivatorCreator(DbSqlQueryExpression sqlQuery);
         IMappingObjectExpression ToNewObjectExpression(DbSqlQueryExpression sqlQuery, DbTable table);
-        void AddConstructorParameter(ParameterInfo p, DbExpression exp);
-        void AddConstructorEntityParameter(ParameterInfo p, IMappingObjectExpression exp);
-        void AddMemberExpression(MemberInfo memberInfo, DbExpression exp);
-        void AddNavMemberExpression(MemberInfo memberInfo, IMappingObjectExpression moe);
-        DbExpression GetMemberExpression(MemberInfo memberInfo);
-        IMappingObjectExpression GetNavMemberExpression(MemberInfo memberInfo);
+        void AddMappingConstructorParameter(ParameterInfo p, DbExpression exp);
+        void AddComplexConstructorParameter(ParameterInfo p, IMappingObjectExpression exp);
+        void AddMappingMemberExpression(MemberInfo memberInfo, DbExpression exp);
+        void AddComplexMemberExpression(MemberInfo memberInfo, IMappingObjectExpression moe);
+        DbExpression GetMappingMemberExpression(MemberInfo memberInfo);
+        IMappingObjectExpression GetComplexMemberExpression(MemberInfo memberInfo);
         DbExpression GetDbExpression(MemberExpression memberExpressionDeriveParameter);
-        IMappingObjectExpression GetNavMemberExpression(MemberExpression exp);
+        IMappingObjectExpression GetComplexMemberExpression(MemberExpression exp);
 
         void SetNullChecking(DbExpression exp);
     }

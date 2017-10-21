@@ -3,7 +3,6 @@ using Chloe.Descriptors;
 using Chloe.Infrastructure;
 using Chloe.Mapper;
 using Chloe.Query.Mapping;
-using Chloe.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -121,7 +120,7 @@ namespace Chloe.Query.Internals
             {
                 Type type = typeof(T);
 
-                if (MappingTypeSystem.IsMappingType(type))
+                if (type != UtilConstants.TypeOfObject && MappingTypeSystem.IsMappingType(type))
                 {
                     MappingField mf = new MappingField(type, 0);
                     this._objectActivator = mf.CreateObjectActivator();
@@ -138,8 +137,13 @@ namespace Chloe.Query.Internals
                 return reader;
             }
 
-            static ObjectActivator GetObjectActivator(Type type, IDataReader reader)
+            static IObjectActivator GetObjectActivator(Type type, IDataReader reader)
             {
+                if (type == UtilConstants.TypeOfObject || type == typeof(DapperRow))
+                {
+                    return new DapperRowObjectActivator();
+                }
+
                 List<CacheInfo> caches;
                 if (!ObjectActivatorCache.TryGetValue(type, out caches))
                 {
@@ -201,15 +205,15 @@ namespace Chloe.Query.Internals
                 for (int i = 0; i < reader.FieldCount; i++)
                 {
                     string name = reader.GetName(i);
-                    var member = members.Where(a => a.Name == name).FirstOrDefault();
+                    var member = members.Find(a => a.Name == name);
                     if (member == null)
                     {
-                        member = members.Where(a => string.Equals(a.Name, name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                        member = members.Find(a => string.Equals(a.Name, name, StringComparison.OrdinalIgnoreCase));
                         if (member == null)
                             continue;
                     }
 
-                    IMRM mMapper = mapper.TryGetMemberMapper(member);
+                    IMRM mMapper = mapper.TryGetMappingMemberMapper(member);
                     if (mMapper == null)
                         continue;
 
@@ -240,16 +244,16 @@ namespace Chloe.Query.Internals
 
         public class CacheInfo
         {
-            Tuple<string, Type>[] _readerFields;
+            ReaderFieldInfo[] _readerFields;
             ObjectActivator _objectActivator;
             public CacheInfo(ObjectActivator activator, IDataReader reader)
             {
                 int fieldCount = reader.FieldCount;
-                var readerFields = new Tuple<string, Type>[fieldCount];
+                var readerFields = new ReaderFieldInfo[fieldCount];
 
                 for (int i = 0; i < fieldCount; i++)
                 {
-                    readerFields[i] = new Tuple<string, Type>(reader.GetName(i), reader.GetFieldType(i));
+                    readerFields[i] = new ReaderFieldInfo(reader.GetName(i), reader.GetFieldType(i));
                 }
 
                 this._readerFields = readerFields;
@@ -260,7 +264,7 @@ namespace Chloe.Query.Internals
 
             public bool IsTheSameFields(IDataReader reader)
             {
-                Tuple<string, Type>[] readerFields = this._readerFields;
+                ReaderFieldInfo[] readerFields = this._readerFields;
                 int fieldCount = reader.FieldCount;
 
                 if (fieldCount != readerFields.Length)
@@ -268,14 +272,28 @@ namespace Chloe.Query.Internals
 
                 for (int i = 0; i < fieldCount; i++)
                 {
-                    Tuple<string, Type> tuple = readerFields[i];
-                    if (reader.GetFieldType(i) != tuple.Item2 || reader.GetName(i) != tuple.Item1)
+                    ReaderFieldInfo readerField = readerFields[i];
+                    if (reader.GetFieldType(i) != readerField.Type || reader.GetName(i) != readerField.Name)
                     {
                         return false;
                     }
                 }
 
                 return true;
+            }
+
+            class ReaderFieldInfo
+            {
+                string _name;
+                Type _type;
+                public ReaderFieldInfo(string name, Type type)
+                {
+                    this._name = name;
+                    this._type = type;
+                }
+
+                public string Name { get { return this._name; } }
+                public Type Type { get { return this._type; } }
             }
         }
 

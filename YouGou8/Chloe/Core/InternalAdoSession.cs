@@ -3,7 +3,6 @@ using Chloe.Exceptions;
 using Chloe.Infrastructure;
 using Chloe.Infrastructure.Interception;
 using Chloe.InternalExtensions;
-using Chloe.Utility;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -28,6 +27,11 @@ namespace Chloe.Core
             this._dbConnection = conn;
         }
 
+        public IDbConnection DbConnection { get { return this._dbConnection; } }
+        /// <summary>
+        /// 如果未开启事务，则返回 null
+        /// </summary>
+        public IDbTransaction DbTransaction { get { return this._dbTransaction; } }
         public bool IsInTransaction { get { return this._isInTransaction; } }
         public int CommandTimeout { get { return this._commandTimeout; } set { this._commandTimeout = value; } }
         public List<IDbCommandInterceptor> DbCommandInterceptors
@@ -69,10 +73,15 @@ namespace Chloe.Core
             }
         }
 
-        public void BeginTransaction(IsolationLevel il)
+        public void BeginTransaction(IsolationLevel? il)
         {
             this.Activate();
-            this._dbTransaction = this._dbConnection.BeginTransaction(il);
+
+            if (il == null)
+                this._dbTransaction = this._dbConnection.BeginTransaction();
+            else
+                this._dbTransaction = this._dbConnection.BeginTransaction(il.Value);
+
             this._isInTransaction = true;
         }
         public void CommitTransaction()
@@ -283,8 +292,16 @@ namespace Chloe.Core
                     }
                     else
                     {
-                        parameter.Value = param.Value;
                         parameterType = param.Value.GetType();
+                        if (parameterType.IsEnum)
+                        {
+                            parameterType = Enum.GetUnderlyingType(parameterType);
+                            parameter.Value = Convert.ChangeType(param.Value, parameterType);
+                        }
+                        else
+                        {
+                            parameter.Value = param.Value;
+                        }
                     }
 
                     if (param.Precision != null)
@@ -480,7 +497,7 @@ namespace Chloe.Core
 
         static ChloeException WrapException(Exception ex)
         {
-            return new ChloeException("An exception occurred while executing DbCommand.For details please see the inner exception.", ex);
+            return new ChloeException("An exception occurred while executing DbCommand. For details please see the inner exception.", ex);
         }
     }
 }

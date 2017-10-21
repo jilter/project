@@ -128,7 +128,9 @@
     <Content Include="assets\js\jquery.metisMenu.js" />
     <Content Include="assets\js\bootstrap-paginator.min.js" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />

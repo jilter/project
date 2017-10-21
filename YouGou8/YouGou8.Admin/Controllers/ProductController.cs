@@ -111,6 +111,13 @@ namespace YouGou8.Admin.Controllers
                 else
                     pList = ProductService.GetExtList(dt, productType);
             }
+            if (excelType == 4)
+            {
+                if (dt.Columns.Count != 18)
+                    return Json(new { code = 3, msg = "优质商品Excel列数不等于18,请检查格式" }, JsonRequestBehavior.DenyGet);
+                else
+                    pList = ProductService.GetDouble11List(dt, productType);
+            }
             if (pList!=null && pList.Count > 0)
             {
                 foreach(Product_MY p in pList)

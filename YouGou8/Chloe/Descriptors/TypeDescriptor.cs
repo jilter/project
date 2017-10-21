@@ -5,9 +5,9 @@ using Chloe.Exceptions;
 using Chloe.Infrastructure;
 using Chloe.InternalExtensions;
 using Chloe.Query.Visitors;
-using Chloe.Utility;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -18,10 +18,10 @@ namespace Chloe.Descriptors
     {
         Dictionary<MemberInfo, MappingMemberDescriptor> _mappingMemberDescriptors;
         Dictionary<MemberInfo, DbColumnAccessExpression> _memberColumnMap;
-        MappingMemberDescriptor _primaryKey = null;
+        ReadOnlyCollection<MappingMemberDescriptor> _primaryKeys;
         MappingMemberDescriptor _autoIncrement = null;
 
-        DefaultExpressionVisitor _visitor = null;
+        DefaultExpressionParser _expressionParser = null;
 
         TypeDescriptor(Type t)
         {
@@ -53,29 +53,26 @@ namespace Chloe.Descriptors
         {
             List<MappingMemberDescriptor> mappingMemberDescriptors = this.ExtractMappingMemberDescriptors();
 
-            int primaryKeyCount = mappingMemberDescriptors.Where(a => a.IsPrimaryKey).Count();
-            if (primaryKeyCount > 1)
-                throw new NotSupportedException(string.Format("The entity type '{0}' can't define multiple primary keys.", this.EntityType.FullName));
-            else if (primaryKeyCount == 1)
-            {
-                this._primaryKey = mappingMemberDescriptors.Where(a => a.IsPrimaryKey).First();
-            }
-            else
+            List<MappingMemberDescriptor> primaryKeys = mappingMemberDescriptors.Where(a => a.IsPrimaryKey).ToList();
+
+            if (primaryKeys.Count == 0)
             {
                 //如果没有定义任何主键，则从所有映射的属性中查找名为 id 的属性作为主键
-                MappingMemberDescriptor idNameMemberDescriptor = mappingMemberDescriptors.Where(a => a.MemberInfo.Name.ToLower() == "id" && !a.IsDefined(typeof(ColumnAttribute))).FirstOrDefault();
+                MappingMemberDescriptor idNameMemberDescriptor = mappingMemberDescriptors.Find(a => a.MemberInfo.Name.ToLower() == "id" && !a.IsDefined(typeof(ColumnAttribute)));
 
                 if (idNameMemberDescriptor != null)
                 {
                     idNameMemberDescriptor.IsPrimaryKey = true;
-                    this._primaryKey = idNameMemberDescriptor;
+                    primaryKeys.Add(idNameMemberDescriptor);
                 }
             }
+
+            this._primaryKeys = primaryKeys.AsReadOnly();
 
             List<MappingMemberDescriptor> autoIncrementMemberDescriptors = mappingMemberDescriptors.Where(a => a.IsDefined(typeof(AutoIncrementAttribute))).ToList();
             if (autoIncrementMemberDescriptors.Count > 1)
             {
-                throw new NotSupportedException(string.Format("The entity type '{0}' can not define multiple autoIncrement members.", this.EntityType.FullName));
+                throw new NotSupportedException(string.Format("The entity type '{0}' can not define multiple auto increment members.", this.EntityType.FullName));
             }
             else if (autoIncrementMemberDescriptors.Count == 1)
             {
@@ -87,19 +84,26 @@ namespace Chloe.Descriptors
 
                 if (!IsAutoIncrementType(autoIncrementMemberDescriptor.MemberInfoType))
                 {
-                    throw new ChloeException("AutoIncrement member type must be Int16,Int32 or Int64.");
+                    throw new ChloeException("Auto increment member type must be Int16, Int32 or Int64.");
+                }
+
+                if (autoIncrementMemberDescriptor.IsPrimaryKey && primaryKeys.Count > 1)
+                {
+                    /* 自增列不能作为联合主键 */
+                    throw new ChloeException("Auto increment member can not be union key.");
                 }
 
                 autoIncrementMemberDescriptor.IsAutoIncrement = true;
                 this._autoIncrement = autoIncrementMemberDescriptor;
             }
-            else
+            else if (primaryKeys.Count == 1)
             {
-                MappingMemberDescriptor defaultAutoIncrementMemberDescriptor = mappingMemberDescriptors.Where(a => a.IsPrimaryKey && IsAutoIncrementType(a.MemberInfoType) && !a.IsDefined(typeof(NonAutoIncrementAttribute))).FirstOrDefault();
-                if (defaultAutoIncrementMemberDescriptor != null)
+                /* 如果没有显示定义自增成员，并且主键只有 1 个，如果该主键满足一定条件，则默认其是自增列 */
+                MappingMemberDescriptor primaryKeyDescriptor = primaryKeys[0];
+                if (IsAutoIncrementType(primaryKeyDescriptor.MemberInfoType) && !primaryKeyDescriptor.IsDefined(typeof(NonAutoIncrementAttribute)))
                 {
-                    defaultAutoIncrementMemberDescriptor.IsAutoIncrement = true;
-                    this._autoIncrement = defaultAutoIncrementMemberDescriptor;
+                    primaryKeyDescriptor.IsAutoIncrement = true;
+                    this._autoIncrement = primaryKeyDescriptor;
                 }
             }
 
@@ -147,7 +151,7 @@ namespace Chloe.Descriptors
         static bool ShouldMap(MemberInfo member)
         {
             var ignoreFlags = member.GetCustomAttributes(typeof(NotMappedAttribute), false);
-            if (ignoreFlags.Length > 0)
+            if (ignoreFlags.Count() > 0)
                 return false;
 
             if (member.MemberType == MemberTypes.Property)
@@ -167,24 +171,27 @@ namespace Chloe.Descriptors
         public Type EntityType { get; private set; }
         public DbTable Table { get; private set; }
 
-        public MappingMemberDescriptor PrimaryKey { get { return this._primaryKey; } }
+        public ReadOnlyCollection<MappingMemberDescriptor> PrimaryKeys { get { return this._primaryKeys; } }
+        /* It will return null if an entity has no auto increment member. */
         public MappingMemberDescriptor AutoIncrement { get { return this._autoIncrement; } }
-        public DefaultExpressionVisitor Visitor
-        {
-            get
-            {
-                if (this._visitor == null)
-                    this._visitor = new DefaultExpressionVisitor(this);
 
-                return this._visitor;
+        public DefaultExpressionParser GetExpressionParser(DbTable explicitDbTable)
+        {
+            if (explicitDbTable == null)
+            {
+                if (this._expressionParser == null)
+                    this._expressionParser = new DefaultExpressionParser(this, null);
+                return this._expressionParser;
             }
+            else
+                return new DefaultExpressionParser(this, explicitDbTable);
         }
 
         public Dictionary<MemberInfo, MappingMemberDescriptor> MappingMemberDescriptors { get { return this._mappingMemberDescriptors; } }
 
         public bool HasPrimaryKey()
         {
-            return this._primaryKey != null;
+            return this._primaryKeys.Count > 0;
         }
         public MappingMemberDescriptor TryGetMappingMemberDescriptor(MemberInfo memberInfo)
         {

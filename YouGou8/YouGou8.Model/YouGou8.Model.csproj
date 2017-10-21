@@ -58,7 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Chloe\Chloe.csproj">
-      <Project>{251CAE99-2279-4B09-AFE1-123C69030457}</Project>
+      <Project>{251cae99-2279-4b09-afe1-123c69030457}</Project>
       <Name>Chloe</Name>
     </ProjectReference>
   </ItemGroup>

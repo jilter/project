@@ -34,6 +34,11 @@
                                                     <input type="radio" name="excelType" id="optionsRadios3" value="3" />精选优质商品
                                                 </label>
                                             </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="excelType" id="optionsRadios4" value="4" />双11爆款
+                                                </label>
+                                            </div>
                                         </div> 
                                         <div class="form-group">
                                             <label>商品类型</label>
@@ -79,6 +84,7 @@
                     data: new FormData($('#importForm')[0]),
                     processData: false,
                     contentType: false,
+                    timeout:900*1000,
                     success: function (data) {
                         $('.modal-content').html(data.msg);
                     },

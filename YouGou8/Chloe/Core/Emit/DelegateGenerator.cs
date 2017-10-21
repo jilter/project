@@ -2,7 +2,6 @@
 using Chloe.Infrastructure;
 using Chloe.InternalExtensions;
 using Chloe.Mapper;
-using Chloe.Utility;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -80,7 +79,7 @@ namespace Chloe.Core.Emit
                 {
                     var readerMethod = DataReaderConstant.GetReaderMethod(parameter.ParameterType);
                     //int ordinal = readerOrdinalEnumerator.Next();
-                    var readerOrdinal = Expression.Call(pExp_readerOrdinalEnumerator, ReaderOrdinalEnumerator.NextMethodInfo);
+                    var readerOrdinal = Expression.Call(pExp_readerOrdinalEnumerator, ReaderOrdinalEnumerator.MethodOfNext);
                     //DataReaderExtensions.GetValue(reader,readerOrdinal)
                     var getValue = Expression.Call(readerMethod, pExp_reader, readerOrdinal);
                     arguments.Add(getValue);
@@ -88,7 +87,7 @@ namespace Chloe.Core.Emit
                 else
                 {
                     //IObjectActivator oa = objectActivatorEnumerator.Next();
-                    var oa = Expression.Call(pExp_objectActivatorEnumerator, ObjectActivatorEnumerator.NextMethodInfo);
+                    var oa = Expression.Call(pExp_objectActivatorEnumerator, ObjectActivatorEnumerator.MethodOfNext);
                     //object obj = oa.CreateInstance(IDataReader reader);
                     var entity = Expression.Call(oa, typeof(IObjectActivator).GetMethod("CreateInstance"), pExp_reader);
                     //(T)entity;
@@ -172,7 +171,7 @@ namespace Chloe.Core.Emit
             Type type = ReflectionExtension.GetMemberType(propertyOrField);
 
             Expression body = memberAccess;
-            if (type.IsValueType())
+            if (type.IsValueType)
             {
                 body = Expression.Convert(memberAccess, typeof(object));
             }

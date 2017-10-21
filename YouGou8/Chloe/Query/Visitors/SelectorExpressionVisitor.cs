@@ -2,13 +2,13 @@
 using System.Linq.Expressions;
 using System.Reflection;
 using Chloe.InternalExtensions;
-using Chloe.Utility;
 using Chloe.DbExpressions;
 using Chloe.Query.Visitors;
 using System.Collections.Generic;
 using Chloe.Core.Visitors;
 using Chloe.Extensions;
 using Chloe.Infrastructure;
+using Chloe.Utility;
 
 namespace Chloe.Query
 {
@@ -16,40 +16,36 @@ namespace Chloe.Query
     {
         ExpressionVisitorBase _visitor;
         LambdaExpression _lambda;
-        List<IMappingObjectExpression> _moeList;
-        SelectorExpressionVisitor(List<IMappingObjectExpression> moeList)
+        ScopeParameterDictionary _scopeParameters;
+        KeyDictionary<string> _scopeTables;
+        SelectorExpressionVisitor(ScopeParameterDictionary scopeParameters, KeyDictionary<string> scopeTables)
         {
-            this._moeList = moeList;
+            this._scopeParameters = scopeParameters;
+            this._scopeTables = scopeTables;
         }
 
-        public static IMappingObjectExpression VisitSelectExpression(LambdaExpression exp, List<IMappingObjectExpression> moeList)
+        public static IMappingObjectExpression ResolveSelectorExpression(LambdaExpression selector, ScopeParameterDictionary scopeParameters, KeyDictionary<string> scopeTables)
         {
-            SelectorExpressionVisitor visitor = new SelectorExpressionVisitor(moeList);
-            return visitor.Visit(exp);
+            SelectorExpressionVisitor visitor = new SelectorExpressionVisitor(scopeParameters, scopeTables);
+            return visitor.Visit(selector);
         }
 
-        int FindParameterIndex(ParameterExpression exp)
+        IMappingObjectExpression FindMoe(ParameterExpression exp)
         {
-            int idx = this._lambda.Parameters.IndexOf(exp);
-            if (idx == -1)
-            {
-                throw new Exception("Can not find the ParameterExpression index");
-            }
-
-            return idx;
+            IMappingObjectExpression moe = this._scopeParameters.Get(exp);
+            return moe;
         }
-        DbExpression VisistExpression(Expression exp)
+        DbExpression ResolveExpression(Expression exp)
         {
             return this._visitor.Visit(exp);
         }
-        IMappingObjectExpression VisitNavigationMember(MemberExpression exp)
+        IMappingObjectExpression ResolveComplexMember(MemberExpression exp)
         {
             ParameterExpression p;
             if (ExpressionExtension.IsDerivedFromParameter(exp, out p))
             {
-                int idx = this.FindParameterIndex(p);
-                IMappingObjectExpression moe = this._moeList[idx];
-                return moe.GetNavMemberExpression(exp);
+                IMappingObjectExpression moe = this.FindMoe(p);
+                return moe.GetComplexMemberExpression(exp);
             }
             else
             {
@@ -81,7 +77,7 @@ namespace Chloe.Query
         protected override IMappingObjectExpression VisitLambda(LambdaExpression exp)
         {
             this._lambda = exp;
-            this._visitor = new GeneralExpressionVisitor(exp, this._moeList);
+            this._visitor = new GeneralExpressionVisitor(exp, this._scopeParameters, this._scopeTables);
             return this.Visit(exp.Body);
         }
         protected override IMappingObjectExpression VisitNew(NewExpression exp)
@@ -94,13 +90,13 @@ namespace Chloe.Query
                 Expression argExp = exp.Arguments[i];
                 if (MappingTypeSystem.IsMappingType(pi.ParameterType))
                 {
-                    DbExpression dbExpression = this.VisistExpression(argExp);
-                    result.AddConstructorParameter(pi, dbExpression);
+                    DbExpression dbExpression = this.ResolveExpression(argExp);
+                    result.AddMappingConstructorParameter(pi, dbExpression);
                 }
                 else
                 {
                     IMappingObjectExpression subResult = this.Visit(argExp);
-                    result.AddConstructorEntityParameter(pi, subResult);
+                    result.AddComplexConstructorParameter(pi, subResult);
                 }
             }
 
@@ -124,14 +120,14 @@ namespace Chloe.Query
                 //是数据库映射类型
                 if (MappingTypeSystem.IsMappingType(memberType))
                 {
-                    DbExpression dbExpression = this.VisistExpression(memberAssignment.Expression);
-                    result.AddMemberExpression(member, dbExpression);
+                    DbExpression dbExpression = this.ResolveExpression(memberAssignment.Expression);
+                    result.AddMappingMemberExpression(member, dbExpression);
                 }
                 else
                 {
                     //对于非数据库映射类型，只支持 NewExpression 和 MemberInitExpression
                     IMappingObjectExpression subResult = this.Visit(memberAssignment.Expression);
-                    result.AddNavMemberExpression(member, subResult);
+                    result.AddComplexMemberExpression(member, subResult);
                 }
             }
 
@@ -147,18 +143,17 @@ namespace Chloe.Query
             //create MappingFieldExpression object if exp is map type
             if (MappingTypeSystem.IsMappingType(exp.Type))
             {
-                DbExpression dbExp = this.VisistExpression(exp);
+                DbExpression dbExp = this.ResolveExpression(exp);
                 MappingFieldExpression ret = new MappingFieldExpression(exp.Type, dbExp);
                 return ret;
             }
 
             //如 a.Order a.User 等形式
-            return this.VisitNavigationMember(exp);
+            return this.ResolveComplexMember(exp);
         }
         protected override IMappingObjectExpression VisitParameter(ParameterExpression exp)
         {
-            int idx = this.FindParameterIndex(exp);
-            IMappingObjectExpression moe = this._moeList[idx];
+            IMappingObjectExpression moe = this.FindMoe(exp);
             return moe;
         }
 
@@ -169,7 +164,7 @@ namespace Chloe.Query
                 throw new NotSupportedException(exp.ToString());
             }
 
-            DbExpression dbExp = this.VisistExpression(exp);
+            DbExpression dbExp = this.ResolveExpression(exp);
             MappingFieldExpression ret = new MappingFieldExpression(exp.Type, dbExp);
             return ret;
         }

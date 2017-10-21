@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace Chloe
 {
-    public interface IQuery<T> //:   IEnumerable<T>, IEnumerable
+    public interface IQuery<T> : IQuery
     {
         IQuery<T> AsTracking();
         IEnumerable<T> AsEnumerable();
@@ -18,6 +18,11 @@ namespace Chloe
         IQuery<T> TakePage(int pageNumber, int pageSize);
 
         IGroupingQuery<T> GroupBy<K>(Expression<Func<T, K>> keySelector);
+        IQuery<T> Distinct();
+
+
+        IJoiningQuery<T, TOther> Join<TOther>(JoinType joinType, Expression<Func<T, TOther, bool>> on);
+        IJoiningQuery<T, TOther> Join<TOther>(IQuery<TOther> q, JoinType joinType, Expression<Func<T, TOther, bool>> on);
 
         IJoiningQuery<T, TOther> InnerJoin<TOther>(Expression<Func<T, TOther, bool>> on);
         IJoiningQuery<T, TOther> LeftJoin<TOther>(Expression<Func<T, TOther, bool>> on);

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
-using Chloe.Utility;
 
 namespace Chloe.Extensions
 {
@@ -190,8 +188,12 @@ namespace Chloe.Extensions
             Type fieldType = reader.GetFieldType(ordinal);
 
             object value;
-            if (fieldType == typeof(short))
+            if (fieldType == UtilConstants.TypeOfByte)
+                value = reader.GetByte(ordinal);
+            else if (fieldType == UtilConstants.TypeOfInt16)
                 value = reader.GetInt16(ordinal);
+            else if (fieldType == UtilConstants.TypeOfInt64)
+                value = reader.GetInt64(ordinal);
             else
                 value = reader.GetInt32(ordinal);
 

@@ -1,5 +1,4 @@
 ﻿using Chloe.Infrastructure.Interception;
-using Chloe.Utility;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -17,6 +16,11 @@ namespace Chloe.Core
         }
 
         public IDbContext DbContext { get { return this._dbContext; } }
+        public IDbConnection CurrentConnection { get { return this._dbContext.AdoSession.DbConnection; } }
+        /// <summary>
+        /// 如果未开启事务，则返回 null
+        /// </summary>
+        public IDbTransaction CurrentTransaction { get { return this._dbContext.AdoSession.DbTransaction; } }
         public bool IsInTransaction { get { return this._dbContext.AdoSession.IsInTransaction; } }
         public int CommandTimeout { get { return this._dbContext.AdoSession.CommandTimeout; } set { this._dbContext.AdoSession.CommandTimeout = value; } }
 
@@ -50,10 +54,9 @@ namespace Chloe.Core
             return this._dbContext.AdoSession.ExecuteReader(cmdText, parameters, cmdType);
         }
 
-        /* Using IsolationLevel.ReadCommitted level.  */
         public void BeginTransaction()
         {
-            this.BeginTransaction(IsolationLevel.ReadCommitted);
+            this._dbContext.AdoSession.BeginTransaction(null);
         }
         public void BeginTransaction(IsolationLevel il)
         {

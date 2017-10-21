@@ -8,13 +8,12 @@ using Chloe.Query.QueryExpressions;
 using Chloe.Infrastructure;
 using Chloe.Query.Internals;
 using System.Diagnostics;
-using Chloe.Utility;
 using System.Reflection;
 using Chloe.DbExpressions;
 
 namespace Chloe.Query
 {
-    class Query<T> : QueryBase, IQuery<T>
+    class Query<T> : QueryBase, IQuery<T>, IQuery
     {
         static readonly List<Expression> EmptyArgumentList = new List<Expression>(0);
 
@@ -24,8 +23,10 @@ namespace Chloe.Query
         internal bool _trackEntity = false;
         public DbContext DbContext { get { return this._dbContext; } }
 
-        public Query(DbContext dbContext)
-            : this(dbContext, new RootQueryExpression(typeof(T)), false)
+        Type IQuery.ElementType { get { return typeof(T); } }
+
+        public Query(DbContext dbContext, string explicitTable)
+            : this(dbContext, new RootQueryExpression(typeof(T), explicitTable), false)
         {
 
         }
@@ -50,19 +51,19 @@ namespace Chloe.Query
         public IQuery<T> Where(Expression<Func<T, bool>> predicate)
         {
             Utils.CheckNull(predicate);
-            WhereExpression e = new WhereExpression(_expression, typeof(T), predicate);
+            WhereExpression e = new WhereExpression(typeof(T), this._expression, predicate);
             return new Query<T>(this._dbContext, e, this._trackEntity);
         }
         public IOrderedQuery<T> OrderBy<K>(Expression<Func<T, K>> keySelector)
         {
             Utils.CheckNull(keySelector);
-            OrderExpression e = new OrderExpression(QueryExpressionType.OrderBy, typeof(T), this._expression, keySelector);
+            OrderExpression e = new OrderExpression(typeof(T), this._expression, QueryExpressionType.OrderBy, keySelector);
             return new OrderedQuery<T>(this._dbContext, e, this._trackEntity);
         }
         public IOrderedQuery<T> OrderByDesc<K>(Expression<Func<T, K>> keySelector)
         {
             Utils.CheckNull(keySelector);
-            OrderExpression e = new OrderExpression(QueryExpressionType.OrderByDesc, typeof(T), this._expression, keySelector);
+            OrderExpression e = new OrderExpression(typeof(T), this._expression, QueryExpressionType.OrderByDesc, keySelector);
             return new OrderedQuery<T>(this._dbContext, e, this._trackEntity);
         }
         public IQuery<T> Skip(int count)
@@ -89,6 +90,22 @@ namespace Chloe.Query
             Utils.CheckNull(keySelector);
             return new GroupingQuery<T>(this, keySelector);
         }
+        public IQuery<T> Distinct()
+        {
+            DistinctExpression e = new DistinctExpression(typeof(T), this._expression);
+            return new Query<T>(this._dbContext, e, this._trackEntity);
+        }
+
+        public IJoiningQuery<T, TOther> Join<TOther>(JoinType joinType, Expression<Func<T, TOther, bool>> on)
+        {
+            return this.Join<TOther>(this._dbContext.Query<TOther>(), joinType, on);
+        }
+        public IJoiningQuery<T, TOther> Join<TOther>(IQuery<TOther> q, JoinType joinType, Expression<Func<T, TOther, bool>> on)
+        {
+            Utils.CheckNull(q);
+            Utils.CheckNull(on);
+            return new JoiningQuery<T, TOther>(this, (Query<TOther>)q, joinType, on);
+        }
 
         public IJoiningQuery<T, TOther> InnerJoin<TOther>(Expression<Func<T, TOther, bool>> on)
         {
@@ -109,27 +126,19 @@ namespace Chloe.Query
 
         public IJoiningQuery<T, TOther> InnerJoin<TOther>(IQuery<TOther> q, Expression<Func<T, TOther, bool>> on)
         {
-            Utils.CheckNull(q);
-            Utils.CheckNull(on);
-            return new JoiningQuery<T, TOther>(this, (Query<TOther>)q, DbJoinType.InnerJoin, on);
+            return this.Join<TOther>(q, JoinType.InnerJoin, on);
         }
         public IJoiningQuery<T, TOther> LeftJoin<TOther>(IQuery<TOther> q, Expression<Func<T, TOther, bool>> on)
         {
-            Utils.CheckNull(q);
-            Utils.CheckNull(on);
-            return new JoiningQuery<T, TOther>(this, (Query<TOther>)q, DbJoinType.LeftJoin, on);
+            return this.Join<TOther>(q, JoinType.LeftJoin, on);
         }
         public IJoiningQuery<T, TOther> RightJoin<TOther>(IQuery<TOther> q, Expression<Func<T, TOther, bool>> on)
         {
-            Utils.CheckNull(q);
-            Utils.CheckNull(on);
-            return new JoiningQuery<T, TOther>(this, (Query<TOther>)q, DbJoinType.RightJoin, on);
+            return this.Join<TOther>(q, JoinType.RightJoin, on);
         }
         public IJoiningQuery<T, TOther> FullJoin<TOther>(IQuery<TOther> q, Expression<Func<T, TOther, bool>> on)
         {
-            Utils.CheckNull(q);
-            Utils.CheckNull(on);
-            return new JoiningQuery<T, TOther>(this, (Query<TOther>)q, DbJoinType.FullJoin, on);
+            return this.Join<TOther>(q, JoinType.FullJoin, on);
         }
 
         public T First()
@@ -293,16 +302,22 @@ namespace Chloe.Query
                 Utils.CheckNull(argument);
 
             List<Expression> arguments = argument == null ? EmptyArgumentList : new List<Expression>(1) { argument };
-
-            IEnumerable<TResult> iterator = this.CreateAggregateQuery<TResult>(method, arguments);
+            var q = this.CreateAggregateQuery<TResult>(method, arguments);
+            InternalQuery<TResult> iterator = q.GenerateIterator();
             return iterator.Single();
         }
-        InternalQuery<TResult> CreateAggregateQuery<TResult>(MethodInfo method, List<Expression> arguments)
+        /// <summary>
+        /// 类<see cref="Chloe.Query.Visitors.GeneralExpressionVisitor"/>有引用该方法[反射]
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="method"></param>
+        /// <param name="arguments"></param>
+        /// <returns></returns>
+        public Query<TResult> CreateAggregateQuery<TResult>(MethodInfo method, List<Expression> arguments)
         {
             AggregateQueryExpression e = new AggregateQueryExpression(this._expression, method, arguments);
             var q = new Query<TResult>(this._dbContext, e, false);
-            InternalQuery<TResult> iterator = q.GenerateIterator();
-            return iterator;
+            return q;
         }
         MethodInfo GetCalledMethod<TResult>(Expression<Func<TResult>> exp)
         {

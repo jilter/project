@@ -29,6 +29,7 @@ namespace Chloe.MySql
             methodHandlers.Add("Substring", Method_String_Substring);
             methodHandlers.Add("IsNullOrEmpty", Method_String_IsNullOrEmpty);
 
+            methodHandlers.Add("ToString", Method_ToString);
             methodHandlers.Add("Contains", Method_Contains);
 
             methodHandlers.Add("Count", Method_Count);
@@ -159,8 +160,19 @@ namespace Chloe.MySql
             generator._sqlBuilder.Append("SUBSTRING(");
             exp.Object.Accept(generator);
             generator._sqlBuilder.Append(",");
-            exp.Arguments[0].Accept(generator);
-            generator._sqlBuilder.Append(" + 1");
+
+            DbExpression arg1 = exp.Arguments[0];
+            if (arg1.NodeType == DbExpressionType.Constant)
+            {
+                int startIndex = (int)(((DbConstantExpression)arg1).Value) + 1;
+                generator._sqlBuilder.Append(startIndex.ToString());
+            }
+            else
+            {
+                arg1.Accept(generator);
+                generator._sqlBuilder.Append(" + 1");
+            }
+
             generator._sqlBuilder.Append(",");
             if (exp.Method == UtilConstants.MethodInfo_String_Substring_Int32)
             {
@@ -197,6 +209,27 @@ namespace Chloe.MySql
             eqExp.Accept(generator);
         }
 
+        static void Method_ToString(DbMethodCallExpression exp, SqlGenerator generator)
+        {
+            if (exp.Method.Name != "ToString" && exp.Arguments.Count != 0)
+            {
+                throw UtilExceptions.NotSupportedMethod(exp.Method);
+            }
+
+            if (exp.Object.Type == UtilConstants.TypeOfString)
+            {
+                exp.Object.Accept(generator);
+                return;
+            }
+
+            if (!NumericTypes.ContainsKey(exp.Object.Type.GetUnderlyingType()))
+            {
+                throw UtilExceptions.NotSupportedMethod(exp.Method);
+            }
+
+            DbConvertExpression c = DbExpression.Convert(exp.Object, UtilConstants.TypeOfString);
+            c.Accept(generator);
+        }
         static void Method_Contains(DbMethodCallExpression exp, SqlGenerator generator)
         {
             MethodInfo method = exp.Method;
@@ -213,8 +246,17 @@ namespace Chloe.MySql
 
             Type declaringType = method.DeclaringType;
 
-            if (typeof(IList).IsAssignableFrom(declaringType) || (declaringType.IsGenericType() && typeof(ICollection<>).MakeGenericType(declaringType.GetGenericArguments()).IsAssignableFrom(declaringType)))
+            if (typeof(IList).IsAssignableFrom(declaringType) || (declaringType.IsGenericType && typeof(ICollection<>).MakeGenericType(declaringType.GetGenericArguments()).IsAssignableFrom(declaringType)))
             {
+                if (exp.Object.NodeType == DbExpressionType.SqlQuery)
+                {
+                    /* where Id in(select id from T) */
+
+                    operand = exp.Arguments[0];
+                    In(generator, (DbSqlQueryExpression)exp.Object, operand);
+                    return;
+                }
+
                 DbMemberExpression memberExp = exp.Object as DbMemberExpression;
 
                 if (memberExp == null || !memberExp.IsEvaluable())
@@ -226,7 +268,17 @@ namespace Chloe.MySql
             }
             if (method.IsStatic && declaringType == typeof(Enumerable) && exp.Arguments.Count == 2)
             {
-                DbMemberExpression memberExp = exp.Arguments[0] as DbMemberExpression;
+                DbExpression arg0 = exp.Arguments[0];
+                if (arg0.NodeType == DbExpressionType.SqlQuery)
+                {
+                    /* where Id in(select id from T) */
+
+                    operand = exp.Arguments[1];
+                    In(generator, (DbSqlQueryExpression)arg0, operand);
+                    return;
+                }
+
+                DbMemberExpression memberExp = arg0 as DbMemberExpression;
 
                 if (memberExp == null || !memberExp.IsEvaluable())
                     throw new NotSupportedException(exp.ToString());
@@ -238,13 +290,22 @@ namespace Chloe.MySql
 
             throw UtilExceptions.NotSupportedMethod(exp.Method);
 
-        constructInState:
+            constructInState:
             foreach (object value in values)
             {
                 if (value == null)
                     exps.Add(DbExpression.Constant(null, operand.Type));
                 else
-                    exps.Add(DbExpression.Parameter(value));
+                {
+                    Type valueType = value.GetType();
+                    if (valueType.IsEnum)
+                        valueType = Enum.GetUnderlyingType(valueType);
+
+                    if (Utils.IsToStringableNumericType(valueType))
+                        exps.Add(DbExpression.Constant(value));
+                    else
+                        exps.Add(DbExpression.Parameter(value));
+                }
             }
             In(generator, exps, operand);
         }
@@ -269,6 +330,15 @@ namespace Chloe.MySql
                 elementExps[i].Accept(generator);
             }
 
+            generator._sqlBuilder.Append(")");
+
+            return;
+        }
+        static void In(SqlGenerator generator, DbSqlQueryExpression sqlQuery, DbExpression operand)
+        {
+            operand.Accept(generator);
+            generator._sqlBuilder.Append(" IN (");
+            sqlQuery.Accept(generator);
             generator._sqlBuilder.Append(")");
 
             return;
@@ -356,7 +426,14 @@ namespace Chloe.MySql
             EnsureMethodDeclaringType(exp, retType);
 
             DbExpression e = DbExpression.Convert(arg, retType);
-            e.Accept(generator);
+            if (retType == UtilConstants.TypeOfBoolean)
+            {
+                e.Accept(generator);
+                generator._sqlBuilder.Append(" = ");
+                DbConstantExpression.True.Accept(generator);
+            }
+            else
+                e.Accept(generator);
         }
 
         static void Method_Guid_NewGuid(DbMethodCallExpression exp, SqlGenerator generator)

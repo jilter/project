@@ -23,31 +23,32 @@ namespace Chloe.Query.QueryState
             IQueryState state = this.AsSubQueryState();
             return state.Accept(exp);
         }
-        public override IQueryState Accept(SelectExpression exp)
-        {
-            IQueryState queryState = this.AsSubQueryState();
-            return queryState.Accept(exp);
-        }
         public override IQueryState Accept(SkipExpression exp)
         {
             GeneralQueryState subQueryState = this.AsSubQueryState();
-
             SkipQueryState state = new SkipQueryState(subQueryState.Result, exp.Count);
             return state;
         }
         public override IQueryState Accept(TakeExpression exp)
         {
             GeneralQueryState subQueryState = this.AsSubQueryState();
-
             TakeQueryState state = new TakeQueryState(subQueryState.Result, exp.Count);
             return state;
         }
         public override IQueryState Accept(AggregateQueryExpression exp)
         {
-            IQueryState subQueryState = this.AsSubQueryState();
-
-            IQueryState state = subQueryState.Accept(exp);
-            return state;
+            IQueryState state = this.AsSubQueryState();
+            return state.Accept(exp);
+        }
+        public override IQueryState Accept(GroupingQueryExpression exp)
+        {
+            IQueryState state = this.AsSubQueryState();
+            return state.Accept(exp);
+        }
+        public override IQueryState Accept(DistinctExpression exp)
+        {
+            IQueryState state = this.AsSubQueryState();
+            return state.Accept(exp);
         }
     }
 }

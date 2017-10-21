@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Chloe.Utility;
-
 
 namespace Chloe.Query
 {
@@ -26,27 +24,27 @@ namespace Chloe.Query
 
         public DbExpression NullChecking { get; set; }
 
-        public void AddConstructorParameter(ParameterInfo p, DbExpression exp)
+        public void AddMappingConstructorParameter(ParameterInfo p, DbExpression exp)
         {
             throw new NotSupportedException();
         }
-        public void AddConstructorEntityParameter(ParameterInfo p, IMappingObjectExpression exp)
+        public void AddComplexConstructorParameter(ParameterInfo p, IMappingObjectExpression exp)
         {
             throw new NotSupportedException();
         }
-        public void AddMemberExpression(MemberInfo p, DbExpression exp)
+        public void AddMappingMemberExpression(MemberInfo p, DbExpression exp)
         {
             throw new NotSupportedException();
         }
-        public void AddNavMemberExpression(MemberInfo p, IMappingObjectExpression exp)
+        public void AddComplexMemberExpression(MemberInfo p, IMappingObjectExpression exp)
         {
             throw new NotSupportedException();
         }
-        public DbExpression GetMemberExpression(MemberInfo memberInfo)
+        public DbExpression GetMappingMemberExpression(MemberInfo memberInfo)
         {
             throw new NotSupportedException();
         }
-        public IMappingObjectExpression GetNavMemberExpression(MemberInfo memberInfo)
+        public IMappingObjectExpression GetComplexMemberExpression(MemberInfo memberInfo)
         {
             throw new NotSupportedException();
         }
@@ -70,7 +68,7 @@ namespace Chloe.Query
 
             return ret;
         }
-        public IMappingObjectExpression GetNavMemberExpression(MemberExpression exp)
+        public IMappingObjectExpression GetComplexMemberExpression(MemberExpression exp)
         {
             throw new NotSupportedException();
         }

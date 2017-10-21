@@ -101,6 +101,9 @@ $(function () {
                     }
                     else {
                         count = data.count;
+                        if (count == 0) {
+                            count = data.total;
+                        }
                     }
                     rows = data.rows||20;
                     pages = count % rows == 0 ? parseInt(count / rows) : parseInt(count / rows) + 1;
@@ -114,19 +117,6 @@ $(function () {
                         itemId = getQueryString(item.url, "id");
                         activityId = getQueryString(item.coupon_url, "activityId");
                         url = "/default/goto?itemId=" + itemId + "&activityId=" + activityId;
-                        //html += '<li>' +
-                        //'       <div class="am-gallery-item am_list_block">' +
-                        //'     <a target="_blank" href="' + url + '" class="am_img_bg">' +
-                        //'            <img class="am_img animated" src="/assets-web/img/loading.gif" data-original="' + item.image_path_300 + '" alt="' + item.title + '" />' +
-                        //'    </a>' +
-                        //'            <div class="am_imglist_user_font"><a target="_blank" href="' + url + '">' + item.title + '</a></div>' +
-                        //'            <div class="am_listimg_info"><a target="_blank" href="' + url + '">' +
-                        //'                <span class="am-icon-coupon">¥' + parseInt(item.coupon_price) + '</span>' +
-                        //'                <span class="am-icon-price">券后:¥' + item.price + '</span>' +
-                        //'                <span class="am_imglist_time">销量<span style="color:red;">' + item.history_30d_sales + '</span>&nbsp;&nbsp;&nbsp;&nbsp;优惠剩余<span style="color:red;">' + item.coupon_spare_day + '</span>天</span>' +
-                        //'          </a></div>' +
-                        //'        </div>' +
-                        //'    </li>';
                         html += '<li>' +
                         '       <div class="am-gallery-item am_list_block">' +
                         '     <a target="_blank" href="' + url + '" class="am_img_bg">' +
@@ -134,10 +124,23 @@ $(function () {
                         '    </a>' +
                         '            <div class="am_imglist_user_font"><a target="_blank" href="' + url + '">' + item.title + '</a></div>' +
                         '            <div class="am_listimg_info"><a target="_blank" href="' + url + '">' +
-                        '                <span class="am-icon-price">优购分享:  内部专享优惠！已抢' + item.history_30d_sales + '件！券后:¥' + item.price + ',' + item.intro + '</span>' +
+                        '                <span class="am-icon-coupon">¥' + parseInt(item.coupon_price) + '</span>' +
+                        '                <span class="am-icon-price">券后:¥' + item.price + '</span>' +
                         '          </a></div>' +
+                        '   <div style="font-size:12px;"><span>销量<span>' + item.history_30d_sales + '</span>&nbsp;&nbsp;&nbsp;&nbsp;优惠剩余<span>' + item.coupon_spare_day + '</span>天</span></div>' +
                         '        </div>' +
                         '    </li>';
+                        //html += '<li>' +
+                        //'       <div class="am-gallery-item am_list_block">' +
+                        //'     <a target="_blank" href="' + url + '" class="am_img_bg">' +
+                        //'            <img class="am_img animated" src="/assets-web/img/loading.gif" data-original="' + item.image_path_300 + '" alt="' + item.title + '" />' +
+                        //'    </a>' +
+                        //'            <div class="am_imglist_user_font"><a target="_blank" href="' + url + '">' + item.title + '</a></div>' +
+                        //'            <div class="am_listimg_info"><a target="_blank" href="' + url + '">' +
+                        //'                <span class="am-icon-price">优购分享:  内部专享优惠！已抢' + item.history_30d_sales + '件！券后:¥' + item.price + ',' + item.intro + '</span>' +
+                        //'          </a></div>' +
+                        //'        </div>' +
+                        //'    </li>';
                     });
                     $("#product-list").html(html);
                     if (page == 1) {

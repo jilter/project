@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace Chloe.DbExpressions
 {
     public abstract class DbExpressionVisitor<T>
@@ -15,6 +16,9 @@ namespace Chloe.DbExpressions
         public abstract T Visit(DbDivideExpression exp);
         // %
         public abstract T Visit(DbModuloExpression exp);
+
+        public abstract T Visit(DbNegateExpression exp);
+
         // <
         public abstract T Visit(DbLessThanExpression exp);
         // <=
@@ -31,6 +35,7 @@ namespace Chloe.DbExpressions
         public abstract T Visit(DbMemberExpression exp);
         public abstract T Visit(DbNotExpression exp);
         public abstract T Visit(DbConvertExpression exp);
+        public abstract T Visit(DbCoalesceExpression exp);
         public abstract T Visit(DbCaseWhenExpression exp);
         public abstract T Visit(DbMethodCallExpression exp);
 
@@ -47,5 +52,7 @@ namespace Chloe.DbExpressions
         public abstract T Visit(DbInsertExpression exp);
         public abstract T Visit(DbUpdateExpression exp);
         public abstract T Visit(DbDeleteExpression exp);
+
+        public abstract T Visit(DbExistsExpression exp);
     }
 }

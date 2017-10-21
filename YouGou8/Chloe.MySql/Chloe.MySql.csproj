@@ -29,15 +29,21 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Chloe.MySql.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChloeMySqlCommand.cs" />
+    <Compile Include="ChloeMySqlConnection.cs" />
+    <Compile Include="ChloeMySqlDataReader.cs" />
     <Compile Include="DbContextServiceProvider.cs" />
     <Compile Include="DbExpressionHelper.cs" />
     <Compile Include="DbExpressionTranslator.cs" />
+    <Compile Include="DbParamCollection.cs" />
     <Compile Include="ISqlBuilder.cs" />
     <Compile Include="MySqlContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using Chloe.InternalExtensions;
-using Chloe.Utility;
 
 namespace Chloe.Infrastructure
 {
@@ -33,7 +32,7 @@ namespace Chloe.Infrastructure
             defaultTypeMap[typeof(DateTimeOffset)] = DbType.DateTimeOffset;
             defaultTypeMap[typeof(TimeSpan)] = DbType.Time;
             defaultTypeMap[typeof(byte[])] = DbType.Binary;
-            defaultTypeMap[typeof(Object)] = DbType.Object;
+            //defaultTypeMap[typeof(Object)] = DbType.Object; // ignore typeof(Object).
 
             _defaultTypeMap = Utils.Clone(defaultTypeMap);
             _typeMap = Utils.Clone(defaultTypeMap);
@@ -60,8 +59,8 @@ namespace Chloe.Infrastructure
                 return null;
 
             Type underlyingType = type.GetUnderlyingType();
-            if (underlyingType.IsEnum())
-                underlyingType = UtilConstants.TypeOfInt32;
+            if (underlyingType.IsEnum)
+                underlyingType = Enum.GetUnderlyingType(underlyingType);
 
             DbType ret;
             if (_typeMap.TryGetValue(underlyingType, out ret))
@@ -72,7 +71,7 @@ namespace Chloe.Infrastructure
         public static bool IsMappingType(Type type)
         {
             Type underlyingType = type.GetUnderlyingType();
-            if (underlyingType.IsEnum())
+            if (underlyingType.IsEnum)
                 return true;
 
             return _typeMap.ContainsKey(underlyingType);

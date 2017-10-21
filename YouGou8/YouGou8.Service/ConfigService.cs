@@ -11,9 +11,10 @@ namespace YouGou8.Service
 {
     public class ConfigService
     {
-        private static string _PID;
+        private static string _PID=null;
         private static int? _MaxRedPack=null;
-        private static string _QTKAppKey;
+        private static string _QTKAppKey=null;
+        private static string _TaoBaoApiUrl = null;
         private static Admin _LoginUser=null;
 
         public static string PID
@@ -66,6 +67,21 @@ namespace YouGou8.Service
                     }
                 }
                 return _QTKAppKey;
+            }
+        }
+
+        public static string TaoBaoApiUrl
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_TaoBaoApiUrl))
+                {
+                    if (ConfigurationManager.AppSettings["TaoBaoApiUrl"] != null)
+                    {
+                        _TaoBaoApiUrl = ConfigurationManager.AppSettings["TaoBaoApiUrl"].ToString();
+                    }
+                }
+                return _TaoBaoApiUrl;
             }
         }
 

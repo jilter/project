@@ -33,11 +33,6 @@ namespace Chloe.Query.QueryState
             }
         }
 
-        public override IQueryState Accept(SelectExpression exp)
-        {
-            ResultElement result = this.CreateNewResult(exp.Selector);
-            return this.CreateQueryState(result);
-        }
         public override IQueryState Accept(SkipExpression exp)
         {
             if (exp.Count < 1)
@@ -45,7 +40,7 @@ namespace Chloe.Query.QueryState
                 return this;
             }
 
-            this.Count += this.Count;
+            this.Count += exp.Count;
 
             return this;
         }
