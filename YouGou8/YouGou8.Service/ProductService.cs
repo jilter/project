@@ -335,7 +335,7 @@ namespace YouGou8.Service
                         product.AddedID = ConfigService.LoginUser == null ? 1 : ConfigService.LoginUser.ID;
                         product.PlanID = ConfigService.LoginUser == null ? "0" : ConfigService.LoginUser.PID;
                         product.AddedType = 3;
-                        product.PID = Convert.ToInt64(dr[0]);
+                        product.PID = Convert.ToInt64(long.Parse(dr[0].ToString(), System.Globalization.NumberStyles.Integer));
                         product.PTitle = dr[1].ToString();
                         product.PImgUrls = dr[2].ToString() + "_300x300.jpg";
                         product.PLink = dr[3].ToString();

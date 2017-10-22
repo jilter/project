@@ -44,8 +44,13 @@
                 <div class="copy_taowords">
                     <textarea class="share_content am-margin-bottom am-badge-success am-badge" id="share_content"></textarea>
                     <div class="am-text-center am-margin-top-sm ">
-                        <a class="js_copy_taowords share_generalize share_generalize1 am-padding-vertical-xs am-padding-horizontal-lg am-round am-inline-block share" style="background: #f54d23; color: white;" data-clipboard-text="@(Model.CouponCommand)">
+                        <a class="js_copy_taowords share_generalize share_generalize1 am-padding-vertical-xs am-padding-horizontal-lg am-round am-inline-block share btn-copy" style="background: #f54d23; color: white;" data-clipboard-text="@(Model.CouponCommand)">
                             一键复制
+                        </a>
+
+                        <a href="javascript:goback();" 
+                           class="js_copy_taowords share_generalize share_generalize1 am-padding-vertical-xs am-padding-horizontal-lg am-round am-inline-block share btn-back" style="background: #f54d23; color: white;">
+                            返回列表
                         </a>
                     </div>
                 </div>
@@ -82,6 +87,14 @@
     <script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
     <script src="~/assets-web/js/clipboard.min.js"></script>
     <script type="text/javascript">
+
+        var goback = function () {
+            if (document.referrer === '')
+                window.location.href = '/';
+            else
+                window.location.href = document.referrer;
+        }
+
         $(function () {
             var tips = function (title) {
                 var $toast = $('#toast');
@@ -94,7 +107,7 @@
             }
 
             var copy_init = function () {
-                var clipboard = new Clipboard('.js_copy_taowords');
+                var clipboard = new Clipboard('.btn-copy');
                 clipboard.on('success', function (e) {
                     tips('复制成功');
                 });

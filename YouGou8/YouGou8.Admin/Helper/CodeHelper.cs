@@ -215,19 +215,32 @@ namespace YouGou8.Admin.Helper
             Bitmap imgQRCode = GetQRCode("http://yougou8.com.cn/wechat/p" + id, "Byte", "H", 8, 2);
             theGraphics.DrawImage(imgQRCode, 210, 330, 100, 100);
             theGraphics.DrawString("长按识别二维码", new Font(FontType, 8.0f, FontStyle.Regular), thePriceBrush, 212, 432);
-            if (title.Length <= 12)
+            if (title.Length <= 15)
             {
                 theGraphics.DrawString(title, theFont, theBrush, 5, 325);
             }
-            else 
+            else if(title.Length<=30)
             {
-                theGraphics.DrawString(title.Substring(0, 12), theFont, theBrush, 5, 325);
-                theGraphics.DrawString(title.Substring(12), theFont, theBrush, 5, 345);
+                theGraphics.DrawString(title.Substring(0, 15), theFont, theBrush, 5, 325);
+                theGraphics.DrawString(title.Substring(15), theFont, theBrush, 5, 345);
             }
-            theGraphics.DrawString("现价:"+price, theFont, theBrush, 5, 375);
-            theGraphics.DrawString("销量:" + sales, theFont, theBrush, 105, 375);
-            theGraphics.DrawString("优惠券:" + coupon, thePriceFont, thePriceBrush, 5, 405);
-            theGraphics.DrawString("券后价:" + (price-coupon), thePriceFont, thePriceBrush, 105, 405);
+            else
+            {
+                theGraphics.DrawString(title.Substring(0, 15), theFont, theBrush, 5, 325);
+                theGraphics.DrawString(title.Substring(15,15), theFont, theBrush, 5, 345);
+                theGraphics.DrawString(title.Substring(30), theFont, theBrush, 5, 365);
+            }
+            theGraphics.DrawString("现价:"+price, theFont, theBrush, 5, 395);
+            if (sales > 0)
+            {
+                theGraphics.DrawString("销量:" + sales, theFont, theBrush, 105, 395);
+            }
+            theGraphics.DrawString("券后价:" + (price - coupon), thePriceFont, thePriceBrush, 5, 425);
+            if (coupon > 0)
+            {
+                theGraphics.DrawString("优惠券:" + coupon, thePriceFont, thePriceBrush, 105, 425);
+            }
+            
 
             if (!Directory.Exists(savePath))
             {

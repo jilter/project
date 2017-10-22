@@ -12,14 +12,14 @@
     <meta name="description" content="" />
     <link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
     <link rel="stylesheet" href="~/assets-web/css/wechat.css">
-    <title>@("每天更新双11预售爆款")</title>
+    <title>@("双11预售爆款")</title>
 </head>
 <body>
     <div class="pet_mian">
         <div class="pet_head">
             <header data-am-widget="header"
                     class="am-header am-header-default pet_head_block">
-                双11预售爆款商品抢先购
+                爆款商品抢先购
                 <div class="am-header-right am-header-nav">
                     <a href="javascript:void(0);" class="iconfont pet_head_gd_ico">&#xe600;</a>
                 </div>
@@ -453,7 +453,7 @@
                                     var introTemp = item.intro != null && item.intro.length > 0 ? '<div class="am-list-item-text pet_list_one_text">推荐理由：' + item.intro + '</div>' : "";
                                     var template = '<li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-right pet_list_one_block">' +
                                                 '       <div class="am-u-sm-4 am-list-thumb">' +
-                                                '           <img src="/assets-web/img/loading.gif" data-original="' + item.img + '" alt="' + item.title + '" style="margin:0;" />' +
+                                                '           <a target="_blank" href="' + (flag ? '/wechat/p' + item.id : item.link) + '"><img src="/assets-web/img/loading.gif" data-original="' + item.img + '" alt="' + item.title + '" style="margin:0;" /></a>' +
                                                 '       </div>' +
                                                 '       <div class="am-u-sm-8 am-list-main pet_list_one_nr">' +
                                                 '           <h3 class="am-list-item-hd pet_list_one_bt"><a target="_blank" href="' + (flag ? '/wechat/p' + item.id : item.link) + '">' + item.title + '</a></h3>' + introTemp +
@@ -537,12 +537,13 @@
             });
 
             $("#btn-search").click(function () {
-                page = 1;
-                $('.pet_more_list').removeClass('pet_more_list_show');
-                $("#loadingToast").show();
-                $(".am-list").empty();
-                $("body").scrollTop(0);
-                getlist();
+                //page = 1;
+                //$('.pet_more_list').removeClass('pet_more_list_show');
+                //$("#loadingToast").show();
+                //$(".am-list").empty();
+                //$("body").scrollTop(0);
+                //getlist();
+                window.location = "?title=" + $("#txt-title").val();
             });
         });
     </script>

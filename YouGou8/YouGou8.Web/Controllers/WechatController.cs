@@ -93,7 +93,11 @@ namespace YouGou8.Web.Controllers
                         return Json(new { key = "" }, JsonRequestBehavior.AllowGet);
                     }
                 }
-                
+
+            }
+            else if(isjson)
+            {
+                return Json(new { key = product.CouponCommand }, JsonRequestBehavior.AllowGet);
             }
             return View(product);
         }
