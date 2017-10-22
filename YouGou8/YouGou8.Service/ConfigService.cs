@@ -89,12 +89,9 @@ namespace YouGou8.Service
         {
             get
             {
-                if (_LoginUser == null)
+                if (HttpContext.Current.Session["LoginUser"] != null)
                 {
-                    if (HttpContext.Current.Session["LoginUser"] != null)
-                    {
-                        _LoginUser = HttpContext.Current.Session["LoginUser"] as Admin;
-                    }
+                    _LoginUser = HttpContext.Current.Session["LoginUser"] as Admin;
                 }
                 return _LoginUser;
             }
